@@ -20,7 +20,7 @@ const ManageStudents = () => {
         const config = { headers: { Authorization: `Bearer ${user.token}` } };
         
         // Fetch all reservations for the teacher
-        const { data } = await axios.get('/api/reservations/teacher', config);
+        const { data } = await axios.get(import.meta.env.VITE_API_URL + '/api/reservations/teacher', config);
         
         // Filter reservations for this specific class
         const classReservations = data.filter(res => res.classId && res.classId._id === classId);
@@ -30,7 +30,7 @@ const ManageStudents = () => {
           setClassDetails(classReservations[0].classId);
         } else {
           // If no reservations, fetch class details separately to display the title
-          const classRes = await axios.get(`/api/classes/${classId}`);
+          const classRes = await axios.get(import.meta.env.VITE_API_URL + `/api/classes/${classId}`);
           setClassDetails(classRes.data);
         }
       } catch (err) {
@@ -49,7 +49,7 @@ const ManageStudents = () => {
   const handleApprove = async (reservationId) => {
     try {
       const config = { headers: { Authorization: `Bearer ${user.token}` } };
-      await axios.patch(`/api/reservations/${reservationId}/confirm`, {}, config);
+      await axios.patch(import.meta.env.VITE_API_URL + `/api/reservations/${reservationId}/confirm`, {}, config);
       
       // Update local state
       setReservations(prev => prev.map(res => 
@@ -65,7 +65,7 @@ const ManageStudents = () => {
     if (!window.confirm("Are you sure you want to cancel this student's reservation?")) return;
     try {
       const config = { headers: { Authorization: `Bearer ${user.token}` } };
-      await axios.patch(`/api/reservations/${reservationId}/cancel`, {}, config);
+      await axios.patch(import.meta.env.VITE_API_URL + `/api/reservations/${reservationId}/cancel`, {}, config);
       
       // Update local state
       setReservations(prev => prev.map(res => 

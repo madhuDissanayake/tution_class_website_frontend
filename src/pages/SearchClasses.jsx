@@ -52,7 +52,7 @@ const SearchClasses = () => {
       try {
         setLoading(true);
         setError(null);
-        const { data } = await axios.get('/api/classes', {
+        const { data } = await axios.get(import.meta.env.VITE_API_URL + '/api/classes', {
           params: { search, subject, grade, medium },
         });
         setClasses(data);

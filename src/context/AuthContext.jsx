@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const { data } = await axios.post('/api/auth/login', { email, password });
+      const { data } = await axios.post(import.meta.env.VITE_API_URL + '/api/auth/login', { email, password });
       setUser(data);
       localStorage.setItem('userInfo', JSON.stringify(data));
       return data;
@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (userData) => {
     try {
-      const { data } = await axios.post('/api/auth/register', userData);
+      const { data } = await axios.post(import.meta.env.VITE_API_URL + '/api/auth/register', userData);
       // Do NOT set user or localStorage here; require OTP verification first
       return data;
     } catch (error) {
@@ -46,7 +46,7 @@ export const AuthProvider = ({ children }) => {
 
   const verifyEmail = async (email, otp) => {
     try {
-      const { data } = await axios.post('/api/auth/verify-email', { email, otp });
+      const { data } = await axios.post(import.meta.env.VITE_API_URL + '/api/auth/verify-email', { email, otp });
       setUser(data);
       localStorage.setItem('userInfo', JSON.stringify(data));
       return data;
@@ -57,7 +57,7 @@ export const AuthProvider = ({ children }) => {
 
   const resendOTP = async (email) => {
     try {
-      const { data } = await axios.post('/api/auth/resend-otp', { email });
+      const { data } = await axios.post(import.meta.env.VITE_API_URL + '/api/auth/resend-otp', { email });
       return data;
     } catch (error) {
       throw error.response?.data?.message || 'Failed to resend OTP';

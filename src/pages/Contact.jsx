@@ -12,7 +12,7 @@ const Contact = () => {
     setIsSubmitting(true);
     setStatus(null);
     try {
-      await axios.post('/api/contact', formData);
+      await axios.post(import.meta.env.VITE_API_URL + '/api/contact', formData);
       setStatus('Message sent successfully! Our team will get back to you shortly.');
       setFormData({ name: '', email: '', message: '' });
     } catch (err) {

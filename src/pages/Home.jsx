@@ -42,7 +42,7 @@ const Home = () => {
   useEffect(() => {
     const fetchPopularClasses = async () => {
       try {
-        const { data } = await axios.get('/api/classes');
+        const { data } = await axios.get(import.meta.env.VITE_API_URL + '/api/classes');
         // Simple sorting by reviews/rating
         const sorted = data.sort((a, b) => {
           const scoreA = (a.avgRating || 0) * (a.reviewCount || 1);

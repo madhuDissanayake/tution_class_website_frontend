@@ -25,7 +25,7 @@ const Notifications = () => {
             Authorization: `Bearer ${user.token}`,
           },
         };
-        const { data } = await axios.get('/api/notifications', config);
+        const { data } = await axios.get(import.meta.env.VITE_API_URL + '/api/notifications', config);
         setNotifications(data);
       } catch (err) {
         console.error(err);
@@ -47,7 +47,7 @@ const Notifications = () => {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      await axios.put(`/api/notifications/${id}/read`, {}, config);
+      await axios.put(import.meta.env.VITE_API_URL + `/api/notifications/${id}/read`, {}, config);
       setNotifications(notifications.map(n => n._id === id ? { ...n, isRead: true } : n));
     } catch (err) {
       console.error(err);
@@ -64,7 +64,7 @@ const Notifications = () => {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      await axios.patch(`/api/reservations/${reservationId}/confirm`, {}, config);
+      await axios.patch(import.meta.env.VITE_API_URL + `/api/reservations/${reservationId}/confirm`, {}, config);
       
       setNotifications(notifications.map(n => {
         if (n._id === notificationId && n.relatedId) {
@@ -87,7 +87,7 @@ const Notifications = () => {
       setSendingReply(true);
       setError(null);
       const config = { headers: { Authorization: `Bearer ${user.token}` } };
-      await axios.post('/api/notifications/message', {
+      await axios.post(import.meta.env.VITE_API_URL + '/api/notifications/message', {
         receiverId: notification.senderId._id,
         classId: notification.classId?._id,
         message: replyMessage

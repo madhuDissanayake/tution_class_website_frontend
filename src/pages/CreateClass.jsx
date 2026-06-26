@@ -37,7 +37,7 @@ const CreateClass = () => {
       const fetchTeachers = async () => {
         try {
           const config = { headers: { Authorization: `Bearer ${user.token}` } };
-          const { data } = await axios.get('/api/admin/approved-teachers', config);
+          const { data } = await axios.get(import.meta.env.VITE_API_URL + '/api/admin/approved-teachers', config);
           setTeachers(data);
         } catch (err) {
           console.error('Failed to fetch teachers:', err);
@@ -129,7 +129,7 @@ const CreateClass = () => {
         },
       };
 
-      await axios.post('/api/classes', payload, config);
+      await axios.post(import.meta.env.VITE_API_URL + '/api/classes', payload, config);
       navigate('/dashboard');
     } catch (err) {
       console.error(err);

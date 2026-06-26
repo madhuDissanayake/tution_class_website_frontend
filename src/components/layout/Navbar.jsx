@@ -38,7 +38,7 @@ const Navbar = () => {
             Authorization: `Bearer ${user.token}`,
           },
         };
-        const { data } = await axios.get('/api/notifications', config);
+        const { data } = await axios.get(import.meta.env.VITE_API_URL + '/api/notifications', config);
         const unread = data.filter((n) => !n.isRead).length;
         setUnreadCount(unread);
       } catch (err) {

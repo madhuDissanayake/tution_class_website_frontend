@@ -18,7 +18,7 @@ const ForgotPassword = () => {
     try {
       setLoading(true);
       setError('');
-      await axios.post('/api/auth/forgot-password', { email });
+      await axios.post(import.meta.env.VITE_API_URL + '/api/auth/forgot-password', { email });
       setSuccess('A password reset code has been sent to your email.');
       setStep(2);
     } catch (err) {
@@ -33,7 +33,7 @@ const ForgotPassword = () => {
     try {
       setLoading(true);
       setError('');
-      await axios.post('/api/auth/reset-password', { email, otp, newPassword });
+      await axios.post(import.meta.env.VITE_API_URL + '/api/auth/reset-password', { email, otp, newPassword });
       setSuccess('Password has been reset successfully. Redirecting to login...');
       setTimeout(() => {
         navigate('/login');

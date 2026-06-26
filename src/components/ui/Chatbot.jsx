@@ -18,7 +18,7 @@ const Chatbot = () => {
     setLoading(true);
 
     try {
-      const { data } = await axios.post('/api/ai/chat', { prompt: userMsg.text });
+      const { data } = await axios.post(import.meta.env.VITE_API_URL + '/api/ai/chat', { prompt: userMsg.text });
       setMessages(prev => [...prev, { sender: 'ai', text: data.reply }]);
     } catch (error) {
       const errorMsg = error.response?.data?.message || 'Sorry, I am having trouble connecting to my brain right now. Make sure you restarted the frontend server.';

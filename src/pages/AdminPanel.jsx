@@ -38,11 +38,11 @@ const AdminPanel = () => {
         };
 
         const [statsRes, usersRes, tutorsRes, pendingRes, pendingResvRes] = await Promise.all([
-          axios.get('/api/admin/stats', config),
-          axios.get('/api/admin/users', config),
-          axios.get('/api/admin/featured-tutors', config),
-          axios.get('/api/admin/pending-users', config),
-          axios.get('/api/admin/pending-reservations', config)
+          axios.get(import.meta.env.VITE_API_URL + '/api/admin/stats', config),
+          axios.get(import.meta.env.VITE_API_URL + '/api/admin/users', config),
+          axios.get(import.meta.env.VITE_API_URL + '/api/admin/featured-tutors', config),
+          axios.get(import.meta.env.VITE_API_URL + '/api/admin/pending-users', config),
+          axios.get(import.meta.env.VITE_API_URL + '/api/admin/pending-reservations', config)
         ]);
 
         setStats({ ...statsRes.data });
@@ -77,7 +77,7 @@ const AdminPanel = () => {
         },
       };
 
-      await axios.delete(`/api/admin/users/${id}`, config);
+      await axios.delete(import.meta.env.VITE_API_URL + `/api/admin/users/${id}`, config);
       setUsers(users.filter((u) => u._id !== id));
       setSuccess('User deleted successfully!');
 
@@ -97,7 +97,7 @@ const AdminPanel = () => {
       setError(null);
       setSuccess(null);
       const config = { headers: { Authorization: `Bearer ${user.token}` } };
-      const { data } = await axios.post('/api/admin/featured-tutors', newTutor, config);
+      const { data } = await axios.post(import.meta.env.VITE_API_URL + '/api/admin/featured-tutors', newTutor, config);
       setFeaturedTutors([data, ...featuredTutors]);
       setSuccess('Tutor added successfully!');
       setNewTutor({ name: '', subject: '', studentsCount: '', rating: 5, themeColor: 'indigo' });
@@ -112,7 +112,7 @@ const AdminPanel = () => {
       setError(null);
       setSuccess(null);
       const config = { headers: { Authorization: `Bearer ${user.token}` } };
-      await axios.delete(`/api/admin/featured-tutors/${id}`, config);
+      await axios.delete(import.meta.env.VITE_API_URL + `/api/admin/featured-tutors/${id}`, config);
       setFeaturedTutors(featuredTutors.filter(t => t._id !== id));
       setSuccess('Tutor deleted successfully!');
     } catch (err) {
@@ -124,7 +124,7 @@ const AdminPanel = () => {
     try {
       setError(null); setSuccess(null);
       const config = { headers: { Authorization: `Bearer ${user.token}` } };
-      await axios.put(`/api/admin/approve-user/${id}`, {}, config);
+      await axios.put(import.meta.env.VITE_API_URL + `/api/admin/approve-user/${id}`, {}, config);
       setPendingUsers(pendingUsers.filter(u => u._id !== id));
       setSuccess('User approved successfully!');
       
@@ -140,7 +140,7 @@ const AdminPanel = () => {
     try {
       setError(null); setSuccess(null);
       const config = { headers: { Authorization: `Bearer ${user.token}` } };
-      await axios.patch(`/api/reservations/${id}/confirm`, {}, config);
+      await axios.patch(import.meta.env.VITE_API_URL + `/api/reservations/${id}/confirm`, {}, config);
       setPendingReservations(pendingReservations.filter(r => r._id !== id));
       setSuccess('Seat reservation approved successfully!');
     } catch (err) {
@@ -156,7 +156,7 @@ const AdminPanel = () => {
     setExpandedTeacher(teacherId);
     setLoadingClasses(true);
     try {
-      const { data } = await axios.get(`/api/classes?teacherId=${teacherId}`);
+      const { data } = await axios.get(import.meta.env.VITE_API_URL + `/api/classes?teacherId=${teacherId}`);
       setTeacherClasses(data);
     } catch (err) {
       console.error(err);
@@ -169,7 +169,7 @@ const AdminPanel = () => {
     if (!window.confirm('Are you sure you want to delete this class?')) return;
     try {
       const config = { headers: { Authorization: `Bearer ${user.token}` } };
-      await axios.delete(`/api/classes/${classId}`, config);
+      await axios.delete(import.meta.env.VITE_API_URL + `/api/classes/${classId}`, config);
       setTeacherClasses(teacherClasses.filter(c => c._id !== classId));
       setSuccess('Class deleted successfully!');
     } catch (err) {
@@ -182,7 +182,7 @@ const AdminPanel = () => {
     try {
       setError(null); setSuccess(null);
       const config = { headers: { Authorization: `Bearer ${user.token}` } };
-      await axios.put(`/api/admin/reject-user/${id}`, {}, config);
+      await axios.put(import.meta.env.VITE_API_URL + `/api/admin/reject-user/${id}`, {}, config);
       setPendingUsers(pendingUsers.filter(u => u._id !== id));
       setSuccess('User rejected successfully!');
     } catch (err) {

@@ -32,10 +32,10 @@ const ClassDetails = () => {
       try {
         setLoading(true);
         setError(null);
-        const { data } = await axios.get(`/api/classes/${id}`);
+        const { data } = await axios.get(import.meta.env.VITE_API_URL + `/api/classes/${id}`);
         setCls(data);
         
-        const reviewsRes = await axios.get(`/api/classes/${id}/reviews`);
+        const reviewsRes = await axios.get(import.meta.env.VITE_API_URL + `/api/classes/${id}/reviews`);
         setReviews(reviewsRes.data);
       } catch (err) {
         console.error(err);
@@ -65,7 +65,7 @@ const ClassDetails = () => {
         },
       };
 
-      await axios.post('/api/reservations', { classId: id }, config);
+      await axios.post(import.meta.env.VITE_API_URL + '/api/reservations', { classId: id }, config);
       setSuccessMessage('Your seat has been reserved successfully!');
       setCls(prev => ({ ...prev, availableSeats: prev.availableSeats - 1 }));
     } catch (err) {
@@ -82,7 +82,7 @@ const ClassDetails = () => {
       setMessageSending(true);
       setError(null);
       const config = { headers: { Authorization: `Bearer ${user.token}` } };
-      await axios.post('/api/notifications/message', {
+      await axios.post(import.meta.env.VITE_API_URL + '/api/notifications/message', {
         receiverId: cls.teacherId?._id || cls.teacher?._id || cls.teacherId,
         classId: cls._id,
         message: messageContent
@@ -127,14 +127,14 @@ const ClassDetails = () => {
         },
       };
 
-      await axios.post(`/api/classes/${id}/reviews`, { rating, comment }, config);
+      await axios.post(import.meta.env.VITE_API_URL + `/api/classes/${id}/reviews`, { rating, comment }, config);
       setReviewSuccess('Review submitted successfully!');
       setRating(0);
       setComment('');
       
       const [classRes, reviewsRes] = await Promise.all([
-        axios.get(`/api/classes/${id}`),
-        axios.get(`/api/classes/${id}/reviews`)
+        axios.get(import.meta.env.VITE_API_URL + `/api/classes/${id}`),
+        axios.get(import.meta.env.VITE_API_URL + `/api/classes/${id}/reviews`)
       ]);
       setCls(classRes.data);
       setReviews(reviewsRes.data);

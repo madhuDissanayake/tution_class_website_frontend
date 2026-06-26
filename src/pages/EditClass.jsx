@@ -37,7 +37,7 @@ const EditClass = () => {
       const fetchTeachers = async () => {
         try {
           const config = { headers: { Authorization: `Bearer ${user.token}` } };
-          const { data } = await axios.get('/api/admin/approved-teachers', config);
+          const { data } = await axios.get(import.meta.env.VITE_API_URL + '/api/admin/approved-teachers', config);
           setTeachers(data);
         } catch (err) {
           console.error('Failed to fetch teachers:', err);
@@ -52,7 +52,7 @@ const EditClass = () => {
   useEffect(() => {
     const fetchClassDetails = async () => {
       try {
-        const { data } = await axios.get(`/api/classes/${id}`);
+        const { data } = await axios.get(import.meta.env.VITE_API_URL + `/api/classes/${id}`);
         setFormData({
           title: data.title || '',
           subject: data.subject || '',
@@ -157,7 +157,7 @@ const EditClass = () => {
         },
       };
 
-      await axios.put(`/api/classes/${id}`, payload, config);
+      await axios.put(import.meta.env.VITE_API_URL + `/api/classes/${id}`, payload, config);
       navigate('/dashboard');
     } catch (err) {
       console.error(err);

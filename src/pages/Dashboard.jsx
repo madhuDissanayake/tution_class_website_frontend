@@ -33,10 +33,10 @@ const Dashboard = () => {
         };
 
         if (user.role === 'teacher') {
-          const { data: classes } = await axios.get(`/api/classes?teacherId=${user._id}`, config);
+          const { data: classes } = await axios.get(import.meta.env.VITE_API_URL + `/api/classes?teacherId=${user._id}`, config);
           setData(classes);
         } else if (user.role === 'student') {
-          const { data: reservations } = await axios.get('/api/reservations/my', config);
+          const { data: reservations } = await axios.get(import.meta.env.VITE_API_URL + '/api/reservations/my', config);
           setData(reservations);
         }
       } catch (err) {
@@ -62,7 +62,7 @@ const Dashboard = () => {
         },
       };
 
-      await axios.delete(`/api/classes/${classId}`, config);
+      await axios.delete(import.meta.env.VITE_API_URL + `/api/classes/${classId}`, config);
       setData(data.filter((c) => c._id !== classId));
       setSuccess('Class deleted successfully!');
     } catch (err) {
@@ -83,7 +83,7 @@ const Dashboard = () => {
         },
       };
 
-      await axios.patch(`/api/reservations/${reservationId}/cancel`, {}, config);
+      await axios.patch(import.meta.env.VITE_API_URL + `/api/reservations/${reservationId}/cancel`, {}, config);
       setData(data.map((res) => res._id === reservationId ? { ...res, status: 'cancelled' } : res));
       setSuccess('Reservation cancelled successfully!');
     } catch (err) {
