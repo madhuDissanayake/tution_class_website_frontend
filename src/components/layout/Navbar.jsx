@@ -62,8 +62,8 @@ const Navbar = () => {
   return (
     <nav className={`sticky top-0 z-50 transition-all duration-500 border-b ${
       isScrolled 
-        ? 'bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border-slate-200 dark:border-slate-800 shadow-sm py-1.5' 
-        : 'bg-white/50 dark:bg-slate-900/50 backdrop-blur-md border-transparent py-2'
+        ? 'bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border-slate-200 dark:border-slate-800 shadow-md py-1.5' 
+        : 'bg-white/50 dark:bg-slate-900/50 backdrop-blur-md border-transparent dark:border-white/10 dark:shadow-[0_2px_10px_rgba(0,0,0,0.2)] py-2'
     }`}>
       
       <div className="container mx-auto px-6 relative z-10">
@@ -71,8 +71,8 @@ const Navbar = () => {
           
           {/* Logo Brand */}
           <Link to="/" className="flex items-center space-x-3 group">
-            <div className="relative group-hover:scale-110 transition-transform duration-500 flex items-center justify-center">
-              <Logo className={`dark:bg-slate-800 bg-blue-100 text-blue-600 ${user?.role === 'teacher' ? 'w-8 h-8 md:w-10 md:h-10' : 'w-7 h-7 md:w-8 md:h-8'}`} />
+            <div className="relative group-hover:scale-105 transition-transform duration-500 flex items-center justify-center">
+              <Logo className={`dark:bg-slate-800 bg-blue-100 text-blue-600 ${user?.role === 'teacher' ? 'w-10 h-10 md:w-12 md:h-12' : 'w-9 h-9 md:w-11 md:h-11'}`} />
             </div>
             <span className={`font-black tracking-tight text-slate-900 dark:text-white flex items-center ${user?.role === 'teacher' ? 'text-2xl md:text-3xl' : 'text-xl md:text-2xl'}`}>
               Tuition
@@ -85,10 +85,10 @@ const Navbar = () => {
             {(!user || (user.role !== 'teacher' && user.role !== 'admin')) && (
               <Link 
                 to="/" 
-                className={`text-sm font-black tracking-wide transition-all duration-300 ${
+                className={`text-sm font-black tracking-wide transition-all duration-300 relative after:absolute ${user?.role === 'teacher' ? 'after:-bottom-6' : 'after:-bottom-4'} after:left-0 after:h-1 after:w-full after:rounded-full after:transition-transform after:duration-300 after:origin-left ${
                   isActive('/') 
-                    ? `text-blue-600 dark:text-blue-400 relative after:absolute ${user?.role === 'teacher' ? 'after:-bottom-6' : 'after:-bottom-4'} after:left-0 after:h-1 after:w-full after:bg-blue-600 after:rounded-full` 
-                    : 'text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400'
+                    ? `text-blue-600 dark:text-blue-400 after:bg-blue-600 after:scale-x-100` 
+                    : `text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 after:bg-blue-600/50 dark:after:bg-blue-400/50 after:scale-x-0 hover:after:scale-x-100`
                 }`}
               >
                 Home
@@ -97,10 +97,10 @@ const Navbar = () => {
             {(!user || (user.role !== 'teacher' && user.role !== 'admin')) && (
               <Link 
                 to="/search" 
-                className={`text-sm font-black tracking-wide transition-all duration-300 ${
+                className={`text-sm font-black tracking-wide transition-all duration-300 relative after:absolute ${user?.role === 'teacher' ? 'after:-bottom-6' : 'after:-bottom-4'} after:left-0 after:h-1 after:w-full after:rounded-full after:transition-transform after:duration-300 after:origin-left ${
                   isActive('/search') 
-                    ? `text-blue-600 dark:text-blue-400 relative after:absolute ${user?.role === 'teacher' ? 'after:-bottom-6' : 'after:-bottom-4'} after:left-0 after:h-1 after:w-full after:bg-blue-600 after:rounded-full` 
-                    : 'text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400'
+                    ? `text-blue-600 dark:text-blue-400 after:bg-blue-600 after:scale-x-100` 
+                    : `text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 after:bg-blue-600/50 dark:after:bg-blue-400/50 after:scale-x-0 hover:after:scale-x-100`
                 }`}
               >
                 Find Classes
@@ -108,20 +108,20 @@ const Navbar = () => {
             )}
             <Link 
               to="/about" 
-              className={`font-black tracking-wide transition-all duration-300 ${user?.role === 'teacher' ? 'text-base' : 'text-sm'} ${
+              className={`font-black tracking-wide transition-all duration-300 ${user?.role === 'teacher' ? 'text-base' : 'text-sm'} relative after:absolute ${user?.role === 'teacher' ? 'after:-bottom-6' : 'after:-bottom-4'} after:left-0 after:h-1 after:w-full after:rounded-full after:transition-transform after:duration-300 after:origin-left ${
                 isActive('/about') 
-                  ? `text-blue-600 dark:text-blue-400 relative after:absolute ${user?.role === 'teacher' ? 'after:-bottom-6' : 'after:-bottom-4'} after:left-0 after:h-1 after:w-full after:bg-blue-600 after:rounded-full` 
-                  : 'text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400'
+                  ? `text-blue-600 dark:text-blue-400 after:bg-blue-600 after:scale-x-100` 
+                  : `text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 after:bg-blue-600/50 dark:after:bg-blue-400/50 after:scale-x-0 hover:after:scale-x-100`
               }`}
             >
               About
             </Link>
             <Link 
               to="/contact" 
-              className={`font-black tracking-wide transition-all duration-300 ${user?.role === 'teacher' ? 'text-base' : 'text-sm'} ${
+              className={`font-black tracking-wide transition-all duration-300 ${user?.role === 'teacher' ? 'text-base' : 'text-sm'} relative after:absolute ${user?.role === 'teacher' ? 'after:-bottom-6' : 'after:-bottom-4'} after:left-0 after:h-1 after:w-full after:rounded-full after:transition-transform after:duration-300 after:origin-left ${
                 isActive('/contact') 
-                  ? `text-blue-600 dark:text-blue-400 relative after:absolute ${user?.role === 'teacher' ? 'after:-bottom-6' : 'after:-bottom-4'} after:left-0 after:h-1 after:w-full after:bg-blue-600 after:rounded-full` 
-                  : 'text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400'
+                  ? `text-blue-600 dark:text-blue-400 after:bg-blue-600 after:scale-x-100` 
+                  : `text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 after:bg-blue-600/50 dark:after:bg-blue-400/50 after:scale-x-0 hover:after:scale-x-100`
               }`}
             >
               Contact

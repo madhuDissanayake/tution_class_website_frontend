@@ -63,7 +63,7 @@ const Home = () => {
   return (
     <div className="w-full bg-slate-50 dark:bg-slate-900 overflow-hidden">
       {/* Hero Section */}
-      <section className="relative pt-4 lg:pt-8 pb-16 px-6 lg:pb-24">
+      <section className="relative pt-10 lg:pt-14 pb-16 px-6 lg:pb-24">
         {/* Subtle background glow */}
         <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-blue-500/10 dark:bg-blue-600/10 blur-[100px] rounded-full pointer-events-none"></div>
         
@@ -71,9 +71,9 @@ const Home = () => {
           
           {/* Left Text Content */}
           <div className="w-full lg:w-[45%] space-y-6 lg:space-y-8 animate-fade-in z-10 text-center lg:text-left flex flex-col items-center lg:items-start">
-            <h1 className="text-3xl lg:text-4xl xl:text-5xl font-semibold text-slate-900 dark:text-white leading-[1.15]">
+            <h1 className="text-3xl lg:text-4xl xl:text-5xl font-semibold text-slate-900 dark:text-white leading-[1.25] lg:leading-[1.3]">
               Find the Perfect <br className="hidden lg:block"/>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-violet-600 dark:from-[#60a5fa] dark:to-[#a78bfa]">
                 Tuition Class
               </span>
             </h1>
@@ -85,7 +85,7 @@ const Home = () => {
             <div className="flex flex-col sm:flex-row items-center gap-4 pt-4">
               <Link 
                 to="/search" 
-                className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-medium px-8 py-4 rounded-lg shadow-lg hover:shadow-xl transition-all flex items-center justify-center group"
+                className="w-full sm:w-auto bg-gradient-to-br from-[#4f46e5] to-[#6366f1] text-white font-medium px-8 py-4 rounded-xl shadow-[0_8px_20px_rgba(79,70,229,0.35)] hover:shadow-[0_12px_28px_rgba(79,70,229,0.45)] hover:-translate-y-[2px] transition-all duration-200 flex items-center justify-center group border border-white/10"
               >
                 <Search className="w-5 h-5 mr-2" />
                 <span>Find Classes Now</span>
@@ -93,27 +93,59 @@ const Home = () => {
               </Link>
             </div>
             
-            <div className="flex items-center gap-6 pt-4 text-slate-500 dark:text-slate-400 font-medium text-sm">
-              <div className="flex items-center"><CheckCircle className="w-4 h-4 mr-1 text-emerald-500"/> Verified Tutors</div>
-              <div className="flex items-center"><CheckCircle className="w-4 h-4 mr-1 text-emerald-500"/> Instant Booking</div>
-              <div className="flex items-center"><CheckCircle className="w-4 h-4 mr-1 text-emerald-500"/> Secure Platform</div>
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-4 text-slate-700 dark:text-slate-300 font-medium text-[13px]">
+              <div className="flex items-center px-4 py-1.5 rounded-full dark:bg-white/5 bg-slate-900/5 border dark:border-white/10 border-slate-900/10 backdrop-blur-sm shadow-sm transition-colors hover:dark:bg-white/10 hover:bg-slate-900/10">
+                <CheckCircle className="w-4 h-4 mr-1.5 text-emerald-500"/> Verified Tutors
+              </div>
+              <div className="flex items-center px-4 py-1.5 rounded-full dark:bg-white/5 bg-slate-900/5 border dark:border-white/10 border-slate-900/10 backdrop-blur-sm shadow-sm transition-colors hover:dark:bg-white/10 hover:bg-slate-900/10">
+                <CheckCircle className="w-4 h-4 mr-1.5 text-emerald-500"/> Instant Booking
+              </div>
+              <div className="flex items-center px-4 py-1.5 rounded-full dark:bg-white/5 bg-slate-900/5 border dark:border-white/10 border-slate-900/10 backdrop-blur-sm shadow-sm transition-colors hover:dark:bg-white/10 hover:bg-slate-900/10">
+                <CheckCircle className="w-4 h-4 mr-1.5 text-emerald-500"/> Secure Platform
+              </div>
             </div>
           </div>
 
           {/* Right Image/Illustration */}
           <div className="w-full lg:w-[45%] relative z-0 mt-12 lg:mt-0 flex justify-center">
-            <div className="relative w-full max-w-[480px] h-[300px] md:h-[360px] lg:h-[400px]">
+            <div className="relative w-full max-w-[500px] aspect-[4/3]">
               {/* Main Image */}
-              <div className="w-full h-full rounded-[2rem] overflow-hidden shadow-2xl shadow-blue-900/10 dark:shadow-black/40 border-[6px] border-white dark:border-slate-800 relative z-10">
+              <div className="w-full h-full rounded-[2rem] overflow-hidden shadow-[0_20px_60px_rgba(79,70,229,0.25)] border-[6px] border-white dark:border-slate-800 relative z-10 group">
                 <img 
-                  src="/images/srilankan_hero_students.png" 
+                  src="/images/authentic_tuition.png" 
                   alt="Sri Lankan Students collaborating" 
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 />
               </div>
 
               {/* Background Decoration */}
               <div className="absolute -inset-4 border border-blue-200 dark:border-blue-500/20 rounded-[2.5rem] -z-10 transform rotate-3"></div>
+
+              {/* Floating Stats Card: Students */}
+              <div className="absolute -bottom-4 -left-4 md:-bottom-8 md:-left-8 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-white/20 dark:border-slate-700 p-4 md:p-5 rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.12)] z-20 flex items-center gap-4 animate-slide-up" style={{ animationDelay: '0.1s' }}>
+                <div className="bg-gradient-to-br from-amber-400 to-orange-500 p-3 rounded-xl shadow-inner text-white">
+                  <Star className="w-6 h-6 fill-current" />
+                </div>
+                <div>
+                  <div className="flex items-center gap-1">
+                    <h4 className="text-xl md:text-2xl font-black text-slate-900 dark:text-white leading-none">500+</h4>
+                    <span className="text-xs font-bold text-amber-500 bg-amber-500/10 px-1.5 py-0.5 rounded-md">4.8★</span>
+                  </div>
+                  <p className="text-[10px] md:text-xs font-semibold text-slate-500 dark:text-slate-400 mt-1 uppercase tracking-wider">Active Students</p>
+                </div>
+              </div>
+
+              {/* Floating Stats Card: Tutors */}
+              <div className="absolute -top-4 -right-4 md:-top-6 md:-right-6 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-white/20 dark:border-slate-700 p-3 md:p-4 rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.12)] z-20 flex items-center gap-3 animate-slide-up" style={{ animationDelay: '0.3s' }}>
+                <div className="flex -space-x-2">
+                  <div className="w-8 h-8 rounded-full border-2 border-white dark:border-slate-800 bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center text-blue-600 dark:text-blue-400"><Users className="w-4 h-4"/></div>
+                </div>
+                <div>
+                  <h4 className="text-base md:text-lg font-black text-slate-900 dark:text-white leading-none">50+</h4>
+                  <p className="text-[9px] md:text-[10px] font-semibold text-slate-500 dark:text-slate-400 mt-0.5 uppercase tracking-wider">Verified Tutors</p>
+                </div>
+              </div>
+
             </div>
           </div>
 

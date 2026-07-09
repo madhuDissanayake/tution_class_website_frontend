@@ -2,8 +2,10 @@ import { useMemo } from 'react';
 import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
 
 const Map = ({ locations = [], onMapClick }) => {
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY || "", 
+  const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY || "";
+  
+  const { isLoaded, loadError } = useLoadScript({
+    googleMapsApiKey: apiKey, 
   });
 
   // Default to a central coordinate (Colombo, SL) or center on the specific location if single
@@ -13,6 +15,23 @@ const Map = ({ locations = [], onMapClick }) => {
     }
     return { lat: 6.9271, lng: 79.8612 };
   }, [locations]); 
+
+  // If there's no API key or there's a load error, show the static fallback
+  if (!apiKey || loadError) {
+    return (
+      <div className="h-full w-full bg-slate-100/50 rounded-2xl flex items-center justify-center border border-slate-200 p-4">
+        <a 
+          href={`https://www.google.com/maps/search/?api=1&query=${center.lat},${center.lng}`} 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="px-6 py-3 bg-white border border-slate-200 shadow-sm rounded-xl text-blue-600 font-medium hover:bg-slate-50 hover:shadow transition-all flex items-center gap-3"
+        >
+          <span className="text-xl">🗺️</span>
+          Open in Google Maps
+        </a>
+      </div>
+    );
+  }
 
   if (!isLoaded) return (
     <div className="h-full w-full bg-slate-100 animate-pulse rounded-2xl flex items-center justify-center text-slate-500 font-medium border border-slate-200 text-sm">
@@ -41,4 +60,3 @@ const Map = ({ locations = [], onMapClick }) => {
 };
 
 export default Map;
-

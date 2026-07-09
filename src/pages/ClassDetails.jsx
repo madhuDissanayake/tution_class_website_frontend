@@ -215,9 +215,12 @@ const ClassDetails = () => {
                 By <span className="text-blue-600 dark:text-blue-400 font-medium">{cls.teacherId?.name || cls.teacher?.name || 'Unknown Teacher'}</span>
               </p>
             </div>
-            <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-md border border-slate-200 dark:border-slate-700 rounded-xl p-3 md:p-4 text-right shadow-sm shrink-0">
-              <span className="text-3xl md:text-4xl font-medium text-slate-900 dark:text-white leading-none">Rs. {cls.fee}</span>
-              <span className="text-slate-500 dark:text-slate-400 block text-xs font-semibold mt-1 uppercase tracking-wider">per month</span>
+            <div className="bg-gradient-to-br from-[#4f46e5] to-[#7c3aed] rounded-xl p-4 md:p-5 text-right shadow-[0_8px_24px_rgba(124,58,237,0.3)] shrink-0 relative overflow-hidden group border border-white/10">
+              {/* Decorative light flair */}
+              <div className="absolute -top-4 -right-4 w-20 h-20 bg-white/20 blur-xl rounded-full group-hover:scale-150 transition-transform duration-700" />
+              
+              <span className="relative z-10 text-4xl md:text-5xl font-black text-white leading-none tracking-tight drop-shadow-sm">Rs. {cls.fee}</span>
+              <span className="relative z-10 text-indigo-100 block text-[10px] md:text-xs font-bold mt-1.5 uppercase tracking-[1px] opacity-90">per month</span>
             </div>
           </div>
         </div>
@@ -249,7 +252,7 @@ const ClassDetails = () => {
           )}
 
           {/* Description Section */}
-          <div className="bg-white/80 dark:bg-slate-900/60 backdrop-blur-xl border border-white/20 dark:border-slate-700/50 rounded-2xl p-5 md:p-6 space-y-4 shadow-lg shadow-slate-200/20 dark:shadow-none">
+          <div className="bg-white/80 dark:bg-slate-900/60 backdrop-blur-xl border border-white/20 dark:border-slate-700/50 rounded-2xl p-6 md:p-8 space-y-6 shadow-lg shadow-slate-200/20 dark:shadow-none">
             <div>
               <h3 className="text-xl font-medium text-slate-900 dark:text-white tracking-tight">About this class</h3>
               <div className="w-10 h-1 bg-blue-600 rounded-full mt-1.5" />
@@ -257,27 +260,27 @@ const ClassDetails = () => {
             <p className="text-slate-600 dark:text-slate-300 leading-relaxed font-medium text-sm md:text-base">{cls.description}</p>
             
             {/* Quick Metrics */}
-            <div className="grid grid-cols-3 gap-3 border-t border-slate-100 dark:border-slate-800 pt-5">
-              <div className="bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700 p-3 rounded-xl text-center flex flex-col items-center justify-center space-y-1">
-                <Book className="w-5 h-5 text-blue-600" />
-                <span className="text-[10px] text-slate-500 dark:text-slate-400 font-medium uppercase tracking-wider">Grade</span>
-                <span className="text-sm text-slate-900 dark:text-white font-medium">{cls.grade}</span>
+            <div className="grid grid-cols-3 gap-4 border-t border-slate-100 dark:border-slate-800 pt-6 mt-6">
+              <div className="bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700 p-5 rounded-xl text-center flex flex-col items-center justify-center space-y-1">
+                <Book className="w-5 h-5 text-blue-600 mb-1" />
+                <span className="text-[10px] text-slate-900 dark:text-white opacity-50 font-medium uppercase tracking-[1px]">Grade</span>
+                <span className="text-base text-slate-900 dark:text-white font-semibold">{cls.grade}</span>
               </div>
-              <div className="bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700 p-3 rounded-xl text-center flex flex-col items-center justify-center space-y-1">
-                <Users className="w-5 h-5 text-sky-600" />
-                <span className="text-[10px] text-slate-500 dark:text-slate-400 font-medium uppercase tracking-wider">Seats Free</span>
-                <span className="text-sm text-slate-900 dark:text-white font-medium">{cls.availableSeats} / {cls.capacity}</span>
+              <div className="bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700 p-5 rounded-xl text-center flex flex-col items-center justify-center space-y-1">
+                <Users className="w-5 h-5 text-sky-600 mb-1" />
+                <span className="text-[10px] text-slate-900 dark:text-white opacity-50 font-medium uppercase tracking-[1px]">Seats Free</span>
+                <span className="text-base text-slate-900 dark:text-white font-semibold">{cls.availableSeats} / {cls.capacity}</span>
               </div>
-              <div className="bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700 p-3 rounded-xl text-center flex flex-col items-center justify-center space-y-1">
-                <Globe className="w-5 h-5 text-indigo-600" />
-                <span className="text-[10px] text-slate-500 dark:text-slate-400 font-medium uppercase tracking-wider">Medium</span>
-                <span className="text-sm text-slate-900 dark:text-white font-medium">{cls.medium}</span>
+              <div className="bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700 p-5 rounded-xl text-center flex flex-col items-center justify-center space-y-1">
+                <Globe className="w-5 h-5 text-indigo-600 mb-1" />
+                <span className="text-[10px] text-slate-900 dark:text-white opacity-50 font-medium uppercase tracking-[1px]">Medium</span>
+                <span className="text-base text-slate-900 dark:text-white font-semibold">{cls.medium}</span>
               </div>
             </div>
           </div>
 
           {/* Schedule Section */}
-          <div className="bg-white/80 dark:bg-slate-900/60 backdrop-blur-xl border border-white/20 dark:border-slate-700/50 rounded-2xl p-5 md:p-6 space-y-4 shadow-lg shadow-slate-200/20 dark:shadow-none">
+          <div className="bg-white/80 dark:bg-slate-900/60 backdrop-blur-xl border border-white/20 dark:border-slate-700/50 rounded-2xl p-6 md:p-8 space-y-6 shadow-lg shadow-slate-200/20 dark:shadow-none">
             <div>
               <h3 className="text-xl font-medium text-slate-900 dark:text-white tracking-tight">Class Schedule</h3>
               <div className="w-10 h-1 bg-blue-600 rounded-full mt-1.5" />
@@ -311,7 +314,7 @@ const ClassDetails = () => {
           </div>
 
           {/* Reviews & Ratings Section */}
-          <div className="bg-white/80 dark:bg-slate-900/60 backdrop-blur-xl border border-white/20 dark:border-slate-700/50 rounded-2xl p-4 space-y-4 shadow-lg shadow-slate-200/20 dark:shadow-none mt-6">
+          <div className="bg-white/80 dark:bg-slate-900/60 backdrop-blur-xl border border-white/20 dark:border-slate-700/50 rounded-2xl p-6 md:p-8 space-y-6 shadow-lg shadow-slate-200/20 dark:shadow-none mt-8">
             <div>
               <h3 className="text-lg font-medium text-slate-900 dark:text-white tracking-tight">Reviews & Ratings</h3>
               <div className="w-8 h-1 bg-amber-500 rounded-full mt-1" />
@@ -362,13 +365,31 @@ const ClassDetails = () => {
                   </div>
                 ))
               ) : (
-                <p className="text-slate-500 dark:text-slate-400 text-xs font-medium italic">No reviews yet. Be the first to review!</p>
+                <div className="flex flex-col items-center justify-center p-8 bg-slate-50 dark:bg-slate-800/30 border border-dashed border-slate-200 dark:border-slate-700 rounded-xl text-center">
+                  <div className="w-12 h-12 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-500 rounded-full flex items-center justify-center mb-3">
+                    <MessageCircle className="w-6 h-6" />
+                  </div>
+                  <p className="text-slate-600 dark:text-slate-400 font-medium mb-3">No reviews yet</p>
+                  <button 
+                    onClick={() => {
+                      const form = document.getElementById('review-form');
+                      if (form) {
+                        form.scrollIntoView({ behavior: 'smooth' });
+                        const textarea = form.querySelector('textarea');
+                        if (textarea) setTimeout(() => textarea.focus(), 500);
+                      }
+                    }}
+                    className="inline-flex items-center px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-indigo-500 dark:hover:border-indigo-500 text-indigo-600 dark:text-indigo-400 font-semibold text-xs rounded-lg shadow-sm hover:shadow transition-all"
+                  >
+                    Be the first to review!
+                  </button>
+                </div>
               )}
             </div>
 
             {/* Write a Review Form */}
             {user?.role === 'student' && (
-              <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800">
+              <div id="review-form" className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800">
                 <h4 className="text-base font-medium text-slate-900 dark:text-white mb-3">Write a Review</h4>
                 
                 {reviewSuccess && (
@@ -424,9 +445,9 @@ const ClassDetails = () => {
         </div>
 
         {/* Right Column - Map & Action */}
-        <div className="space-y-6">
+        <div className="space-y-8">
           {/* Reservation Card / Call to Action */}
-          <div className="bg-white/80 dark:bg-slate-900/60 backdrop-blur-xl border border-white/20 dark:border-slate-700/50 rounded-2xl p-5 md:p-6 space-y-4 relative overflow-hidden shadow-lg shadow-blue-900/5">
+          <div className="bg-white/80 dark:bg-slate-900/60 backdrop-blur-xl border border-white/20 dark:border-slate-700/50 rounded-2xl p-6 md:p-8 space-y-6 relative overflow-hidden shadow-lg shadow-blue-900/5">
             <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-blue-500/20 to-transparent rounded-full -mr-8 -mt-8 blur-xl pointer-events-none" />
             <h4 className="text-lg font-medium text-slate-900 dark:text-white relative z-10">Reserve Your Seat</h4>
             <p className="text-slate-600 dark:text-slate-400 font-medium text-sm leading-relaxed relative z-10">Join this cohort of students today. Secure your admission to learn directly from {cls.teacherId?.name || cls.teacher?.name || 'our highly specialized teacher'}.</p>
@@ -485,7 +506,7 @@ const ClassDetails = () => {
 
           {/* Location / Google Map Container */}
           {cls.location && cls.location.coordinates && cls.location.coordinates.length === 2 && (
-            <div className="bg-white/80 dark:bg-slate-900/60 backdrop-blur-xl border border-white/20 dark:border-slate-700/50 rounded-2xl p-5 md:p-6 space-y-4 shadow-lg shadow-blue-900/5 relative overflow-hidden">
+            <div className="bg-white/80 dark:bg-slate-900/60 backdrop-blur-xl border border-white/20 dark:border-slate-700/50 rounded-2xl p-6 md:p-8 space-y-6 shadow-lg shadow-blue-900/5 relative overflow-hidden">
               <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-blue-500/10 to-transparent rounded-full -ml-8 -mb-8 blur-xl pointer-events-none" />
               
               <div className="flex items-center gap-3 relative z-10">
