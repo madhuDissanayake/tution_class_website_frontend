@@ -68,24 +68,26 @@ const AdminPanel = () => {
       return;
     }
 
+    const previousUsers = [...users];
+    const previousTotal = stats.totalUsers;
+
     try {
       setError(null);
       setSuccess(null);
       const config = {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
+        headers: { Authorization: `Bearer ${user.token}` },
       };
 
-      await axios.delete(import.meta.env.VITE_API_URL + `/api/admin/users/${id}`, config);
+      // Optimistic update
       setUsers(users.filter((u) => u._id !== id));
-      setSuccess('User deleted successfully!');
+      setStats(prev => ({ ...prev, totalUsers: Math.max(0, prev.totalUsers - 1) }));
 
-      setStats(prev => ({
-        ...prev,
-        totalUsers: Math.max(0, prev.totalUsers - 1)
-      }));
+      await axios.delete(import.meta.env.VITE_API_URL + `/api/admin/users/${id}`, config);
+      setSuccess('User deleted successfully!');
     } catch (err) {
+      // Revert optimistic update
+      setUsers(previousUsers);
+      setStats(prev => ({ ...prev, totalUsers: previousTotal }));
       console.error(err);
       setError(err.response?.data?.message || 'Failed to delete user');
     }
@@ -108,42 +110,59 @@ const AdminPanel = () => {
 
   const handleDeleteTutor = async (id) => {
     if (!window.confirm('Delete this featured tutor?')) return;
+    
+    const previousTutors = [...featuredTutors];
+    
     try {
       setError(null);
       setSuccess(null);
       const config = { headers: { Authorization: `Bearer ${user.token}` } };
-      await axios.delete(import.meta.env.VITE_API_URL + `/api/admin/featured-tutors/${id}`, config);
+      
+      // Optimistic update
       setFeaturedTutors(featuredTutors.filter(t => t._id !== id));
+      
+      await axios.delete(import.meta.env.VITE_API_URL + `/api/admin/featured-tutors/${id}`, config);
       setSuccess('Tutor deleted successfully!');
     } catch (err) {
+      setFeaturedTutors(previousTutors);
       setError(err.response?.data?.message || 'Failed to delete tutor');
     }
   };
 
   const handleApproveUser = async (id, role) => {
+    const previousPending = [...pendingUsers];
     try {
       setError(null); setSuccess(null);
       const config = { headers: { Authorization: `Bearer ${user.token}` } };
-      await axios.put(import.meta.env.VITE_API_URL + `/api/admin/approve-user/${id}`, {}, config);
+      
+      // Optimistic update
       setPendingUsers(pendingUsers.filter(u => u._id !== id));
+      
+      await axios.put(import.meta.env.VITE_API_URL + `/api/admin/approve-user/${id}`, {}, config);
       setSuccess('User approved successfully!');
       
       if (role === 'teacher') {
         navigate(`/create-class?teacherId=${id}`);
       }
     } catch (err) {
+      setPendingUsers(previousPending);
       setError(err.response?.data?.message || 'Failed to approve user');
     }
   };
 
   const handleApproveReservation = async (id) => {
+    const previousPending = [...pendingReservations];
     try {
       setError(null); setSuccess(null);
       const config = { headers: { Authorization: `Bearer ${user.token}` } };
-      await axios.patch(import.meta.env.VITE_API_URL + `/api/reservations/${id}/confirm`, {}, config);
+      
+      // Optimistic update
       setPendingReservations(pendingReservations.filter(r => r._id !== id));
+      
+      await axios.patch(import.meta.env.VITE_API_URL + `/api/reservations/${id}/confirm`, {}, config);
       setSuccess('Seat reservation approved successfully!');
     } catch (err) {
+      setPendingReservations(previousPending);
       setError(err.response?.data?.message || 'Failed to approve reservation');
     }
   };
@@ -167,25 +186,35 @@ const AdminPanel = () => {
 
   const handleDeleteClass = async (classId) => {
     if (!window.confirm('Are you sure you want to delete this class?')) return;
+    const previousClasses = [...teacherClasses];
     try {
       const config = { headers: { Authorization: `Bearer ${user.token}` } };
-      await axios.delete(import.meta.env.VITE_API_URL + `/api/classes/${classId}`, config);
+      
+      // Optimistic update
       setTeacherClasses(teacherClasses.filter(c => c._id !== classId));
+      
+      await axios.delete(import.meta.env.VITE_API_URL + `/api/classes/${classId}`, config);
       setSuccess('Class deleted successfully!');
     } catch (err) {
+      setTeacherClasses(previousClasses);
       console.error(err);
       setError('Failed to delete class');
     }
   };
 
   const handleRejectUser = async (id) => {
+    const previousPending = [...pendingUsers];
     try {
       setError(null); setSuccess(null);
       const config = { headers: { Authorization: `Bearer ${user.token}` } };
-      await axios.put(import.meta.env.VITE_API_URL + `/api/admin/reject-user/${id}`, {}, config);
+      
+      // Optimistic update
       setPendingUsers(pendingUsers.filter(u => u._id !== id));
+      
+      await axios.put(import.meta.env.VITE_API_URL + `/api/admin/reject-user/${id}`, {}, config);
       setSuccess('User rejected successfully!');
     } catch (err) {
+      setPendingUsers(previousPending);
       setError(err.response?.data?.message || 'Failed to reject user');
     }
   };
@@ -207,7 +236,7 @@ const AdminPanel = () => {
 
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 relative z-10">
         <div>
-          <h1 className="text-2xl md:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 tracking-tight">Admin Dashboard</h1>
+          <h1 className="text-2xl md:text-3xl font-medium bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 tracking-tight">Admin Dashboard</h1>
           <p className="text-slate-500 dark:text-slate-400 mt-1 font-medium text-sm">Manage users, classes, and reservations system-wide.</p>
         </div>
       </div>
@@ -215,14 +244,14 @@ const AdminPanel = () => {
       {success && (
         <div className="bg-green-50 text-green-700 p-4 rounded-xl border border-green-200 flex items-center justify-between animate-fade-in">
           <span className="font-semibold">{success}</span>
-          <button onClick={() => setSuccess(null)} className="text-green-700 hover:text-green-900 font-bold ml-4 text-xl">×</button>
+          <button onClick={() => setSuccess(null)} className="text-green-700 hover:text-green-900 font-medium ml-4 text-xl">×</button>
         </div>
       )}
 
       {error && (
         <div className="bg-red-50 text-red-700 p-4 rounded-xl border border-red-200 flex items-center justify-between animate-fade-in">
           <span className="font-semibold">{error}</span>
-          <button onClick={() => setError(null)} className="text-red-700 hover:text-red-900 font-bold ml-4 text-xl">×</button>
+          <button onClick={() => setError(null)} className="text-red-700 hover:text-red-900 font-medium ml-4 text-xl">×</button>
         </div>
       )}
       
@@ -234,8 +263,8 @@ const AdminPanel = () => {
               <Users className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-slate-500 dark:text-slate-400 font-bold text-[10px] uppercase tracking-wider mb-0.5">Total Users</h3>
-              <p className="text-xl font-bold text-slate-900 dark:text-white">{stats.totalUsers}</p>
+              <h3 className="text-slate-500 dark:text-slate-400 font-medium text-[10px] uppercase tracking-wider mb-0.5">Total Users</h3>
+              <p className="text-xl font-medium text-slate-900 dark:text-white">{stats.totalUsers}</p>
             </div>
           </div>
         </div>
@@ -247,8 +276,8 @@ const AdminPanel = () => {
               <BookOpen className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-slate-500 dark:text-slate-400 font-bold text-[10px] uppercase tracking-wider mb-0.5">Active Classes</h3>
-              <p className="text-xl font-bold text-slate-900 dark:text-white">{stats.totalClasses}</p>
+              <h3 className="text-slate-500 dark:text-slate-400 font-medium text-[10px] uppercase tracking-wider mb-0.5">Active Classes</h3>
+              <p className="text-xl font-medium text-slate-900 dark:text-white">{stats.totalClasses}</p>
             </div>
           </div>
         </div>
@@ -260,8 +289,8 @@ const AdminPanel = () => {
               <Bell className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-slate-500 dark:text-slate-400 font-bold text-[10px] uppercase tracking-wider mb-0.5">Reservations</h3>
-              <p className="text-xl font-bold text-slate-900 dark:text-white">{stats.totalReservations}</p>
+              <h3 className="text-slate-500 dark:text-slate-400 font-medium text-[10px] uppercase tracking-wider mb-0.5">Reservations</h3>
+              <p className="text-xl font-medium text-slate-900 dark:text-white">{stats.totalReservations}</p>
             </div>
           </div>
         </div>
@@ -270,7 +299,7 @@ const AdminPanel = () => {
 
       <div className="glass-panel bg-white/80 dark:bg-slate-900/60 dark:backdrop-blur-2xl rounded-2xl shadow-md border border-slate-200/60 dark:border-slate-700/60 overflow-hidden relative z-10">
         <div className="p-4 md:p-5 border-b border-slate-200/60 dark:border-slate-700/60 bg-slate-50/50 dark:bg-slate-800/50">
-          <h2 className="text-lg font-bold text-slate-900 dark:text-white flex items-center">
+          <h2 className="text-lg font-medium text-slate-900 dark:text-white flex items-center">
             <span className="w-1.5 h-5 bg-blue-500 rounded-full mr-2.5"></span>
             Manage Users
           </h2>
@@ -298,7 +327,7 @@ const AdminPanel = () => {
                     </td>
                     <td className="p-3 text-slate-600 dark:text-slate-300 text-xs">{u.email}</td>
                     <td className="p-3">
-                      <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${
+                      <span className={`px-2 py-0.5 rounded-full text-[10px] font-medium uppercase tracking-wider ${
                         u.role === 'admin' 
                           ? 'bg-rose-50 dark:bg-rose-500/10 text-rose-700 dark:text-rose-400 border border-rose-200 dark:border-rose-500/20' 
                           : u.role === 'teacher' 
@@ -332,11 +361,11 @@ const AdminPanel = () => {
       {/* Pending Users Section */}
       <div className="glass-panel bg-white/80 dark:bg-slate-900/60 dark:backdrop-blur-2xl rounded-2xl shadow-md border border-slate-200/60 dark:border-slate-700/60 overflow-hidden relative z-10 mt-6">
         <div className="p-4 md:p-5 border-b border-slate-200/60 dark:border-slate-700/60 bg-amber-50/50 dark:bg-amber-900/10">
-          <h2 className="text-lg font-bold text-slate-900 dark:text-white flex items-center">
+          <h2 className="text-lg font-medium text-slate-900 dark:text-white flex items-center">
             <span className="w-1.5 h-5 bg-amber-500 rounded-full mr-2.5"></span>
             Pending User Approvals
             {pendingUsers.length > 0 && (
-              <span className="ml-2 px-1.5 py-0.5 rounded-full bg-amber-500 text-white text-[10px] font-bold">
+              <span className="ml-2 px-1.5 py-0.5 rounded-full bg-amber-500 text-white text-[10px] font-medium">
                 {pendingUsers.length}
               </span>
             )}
@@ -361,9 +390,9 @@ const AdminPanel = () => {
                 {pendingUsers.map(u => (
                   <tr key={u._id} className="hover:bg-slate-50/50 dark:hover:bg-slate-700/30 transition-colors border-b border-slate-50 dark:border-slate-700/50 last:border-0 align-top">
                     <td className="p-4 pl-6 text-slate-900 dark:text-white">
-                      <div className="font-bold flex flex-wrap items-center gap-2 mb-2">
+                      <div className="font-medium flex flex-wrap items-center gap-2 mb-2">
                         {u.name}
-                        <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${
+                        <span className={`px-2 py-0.5 rounded text-[10px] font-medium uppercase tracking-wider ${
                           u.role === 'teacher' ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400' : 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400'
                         }`}>
                           {u.role}
@@ -380,11 +409,11 @@ const AdminPanel = () => {
                       {u.role === 'teacher' ? (
                         <div className="space-y-3">
                           <div>
-                            <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-0.5">Qualifications</div>
+                            <div className="text-xs font-medium text-slate-400 uppercase tracking-wider mb-0.5">Qualifications</div>
                             <div className="text-xs leading-relaxed">{u.teacherDetails?.qualifications || 'N/A'}</div>
                           </div>
                           <div>
-                            <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-0.5">Experience</div>
+                            <div className="text-xs font-medium text-slate-400 uppercase tracking-wider mb-0.5">Experience</div>
                             <div className="text-xs leading-relaxed whitespace-pre-wrap">{u.teacherDetails?.experience || 'N/A'}</div>
                           </div>
                         </div>
@@ -397,14 +426,14 @@ const AdminPanel = () => {
                       {u.role === 'teacher' ? (
                         <div className="space-y-3">
                           <div>
-                            <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Subjects</div>
+                            <div className="text-xs font-medium text-slate-400 uppercase tracking-wider mb-1">Subjects</div>
                             <div className="text-xs font-medium bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded inline-block">
                               {u.teacherDetails?.subjects || 'N/A'}
                             </div>
                           </div>
                           {u.teacherDetails?.mediums?.length > 0 && (
                             <div>
-                              <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Mediums</div>
+                              <div className="text-xs font-medium text-slate-400 uppercase tracking-wider mb-1">Mediums</div>
                               <div className="flex flex-wrap gap-1">
                                 {u.teacherDetails.mediums.map((m, i) => (
                                   <span key={i} className="text-[10px] px-1.5 py-0.5 bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400 rounded border border-blue-100 dark:border-blue-800">{m}</span>
@@ -414,7 +443,7 @@ const AdminPanel = () => {
                           )}
                           {u.teacherDetails?.grades?.length > 0 && (
                             <div>
-                              <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Grades</div>
+                              <div className="text-xs font-medium text-slate-400 uppercase tracking-wider mb-1">Grades</div>
                               <div className="flex flex-wrap gap-1">
                                 {u.teacherDetails.grades.map((g, i) => (
                                   <span key={i} className="text-[10px] px-1.5 py-0.5 bg-purple-50 text-purple-600 dark:bg-purple-900/20 dark:text-purple-400 rounded border border-purple-100 dark:border-purple-800">{g}</span>
@@ -432,13 +461,13 @@ const AdminPanel = () => {
                       <div className="flex flex-col gap-2 items-end justify-center h-full">
                         <button 
                           onClick={() => handleApproveUser(u._id, u.role)}
-                          className="w-20 px-2 py-1.5 text-[10px] font-bold text-white bg-emerald-600 hover:bg-emerald-700 rounded-md shadow-sm transition-colors"
+                          className="w-20 px-2 py-1.5 text-[10px] font-medium text-white bg-emerald-600 hover:bg-emerald-700 rounded-md shadow-sm transition-colors"
                         >
                           Approve
                         </button>
                         <button 
                           onClick={() => handleRejectUser(u._id)}
-                          className="w-20 px-2 py-1.5 text-[10px] font-bold text-rose-600 bg-rose-50 hover:bg-rose-100 dark:bg-rose-900/20 dark:hover:bg-rose-900/40 rounded-md transition-colors border border-rose-200 dark:border-rose-800"
+                          className="w-20 px-2 py-1.5 text-[10px] font-medium text-rose-600 bg-rose-50 hover:bg-rose-100 dark:bg-rose-900/20 dark:hover:bg-rose-900/40 rounded-md transition-colors border border-rose-200 dark:border-rose-800"
                         >
                           Reject
                         </button>
@@ -455,11 +484,11 @@ const AdminPanel = () => {
       {/* Pending Seat Reservations Section */}
       <div className="glass-panel bg-white/80 dark:bg-slate-900/60 dark:backdrop-blur-2xl rounded-2xl shadow-md border border-slate-200/60 dark:border-slate-700/60 overflow-hidden relative z-10 mt-6">
         <div className="p-4 md:p-5 border-b border-slate-200/60 dark:border-slate-700/60 bg-blue-50/50 dark:bg-blue-900/10">
-          <h2 className="text-lg font-bold text-slate-900 dark:text-white flex items-center">
+          <h2 className="text-lg font-medium text-slate-900 dark:text-white flex items-center">
             <span className="w-1.5 h-5 bg-blue-500 rounded-full mr-2.5"></span>
             Pending Seat Reservations
             {pendingReservations.length > 0 && (
-              <span className="ml-2 px-1.5 py-0.5 rounded-full bg-blue-500 text-white text-[10px] font-bold">
+              <span className="ml-2 px-1.5 py-0.5 rounded-full bg-blue-500 text-white text-[10px] font-medium">
                 {pendingReservations.length}
               </span>
             )}
@@ -483,7 +512,7 @@ const AdminPanel = () => {
                 {pendingReservations.map(res => (
                   <tr key={res._id} className="hover:bg-slate-50/50 dark:hover:bg-slate-700/30 transition-colors border-b border-slate-50 dark:border-slate-700/50 last:border-0 align-top">
                     <td className="p-4 pl-6 text-slate-900 dark:text-white">
-                      <div className="font-bold flex flex-wrap items-center gap-2 mb-1">
+                      <div className="font-medium flex flex-wrap items-center gap-2 mb-1">
                         {res.studentId?.name || 'Unknown Student'}
                       </div>
                       <div className="text-xs text-slate-500 mb-1"><span className="font-semibold text-slate-400">Email:</span> {res.studentId?.email || 'N/A'}</div>
@@ -491,7 +520,7 @@ const AdminPanel = () => {
                     </td>
                     
                     <td className="p-4 text-slate-600 dark:text-slate-300 text-sm">
-                      <div className="font-bold text-slate-900 dark:text-white mb-1">
+                      <div className="font-medium text-slate-900 dark:text-white mb-1">
                         {res.classId?.title || 'Unknown Class'}
                       </div>
                       <div className="flex flex-wrap gap-2 text-[10px] mb-2">
@@ -508,7 +537,7 @@ const AdminPanel = () => {
                       <div className="flex flex-col gap-2 items-end justify-center h-full">
                         <button 
                           onClick={() => handleApproveReservation(res._id)}
-                          className="w-24 px-2 py-1.5 text-[10px] font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-md shadow-sm transition-colors"
+                          className="w-24 px-2 py-1.5 text-[10px] font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md shadow-sm transition-colors"
                         >
                           Approve Seat
                         </button>
@@ -525,10 +554,10 @@ const AdminPanel = () => {
       {/* Manage Teacher Classes Section */}
       <div className="glass-panel bg-white/80 dark:bg-slate-900/60 dark:backdrop-blur-2xl rounded-2xl shadow-md border border-slate-200/60 dark:border-slate-700/60 overflow-hidden mt-6 relative z-10">
         <div className="p-4 md:p-5 border-b border-slate-200/60 dark:border-slate-700/60 bg-indigo-50/50 dark:bg-indigo-900/10">
-          <h2 className="text-lg font-bold text-slate-900 dark:text-white flex items-center">
+          <h2 className="text-lg font-medium text-slate-900 dark:text-white flex items-center">
             <span className="w-1.5 h-5 bg-indigo-500 rounded-full mr-2.5"></span>
             Manage Teacher Classes
-            <span className="ml-2 px-1.5 py-0.5 rounded-full bg-indigo-100 text-indigo-700 dark:bg-indigo-900/50 dark:text-indigo-400 text-[10px] font-bold">
+            <span className="ml-2 px-1.5 py-0.5 rounded-full bg-indigo-100 text-indigo-700 dark:bg-indigo-900/50 dark:text-indigo-400 text-[10px] font-medium">
               {approvedTeachers.length} Approved
             </span>
           </h2>
@@ -549,14 +578,14 @@ const AdminPanel = () => {
                         {expandedTeacher === teacher._id ? <ChevronDown className="w-5 h-5" /> : <ChevronRight className="w-5 h-5" />}
                       </div>
                       <div>
-                        <div className="font-bold text-slate-900 dark:text-white">{teacher.name}</div>
+                        <div className="font-medium text-slate-900 dark:text-white">{teacher.name}</div>
                         <div className="text-xs text-slate-500">{teacher.email} • {teacher.phone || 'No phone'}</div>
                       </div>
                     </div>
                     <div className="flex items-center gap-3">
                       <button 
                         onClick={() => navigate(`/create-class?teacherId=${teacher._id}`)}
-                        className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-500/10 dark:hover:bg-indigo-500/20 rounded-lg border border-indigo-200 dark:border-indigo-500/20 transition-colors"
+                        className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-indigo-600 dark:text-indigo-400 bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-500/10 dark:hover:bg-indigo-500/20 rounded-lg border border-indigo-200 dark:border-indigo-500/20 transition-colors"
                       >
                         <PlusCircle className="w-4 h-4" /> Add Class
                       </button>
@@ -575,7 +604,7 @@ const AdminPanel = () => {
                           {teacherClasses.map(cls => (
                             <div key={cls._id} className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-4 rounded-xl shadow-sm">
                               <div className="flex justify-between items-start mb-2">
-                                <h4 className="font-bold text-slate-900 dark:text-white text-sm line-clamp-1">{cls.title}</h4>
+                                <h4 className="font-medium text-slate-900 dark:text-white text-sm line-clamp-1">{cls.title}</h4>
                                 <div className="flex gap-1 shrink-0">
                                   <button onClick={() => navigate(`/edit-class/${cls._id}`)} className="p-1.5 text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-500/10 rounded-md transition-colors" title="Edit Class">
                                     <Edit className="w-3.5 h-3.5" />
@@ -606,7 +635,7 @@ const AdminPanel = () => {
       {/* Featured Tutors Management Section */}
       <div className="glass-panel bg-white/80 dark:bg-slate-900/60 dark:backdrop-blur-2xl rounded-2xl shadow-md border border-slate-200/60 dark:border-slate-700/60 overflow-hidden mt-6 relative z-10">
         <div className="p-4 md:p-5 border-b border-slate-200/60 dark:border-slate-700/60 bg-slate-50/50 dark:bg-slate-800/50 flex flex-col md:flex-row justify-between items-start md:items-center gap-3">
-          <h2 className="text-lg font-bold text-slate-900 dark:text-white flex items-center">
+          <h2 className="text-lg font-medium text-slate-900 dark:text-white flex items-center">
             <span className="w-1.5 h-5 bg-purple-500 rounded-full mr-2.5"></span>
             Manage Top Tier Tutors
           </h2>
@@ -626,7 +655,7 @@ const AdminPanel = () => {
               <option value="purple">Purple</option>
               <option value="rose">Rose</option>
             </select>
-            <button type="submit" className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-2 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 active:translate-y-0 text-sm">Add Tutor</button>
+            <button type="submit" className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-medium py-2 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 active:translate-y-0 text-sm">Add Tutor</button>
           </form>
         </div>
 

@@ -51,7 +51,7 @@ const Footer = () => {
           </div>
 
           <div className="lg:col-span-2 lg:col-start-6 space-y-5">
-            <h4 className="text-white font-extrabold text-sm uppercase tracking-widest flex items-center mb-6">
+            <h4 className="text-white font-semibold text-sm uppercase tracking-widest flex items-center mb-6">
               <span className="w-2 h-2 bg-gradient-to-tr from-blue-600 to-indigo-400 rounded-full mr-3 shadow-[0_0_10px_rgba(96,165,250,0.5)]"></span>
               Explore
             </h4>
@@ -64,7 +64,7 @@ const Footer = () => {
           </div>
 
           <div className="lg:col-span-2 lg:col-start-8 space-y-5">
-            <h4 className="text-white font-extrabold text-sm uppercase tracking-widest flex items-center mb-6">
+            <h4 className="text-white font-semibold text-sm uppercase tracking-widest flex items-center mb-6">
               <span className="w-2 h-2 bg-gradient-to-tr from-purple-500 to-pink-500 rounded-full mr-3 shadow-[0_0_10px_rgba(168,85,247,0.5)]"></span>
               Resources
             </h4>
@@ -77,7 +77,7 @@ const Footer = () => {
           </div>
 
           <div className="lg:col-span-3 lg:col-start-10 space-y-5">
-            <h4 className="text-white font-extrabold text-sm uppercase tracking-widest flex items-center mb-6">
+            <h4 className="text-white font-semibold text-sm uppercase tracking-widest flex items-center mb-6">
               <span className="w-2 h-2 bg-gradient-to-tr from-sky-500 to-blue-500 rounded-full mr-3 shadow-[0_0_10px_rgba(14,165,233,0.5)]"></span>
               Support
             </h4>
@@ -110,7 +110,7 @@ const Footer = () => {
 
         <div className="flex flex-col md:flex-row justify-between items-center gap-6 text-sm font-medium">
           <p className="text-slate-500 text-center md:text-left order-2 md:order-1 flex items-center gap-1.5">
-            &copy; {new Date().getFullYear()} <span className="text-slate-300 font-bold">TuitionHub</span>. All rights reserved.
+            &copy; {new Date().getFullYear()} <span className="text-slate-300 font-medium">TuitionHub</span>. All rights reserved.
           </p>
           
           <div className="flex flex-wrap justify-center items-center gap-6 text-slate-500 order-1 md:order-2">

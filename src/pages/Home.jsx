@@ -71,7 +71,7 @@ const Home = () => {
           
           {/* Left Text Content */}
           <div className="w-full lg:w-[45%] space-y-6 lg:space-y-8 animate-fade-in z-10 text-center lg:text-left flex flex-col items-center lg:items-start">
-            <h1 className="text-4xl lg:text-5xl xl:text-[3.8rem] font-extrabold text-slate-900 dark:text-white leading-[1.15]">
+            <h1 className="text-3xl lg:text-4xl xl:text-5xl font-semibold text-slate-900 dark:text-white leading-[1.15]">
               Find the Perfect <br className="hidden lg:block"/>
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400">
                 Tuition Class
@@ -85,7 +85,7 @@ const Home = () => {
             <div className="flex flex-col sm:flex-row items-center gap-4 pt-4">
               <Link 
                 to="/search" 
-                className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-4 rounded-lg shadow-lg hover:shadow-xl transition-all flex items-center justify-center group"
+                className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-medium px-8 py-4 rounded-lg shadow-lg hover:shadow-xl transition-all flex items-center justify-center group"
               >
                 <Search className="w-5 h-5 mr-2" />
                 <span>Find Classes Now</span>
@@ -125,14 +125,14 @@ const Home = () => {
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-center mb-12">
             <div className="text-center md:text-left mb-6 md:mb-0">
-              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-3">
+              <h2 className="text-3xl md:text-4xl font-medium text-slate-900 dark:text-white mb-3">
                 Most Popular Classes
               </h2>
               <p className="text-slate-600 dark:text-slate-400 font-medium">
                 Explore the top-rated classes that students are loving right now.
               </p>
             </div>
-            <Link to="/search" className="inline-flex items-center text-blue-600 dark:text-blue-400 font-bold hover:underline">
+            <Link to="/search" className="inline-flex items-center text-blue-600 dark:text-blue-400 font-medium hover:underline">
               View All Classes <ArrowRight className="w-4 h-4 ml-1" />
             </Link>
           </div>
@@ -152,25 +152,25 @@ const Home = () => {
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent"></div>
-                    <div className="absolute bottom-3 left-3 bg-white/20 backdrop-blur-md text-white px-2.5 py-0.5 rounded-lg text-[10px] font-bold border border-white/20">
+                    <div className="absolute bottom-3 left-3 bg-white/20 backdrop-blur-md text-white px-2.5 py-0.5 rounded-lg text-[10px] font-medium border border-white/20">
                       {cls.medium} Medium
                     </div>
-                    <div className={`absolute top-3 right-3 backdrop-blur-md text-white px-2 py-1 rounded-md text-[10px] font-bold shadow-sm border border-white/20 ${cls.availableSeats > 0 ? 'bg-blue-600/80' : 'bg-red-500/80'}`}>
+                    <div className={`absolute top-3 right-3 backdrop-blur-md text-white px-2 py-1 rounded-md text-[10px] font-medium shadow-sm border border-white/20 ${cls.availableSeats > 0 ? 'bg-blue-600/80' : 'bg-red-500/80'}`}>
                       {cls.availableSeats > 0 ? `${cls.availableSeats} Seats Left` : 'Fully Booked'}
                     </div>
                   </div>
                   <div className="p-5">
-                    <h3 className="text-base font-extrabold text-slate-900 dark:text-white line-clamp-2 mb-1 group-hover:text-blue-600 transition-colors">{cls.title}</h3>
+                    <h3 className="text-base font-semibold text-slate-900 dark:text-white line-clamp-2 mb-1 group-hover:text-blue-600 transition-colors">{cls.title}</h3>
                     <p className="text-xs text-slate-500 dark:text-slate-400 font-semibold mb-3">By {cls.teacherId?.name || 'Unknown Teacher'}</p>
                     
                     <div className="flex items-center justify-between mt-auto pt-3 border-t border-slate-100 dark:border-slate-700">
                       <div className="flex items-center">
                         <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400 mr-1" />
-                        <span className="text-xs font-bold text-slate-700 dark:text-slate-300">
+                        <span className="text-xs font-medium text-slate-700 dark:text-slate-300">
                           {cls.avgRating ? cls.avgRating.toFixed(1) : 'New'}
                         </span>
                       </div>
-                      <span className="bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-xs font-extrabold px-2 py-1 rounded-lg">
+                      <span className="bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-xs font-semibold px-2 py-1 rounded-lg">
                         Rs. {cls.fee}
                       </span>
                     </div>
@@ -188,7 +188,7 @@ const Home = () => {
           <div className="flex flex-col lg:flex-row-reverse items-center gap-16">
             
             <div className="w-full lg:w-1/2 space-y-6">
-              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white leading-tight">
+              <h2 className="text-3xl md:text-4xl font-medium text-slate-900 dark:text-white leading-tight">
                 Physical & Online Classes, <br/>All in One Place
               </h2>
               <p className="text-lg text-slate-600 dark:text-slate-400 font-medium">
@@ -201,7 +201,7 @@ const Home = () => {
                     <MapPin className="w-5 h-5" />
                   </div>
                   <div>
-                    <h4 className="font-bold text-slate-900 dark:text-white">Location-based Classes</h4>
+                    <h4 className="font-medium text-slate-900 dark:text-white">Location-based Classes</h4>
                     <p className="text-sm text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">Find nearby physical classes and tutors conducting sessions in your area easily.</p>
                   </div>
                 </li>
@@ -210,7 +210,7 @@ const Home = () => {
                     <Search className="w-5 h-5" />
                   </div>
                   <div>
-                    <h4 className="font-bold text-slate-900 dark:text-white">Find Your Best Fit</h4>
+                    <h4 className="font-medium text-slate-900 dark:text-white">Find Your Best Fit</h4>
                     <p className="text-sm text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">Search for physical and online classes to suit your personal preferences perfectly.</p>
                   </div>
                 </li>
@@ -219,7 +219,7 @@ const Home = () => {
                     <CheckCircle className="w-5 h-5" />
                   </div>
                   <div>
-                    <h4 className="font-bold text-slate-900 dark:text-white">Details & Instant Booking</h4>
+                    <h4 className="font-medium text-slate-900 dark:text-white">Details & Instant Booking</h4>
                     <p className="text-sm text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">View teachers, class times, and monthly fees. Book available seats instantly.</p>
                   </div>
                 </li>
@@ -234,7 +234,7 @@ const Home = () => {
                   className="w-full h-[450px] object-cover hover:scale-105 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent flex flex-col justify-end p-8 pointer-events-none">
-                  <h3 className="text-white text-2xl font-bold">Seamless Learning Experience</h3>
+                  <h3 className="text-white text-2xl font-medium">Seamless Learning Experience</h3>
                   <p className="text-slate-300 mt-2 font-medium">Empowering students with modern educational tools.</p>
                 </div>
               </div>

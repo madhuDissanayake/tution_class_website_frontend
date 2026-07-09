@@ -290,7 +290,7 @@ const Navbar = () => {
                   </div>
                   <div className="flex flex-col">
                     <span className="text-sm font-black text-slate-800 dark:text-white">{user.name}</span>
-                    <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">{user.role}</span>
+                    <span className="text-[10px] text-slate-500 font-medium uppercase tracking-wider">{user.role}</span>
                   </div>
                 </div>
 
@@ -298,7 +298,7 @@ const Navbar = () => {
                   <Link 
                     to="/admin" 
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="flex items-center justify-center gap-2 w-full py-3 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 text-sm font-bold rounded-xl"
+                    className="flex items-center justify-center gap-2 w-full py-3 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 text-sm font-medium rounded-xl"
                   >
                     Admin Panel
                   </Link>
@@ -307,7 +307,7 @@ const Navbar = () => {
                   <Link 
                     to="/dashboard" 
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="flex items-center justify-center gap-2 w-full py-3 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 text-sm font-bold rounded-xl"
+                    className="flex items-center justify-center gap-2 w-full py-3 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 text-sm font-medium rounded-xl"
                   >
                     <GraduationCap className="w-4.5 h-4.5" />
                     Teacher Dashboard
@@ -317,7 +317,7 @@ const Navbar = () => {
                   <Link 
                     to="/dashboard" 
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="flex items-center justify-center gap-2 w-full py-3 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 text-sm font-bold rounded-xl"
+                    className="flex items-center justify-center gap-2 w-full py-3 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 text-sm font-medium rounded-xl"
                   >
                     <UserIcon className="w-4.5 h-4.5" />
                     My Dashboard
@@ -326,7 +326,7 @@ const Navbar = () => {
 
                 <button 
                   onClick={handleLogout}
-                  className="flex items-center justify-center gap-2 w-full py-3 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-sm font-bold rounded-xl transition-colors"
+                  className="flex items-center justify-center gap-2 w-full py-3 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-sm font-medium rounded-xl transition-colors"
                 >
                   <LogOut className="w-4 h-4" />
                   Logout

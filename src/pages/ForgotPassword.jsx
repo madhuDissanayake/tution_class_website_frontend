@@ -54,7 +54,7 @@ const ForgotPassword = () => {
           <div className="inline-flex p-3.5 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-2xl shadow-sm mb-4">
             <RotateCcw className="w-6 h-6" />
           </div>
-          <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+          <h2 className="text-3xl font-semibold text-slate-900 dark:text-white tracking-tight">
             {step === 1 ? 'Reset Password' : 'New Password'}
           </h2>
           <p className="text-slate-500 text-sm mt-2 font-semibold leading-relaxed">
@@ -79,7 +79,7 @@ const ForgotPassword = () => {
         {step === 1 ? (
           <form onSubmit={handleRequestOTP} className="space-y-6">
             <div>
-              <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Email Address</label>
+              <label className="block text-xs font-medium text-slate-600 uppercase tracking-wider mb-2">Email Address</label>
               <div className="relative">
                 <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
                 <input 
@@ -96,7 +96,7 @@ const ForgotPassword = () => {
             <button 
               type="submit" 
               disabled={loading || !email}
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 rounded-xl shadow-md transition-all duration-300 flex items-center justify-center cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed"
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3.5 rounded-xl shadow-md transition-all duration-300 flex items-center justify-center cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed"
             >
               {loading ? <Loader className="w-5 h-5 animate-spin" /> : 'Send Reset Code'}
             </button>
@@ -104,13 +104,13 @@ const ForgotPassword = () => {
         ) : (
           <form onSubmit={handleResetPassword} className="space-y-5">
             <div>
-              <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Reset Code</label>
+              <label className="block text-xs font-medium text-slate-600 uppercase tracking-wider mb-2">Reset Code</label>
               <div className="relative">
                 <Key className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
                 <input 
                   type="text" 
                   maxLength="6"
-                  className="w-full pl-11 pr-4 py-3 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 outline-none text-slate-800 dark:text-white bg-slate-50 dark:bg-slate-800 transition-all font-bold tracking-[0.25em]"
+                  className="w-full pl-11 pr-4 py-3 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 outline-none text-slate-800 dark:text-white bg-slate-50 dark:bg-slate-800 transition-all font-medium tracking-[0.25em]"
                   value={otp}
                   onChange={(e) => setOtp(e.target.value.replace(/[^0-9]/g, ''))}
                   placeholder="000000"
@@ -120,7 +120,7 @@ const ForgotPassword = () => {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">New Password</label>
+              <label className="block text-xs font-medium text-slate-600 uppercase tracking-wider mb-2">New Password</label>
               <div className="relative">
                 <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
                 <input 
@@ -137,7 +137,7 @@ const ForgotPassword = () => {
             <button 
               type="submit" 
               disabled={loading || otp.length !== 6 || !newPassword}
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 rounded-xl shadow-md transition-all duration-300 flex items-center justify-center cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed mt-4"
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3.5 rounded-xl shadow-md transition-all duration-300 flex items-center justify-center cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed mt-4"
             >
               {loading ? <Loader className="w-5 h-5 animate-spin" /> : 'Update Password'}
             </button>
@@ -146,7 +146,7 @@ const ForgotPassword = () => {
 
         <p className="mt-8 text-center text-slate-500 text-sm font-semibold">
           Remember your password?{' '}
-          <Link to="/login" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 font-bold hover:underline transition-colors">
+          <Link to="/login" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 font-medium hover:underline transition-colors">
             Back to login
           </Link>
         </p>

@@ -50,7 +50,7 @@ const Login = () => {
           <div className="inline-flex p-3 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-xl shadow-sm mb-3">
             <LogIn className="w-6 h-6" />
           </div>
-          <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">Welcome Back</h2>
+          <h2 className="text-3xl font-semibold text-slate-900 dark:text-white tracking-tight">Welcome Back</h2>
           <p className="text-slate-500 text-sm mt-1.5 font-semibold">Sign in to your TuitionHub account</p>
         </div>
 
@@ -68,7 +68,7 @@ const Login = () => {
 
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Email Address</label>
+            <label className="block text-xs font-medium text-slate-600 uppercase tracking-wider mb-2">Email Address</label>
             <div className="relative">
               <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
               <input 
@@ -83,7 +83,7 @@ const Login = () => {
           </div>
           
           <div>
-            <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Password</label>
+            <label className="block text-xs font-medium text-slate-600 uppercase tracking-wider mb-2">Password</label>
             <div className="relative">
               <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
               <input 
@@ -96,14 +96,14 @@ const Login = () => {
               />
             </div>
             <div className="text-right mt-2">
-              <Link to="/forgot-password" className="text-xs font-bold text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 transition-colors">Forgot Password?</Link>
+              <Link to="/forgot-password" className="text-xs font-medium text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 transition-colors">Forgot Password?</Link>
             </div>
           </div>
 
           <button 
             type="submit" 
             disabled={loading}
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 text-sm rounded-lg shadow-md transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center cursor-pointer"
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 text-sm rounded-lg shadow-md transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center cursor-pointer"
           >
             {loading ? (
               <>
@@ -118,7 +118,7 @@ const Login = () => {
 
         <p className="mt-8 text-center text-slate-500 text-sm font-semibold">
           Don't have an account?{' '}
-          <Link to="/register" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 font-bold hover:underline transition-colors">
+          <Link to="/register" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 font-medium hover:underline transition-colors">
             Register here
           </Link>
         </p>

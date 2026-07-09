@@ -150,7 +150,7 @@ const CreateClass = () => {
         {error && (
           <div className="bg-red-50 text-red-700 p-4 rounded-xl border border-red-200 mb-6 flex items-center justify-between animate-fade-in">
             <span className="font-semibold">{error}</span>
-            <button onClick={() => setError(null)} className="text-red-700 hover:text-red-900 font-bold ml-4 text-xl leading-none">×</button>
+            <button onClick={() => setError(null)} className="text-red-700 hover:text-red-900 font-medium ml-4 text-xl leading-none">×</button>
           </div>
         )}
 
@@ -299,14 +299,14 @@ const CreateClass = () => {
                   checked={formData.isOnline}
                   onChange={handleChange}
                 />
-                <label htmlFor="isOnline" className="ml-3 text-lg font-bold text-slate-900 dark:text-white">
+                <label htmlFor="isOnline" className="ml-3 text-lg font-medium text-slate-900 dark:text-white">
                   This is an Online Class (Zoom/Meet/WhatsApp)
                 </label>
               </div>
 
               {formData.isOnline ? (
                 <div className="animate-fade-in">
-                  <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4">Online Class Details</h3>
+                  <h3 className="text-lg font-medium text-slate-900 dark:text-white mb-4">Online Class Details</h3>
                   <div className="md:col-span-3">
                     <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Group Link (Zoom, WhatsApp, etc.)</label>
                     <input 
@@ -323,7 +323,7 @@ const CreateClass = () => {
                 </div>
               ) : (
                 <div className="animate-fade-in">
-                  <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4">Physical Class Location Details</h3>
+                  <h3 className="text-lg font-medium text-slate-900 dark:text-white mb-4">Physical Class Location Details</h3>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="md:col-span-3">
                       <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Physical Address</label>
@@ -378,11 +378,11 @@ const CreateClass = () => {
             {/* Dynamic Schedule Section */}
             <div className="md:col-span-2 border-t border-slate-100 dark:border-slate-800 pt-6">
               <div className="flex justify-between items-center mb-4">
-                <h3 className="text-lg font-bold text-slate-900 dark:text-white">Class Schedule</h3>
+                <h3 className="text-lg font-medium text-slate-900 dark:text-white">Class Schedule</h3>
                 <button 
                   type="button"
                   onClick={handleAddScheduleRow}
-                  className="text-xs bg-indigo-50 hover:bg-primary hover:text-white text-primary font-bold py-2 px-4 rounded-lg transition-colors border border-indigo-100"
+                  className="text-xs bg-indigo-50 hover:bg-primary hover:text-white text-primary font-medium py-2 px-4 rounded-lg transition-colors border border-indigo-100"
                 >
                   + Add Day
                 </button>
@@ -433,7 +433,7 @@ const CreateClass = () => {
                         <button
                           type="button"
                           onClick={() => handleRemoveScheduleRow(idx)}
-                          className="text-red-500 hover:text-red-700 hover:bg-red-50 p-2 rounded-lg transition-colors border border-transparent hover:border-red-100 font-bold shrink-0 self-stretch sm:self-auto flex items-center justify-center"
+                          className="text-red-500 hover:text-red-700 hover:bg-red-50 p-2 rounded-lg transition-colors border border-transparent hover:border-red-100 font-medium shrink-0 self-stretch sm:self-auto flex items-center justify-center"
                           title="Remove row"
                         >
                           ✕

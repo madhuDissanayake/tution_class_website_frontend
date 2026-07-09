@@ -97,7 +97,7 @@ const Dashboard = () => {
       <div className="max-w-md mx-auto text-center mt-20 p-8 bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-sm animate-fade-in">
         <Sparkles className="w-12 h-12 text-blue-600 mx-auto mb-4 animate-pulse" />
         <p className="text-xl text-slate-600 dark:text-slate-300 mb-6 font-medium">Please log in to view your dashboard.</p>
-        <Link to="/login" className="bg-blue-600 hover:bg-blue-700 text-white font-extrabold py-3.5 px-8 rounded-2xl shadow-md transition-all inline-block">
+        <Link to="/login" className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3.5 px-8 rounded-2xl shadow-md transition-all inline-block">
           Log In
         </Link>
       </div>
@@ -117,14 +117,14 @@ const Dashboard = () => {
     switch (status) {
       case 'confirmed':
         return (
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 border border-emerald-200/50 dark:border-emerald-800">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium uppercase tracking-wider bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 border border-emerald-200/50 dark:border-emerald-800">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse-green inline-block"></span>
             confirmed
           </span>
         );
       case 'cancelled':
         return (
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium uppercase tracking-wider bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700">
             <span className="w-2 h-2 rounded-full bg-slate-400 inline-block"></span>
             cancelled
           </span>
@@ -132,7 +132,7 @@ const Dashboard = () => {
       case 'pending':
       default:
         return (
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 border border-amber-200/50 dark:border-amber-800">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium uppercase tracking-wider bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 border border-amber-200/50 dark:border-amber-800">
             <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse-yellow inline-block"></span>
             pending
           </span>
@@ -167,15 +167,15 @@ const Dashboard = () => {
           <h1 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
             Teacher <span className="text-blue-600">Dashboard</span>
           </h1>
-          <p className="text-slate-500 dark:text-slate-400 font-medium text-lg">Welcome back, <span className="text-blue-600 dark:text-blue-400 font-bold">{user.name}</span>! Let's inspire your classes today.</p>
+          <p className="text-slate-500 dark:text-slate-400 font-medium text-lg">Welcome back, <span className="text-blue-600 dark:text-blue-400 font-medium">{user.name}</span>! Let's inspire your classes today.</p>
         </div>
       </div>
 
       <div className="bg-white dark:bg-slate-900 rounded-2xl overflow-hidden shadow-sm border border-slate-200 dark:border-slate-800">
         <div className="p-4 md:p-5 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-slate-50 dark:bg-slate-800/50">
-          <h2 className="text-lg md:text-xl font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+          <h2 className="text-lg md:text-xl font-semibold text-slate-900 dark:text-white flex items-center gap-2">
             Your Active Classes 
-            <span className="text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 border border-blue-200 dark:border-blue-800 font-extrabold px-2.5 py-1 rounded-full">
+            <span className="text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 border border-blue-200 dark:border-blue-800 font-semibold px-2.5 py-1 rounded-full">
               {data.length} Total
             </span>
           </h2>
@@ -187,7 +187,7 @@ const Dashboard = () => {
                 <Compass className="w-8 h-8 animate-spin-slow" />
               </div>
               <div className="space-y-2">
-                <p className="text-lg font-bold text-slate-900 dark:text-white">No classes assigned yet.</p>
+                <p className="text-lg font-medium text-slate-900 dark:text-white">No classes assigned yet.</p>
                 <p className="text-sm">An admin will assign classes to your account soon.</p>
               </div>
             </div>
@@ -201,13 +201,13 @@ const Dashboard = () => {
                       <span className="bg-blue-600 text-white shadow-sm text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider">
                         {cls.subject}
                       </span>
-                      <span className="text-slate-600 dark:text-slate-300 text-[10px] font-bold bg-slate-100 dark:bg-slate-700 px-2.5 py-1 rounded-lg border border-slate-200 dark:border-slate-600">
+                      <span className="text-slate-600 dark:text-slate-300 text-[10px] font-medium bg-slate-100 dark:bg-slate-700 px-2.5 py-1 rounded-lg border border-slate-200 dark:border-slate-600">
                         {cls.medium}
                       </span>
                     </div>
                     
                     <div>
-                      <h3 className="text-xl font-extrabold text-slate-900 dark:text-white line-clamp-2 mt-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                      <h3 className="text-xl font-semibold text-slate-900 dark:text-white line-clamp-2 mt-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                         {cls.title}
                       </h3>
                       <p className="text-slate-500 dark:text-slate-400 text-sm line-clamp-2 mt-2 leading-relaxed font-medium">
@@ -215,7 +215,7 @@ const Dashboard = () => {
                       </p>
                     </div>
                     
-                    <div className="flex flex-wrap items-center text-slate-600 dark:text-slate-300 text-xs font-bold gap-3 pt-2">
+                    <div className="flex flex-wrap items-center text-slate-600 dark:text-slate-300 text-xs font-medium gap-3 pt-2">
                       <div className="flex items-center bg-slate-50 dark:bg-slate-900/50 px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700">
                         <Book className="w-3.5 h-3.5 mr-1.5 text-blue-500" /> {cls.grade}
                       </div>
@@ -229,7 +229,7 @@ const Dashboard = () => {
                   </div>
                   
                   <div className="bg-slate-50 dark:bg-slate-800/50 px-5 py-3 border-t border-slate-100 dark:border-slate-700 flex justify-between items-center relative z-10">
-                    <span className="text-xl font-black text-slate-900 dark:text-white">Rs. {cls.fee}<span className="text-slate-500 dark:text-slate-400 text-[10px] font-bold ml-1 uppercase">/mo</span></span>
+                    <span className="text-xl font-black text-slate-900 dark:text-white">Rs. {cls.fee}<span className="text-slate-500 dark:text-slate-400 text-[10px] font-medium ml-1 uppercase">/mo</span></span>
                     <div className="flex items-center space-x-2">
                       <Link 
                         to={`/manage-students/${cls._id}`} 
@@ -278,12 +278,12 @@ const Dashboard = () => {
             Student <span className="text-blue-600">Dashboard</span>
           </h1>
           <p className="text-slate-600 dark:text-slate-300 font-medium text-lg">
-            Welcome back, <span className="text-blue-700 dark:text-blue-400 font-extrabold">{user.name}</span>! Track and manage your reservations.
+            Welcome back, <span className="text-blue-700 dark:text-blue-400 font-semibold">{user.name}</span>! Track and manage your reservations.
           </p>
           <div className="pt-2">
             <Link 
               to="/search" 
-              className="bg-blue-600 hover:bg-blue-700 text-white inline-flex items-center px-6 py-3.5 rounded-2xl transition-all shadow-md transform hover:-translate-y-0.5 font-bold text-sm cursor-pointer w-max"
+              className="bg-blue-600 hover:bg-blue-700 text-white inline-flex items-center px-6 py-3.5 rounded-2xl transition-all shadow-md transform hover:-translate-y-0.5 font-medium text-sm cursor-pointer w-max"
             >
               Find New Classes
             </Link>
@@ -293,9 +293,9 @@ const Dashboard = () => {
 
       <div className="bg-white dark:bg-slate-900 rounded-2xl overflow-hidden shadow-sm border border-slate-200 dark:border-slate-800">
         <div className="p-4 md:p-5 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-slate-50 dark:bg-slate-800/50">
-          <h2 className="text-lg md:text-xl font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+          <h2 className="text-lg md:text-xl font-semibold text-slate-900 dark:text-white flex items-center gap-2">
             My Reservations 
-            <span className="text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 border border-blue-200 dark:border-blue-800 font-extrabold px-2.5 py-1 rounded-full">
+            <span className="text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 border border-blue-200 dark:border-blue-800 font-semibold px-2.5 py-1 rounded-full">
               {data.length} Seats
             </span>
           </h2>
@@ -307,10 +307,10 @@ const Dashboard = () => {
                 <Compass className="w-8 h-8 animate-spin-slow" />
               </div>
               <div className="space-y-2">
-                <p className="text-lg font-bold text-slate-900 dark:text-white">You haven't reserved any classes.</p>
+                <p className="text-lg font-medium text-slate-900 dark:text-white">You haven't reserved any classes.</p>
                 <p className="text-sm">Explore catalog of amazing tutors and lock in your seat today.</p>
               </div>
-              <Link to="/search" className="bg-blue-600 hover:bg-blue-700 text-white font-extrabold py-3 px-6 rounded-xl transition-all shadow-md inline-block text-sm">
+              <Link to="/search" className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-xl transition-all shadow-md inline-block text-sm">
                 Browse available classes
               </Link>
             </div>
@@ -324,13 +324,13 @@ const Dashboard = () => {
                     <div className="absolute top-0 left-0 w-1 bg-blue-500 h-full"></div>
                     <div className="space-y-3 w-full pl-2 relative z-10">
                       <div className="flex items-center gap-3 flex-wrap">
-                        <h3 className="text-lg md:text-xl font-extrabold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                        <h3 className="text-lg md:text-xl font-semibold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                           {cls.title}
                         </h3>
                         {renderStatusBadge(res.status)}
                       </div>
                       
-                      <div className="flex flex-wrap gap-4 text-xs font-bold text-slate-600 dark:text-slate-300">
+                      <div className="flex flex-wrap gap-4 text-xs font-medium text-slate-600 dark:text-slate-300">
                         <span className="bg-slate-50 dark:bg-slate-900/50 px-2.5 py-1 rounded-lg border border-slate-200 dark:border-slate-700">
                           Subject: {cls.subject}
                         </span>
@@ -344,7 +344,7 @@ const Dashboard = () => {
 
                       <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400 text-xs font-semibold pt-1">
                         <span className="w-1.5 h-1.5 rounded-full bg-slate-400"></span>
-                        Teacher: <span className="text-slate-700 dark:text-slate-200 font-bold">{cls.teacherId?.name || 'Unknown Teacher'}</span> 
+                        Teacher: <span className="text-slate-700 dark:text-slate-200 font-medium">{cls.teacherId?.name || 'Unknown Teacher'}</span> 
                         {cls.teacherId?.email && <span className="font-normal">({cls.teacherId.email})</span>}
                       </div>
                     </div>
@@ -352,7 +352,7 @@ const Dashboard = () => {
                     <div className="flex flex-row md:flex-col items-center md:items-end justify-between w-full md:w-auto shrink-0 border-t md:border-t-0 border-slate-100 dark:border-slate-700 pt-4 md:pt-0 gap-4 relative z-10">
                       <div className="text-left md:text-right">
                         <span className="text-2xl font-black text-slate-900 dark:text-white block">Rs. {cls.fee}</span>
-                        <span className="text-slate-500 dark:text-slate-400 text-[10px] font-bold block uppercase tracking-wider">per month</span>
+                        <span className="text-slate-500 dark:text-slate-400 text-[10px] font-medium block uppercase tracking-wider">per month</span>
                       </div>
                       
                       <div className="flex gap-2 items-center">
@@ -361,7 +361,7 @@ const Dashboard = () => {
                             href={cls.groupLink}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="bg-emerald-50 dark:bg-emerald-900/20 hover:bg-emerald-600 hover:text-white text-emerald-600 dark:text-emerald-400 font-extrabold py-2 px-4 rounded-xl transition-all border border-emerald-200 dark:border-emerald-800 hover:border-emerald-600 text-xs flex items-center gap-1"
+                            className="bg-emerald-50 dark:bg-emerald-900/20 hover:bg-emerald-600 hover:text-white text-emerald-600 dark:text-emerald-400 font-semibold py-2 px-4 rounded-xl transition-all border border-emerald-200 dark:border-emerald-800 hover:border-emerald-600 text-xs flex items-center gap-1"
                           >
                             <Video className="w-3.5 h-3.5" /> Join Group
                           </a>
@@ -369,14 +369,14 @@ const Dashboard = () => {
                         {res.status !== 'cancelled' && (
                           <button
                             onClick={() => handleCancelReservation(res._id)}
-                            className="bg-rose-50 dark:bg-rose-900/20 hover:bg-rose-600 hover:text-white text-rose-600 dark:text-rose-400 font-extrabold py-2 px-4 rounded-xl transition-all border border-rose-200 dark:border-rose-800 hover:border-rose-600 text-xs cursor-pointer"
+                            className="bg-rose-50 dark:bg-rose-900/20 hover:bg-rose-600 hover:text-white text-rose-600 dark:text-rose-400 font-semibold py-2 px-4 rounded-xl transition-all border border-rose-200 dark:border-rose-800 hover:border-rose-600 text-xs cursor-pointer"
                           >
                             Cancel Seat
                           </button>
                         )}
                         <Link 
                           to={`/class/${cls._id}`} 
-                          className="bg-blue-50 dark:bg-blue-900/20 hover:bg-blue-600 hover:text-white text-blue-600 dark:text-blue-400 font-extrabold py-2 px-4 rounded-xl transition-all border border-blue-200 dark:border-blue-800 hover:border-blue-600 text-xs"
+                          className="bg-blue-50 dark:bg-blue-900/20 hover:bg-blue-600 hover:text-white text-blue-600 dark:text-blue-400 font-semibold py-2 px-4 rounded-xl transition-all border border-blue-200 dark:border-blue-800 hover:border-blue-600 text-xs"
                         >
                           View Details
                         </Link>
@@ -397,7 +397,7 @@ const Dashboard = () => {
     <div className="max-w-6xl mx-auto py-6 px-4 md:px-0 min-h-[80vh]">
       {success && (
         <div className="bg-emerald-50 text-emerald-800 p-5 rounded-2xl border border-emerald-100 shadow-sm mb-6 flex items-center justify-between animate-fade-in">
-          <div className="flex items-center gap-2 font-bold">
+          <div className="flex items-center gap-2 font-medium">
             <Sparkles className="w-5 h-5 text-emerald-600" />
             <span>{success}</span>
           </div>
@@ -407,7 +407,7 @@ const Dashboard = () => {
       
       {error && (
         <div className="bg-rose-50 text-rose-800 p-5 rounded-2xl border border-rose-100 shadow-sm mb-6 flex items-center justify-between animate-fade-in">
-          <div className="flex items-center gap-2 font-bold">
+          <div className="flex items-center gap-2 font-medium">
             <AlertCircle className="w-5 h-5 text-rose-600" />
             <span>{error}</span>
           </div>

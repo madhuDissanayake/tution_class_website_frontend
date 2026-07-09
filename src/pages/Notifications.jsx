@@ -134,13 +134,13 @@ const Notifications = () => {
             <Bell className="w-6 h-6 animate-pulse" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-white tracking-tight drop-shadow-sm">Notifications</h1>
+            <h1 className="text-2xl font-medium text-white tracking-tight drop-shadow-sm">Notifications</h1>
             <p className="text-xs text-slate-400 font-semibold uppercase tracking-wider">Your live stream inbox</p>
           </div>
         </div>
         
         {notifications.some(n => !n.isRead) && (
-          <span className="bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider shadow-sm">
+          <span className="bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 text-[10px] font-medium px-2.5 py-1 rounded-full uppercase tracking-wider shadow-sm">
             {notifications.filter(n => !n.isRead).length} New
           </span>
         )}
@@ -148,7 +148,7 @@ const Notifications = () => {
       
       {error && (
         <div className="bg-rose-50 text-rose-800 p-5 rounded-2xl border border-rose-100 shadow-md shadow-rose-500/5 flex items-center justify-between animate-fade-in">
-          <div className="flex items-center gap-2 font-bold">
+          <div className="flex items-center gap-2 font-medium">
             <AlertCircle className="w-5 h-5 text-rose-600" />
             <span>{error}</span>
           </div>
@@ -163,7 +163,7 @@ const Notifications = () => {
               <CheckCheck className="w-6 h-6" />
             </div>
             <div className="space-y-1">
-              <p className="text-base font-bold text-white">All Caught Up!</p>
+              <p className="text-base font-medium text-white">All Caught Up!</p>
               <p className="text-xs text-slate-400 font-medium">You have no new notifications in your inbox.</p>
             </div>
           </div>
@@ -183,7 +183,7 @@ const Notifications = () => {
                     {note.type === 'message' ? <MessageCircle className="w-4 h-4" /> : <Bell className="w-4 h-4" />}
                   </div>
                   <div className="pr-3 flex-1">
-                    <p className={`text-sm leading-relaxed ${note.isRead ? 'font-medium text-slate-400' : 'font-bold text-white'}`}>
+                    <p className={`text-sm leading-relaxed ${note.isRead ? 'font-medium text-slate-400' : 'font-medium text-white'}`}>
                       {note.message}
                     </p>
                     
@@ -191,7 +191,7 @@ const Notifications = () => {
                       <div className="mt-2 mb-1 bg-white/5 border border-white/10 rounded-lg p-2.5 flex flex-wrap gap-3 items-center">
                         <div className="flex items-center gap-1.5 text-xs text-slate-300">
                           <User className="w-3.5 h-3.5 text-indigo-400" />
-                          <span className="font-bold">{note.relatedId.studentId.name}</span>
+                          <span className="font-medium">{note.relatedId.studentId.name}</span>
                         </div>
                         <div className="flex items-center gap-1.5 text-xs text-slate-300">
                           <Mail className="w-3.5 h-3.5 text-purple-400" />
@@ -201,12 +201,12 @@ const Notifications = () => {
                           {note.relatedId.status === 'pending' ? (
                             <button
                               onClick={() => approveReservation(note.relatedId._id, note._id)}
-                              className="bg-emerald-500/20 hover:bg-emerald-500 text-emerald-300 hover:text-white border border-emerald-500/30 font-bold text-[10px] px-3 py-1 rounded-md transition-all shadow-sm"
+                              className="bg-emerald-500/20 hover:bg-emerald-500 text-emerald-300 hover:text-white border border-emerald-500/30 font-medium text-[10px] px-3 py-1 rounded-md transition-all shadow-sm"
                             >
                               Approve Seat
                             </button>
                           ) : (
-                            <span className="inline-flex items-center gap-1 text-emerald-400 text-[10px] font-bold px-2 py-0.5 bg-emerald-500/10 rounded-md border border-emerald-500/20">
+                            <span className="inline-flex items-center gap-1 text-emerald-400 text-[10px] font-medium px-2 py-0.5 bg-emerald-500/10 rounded-md border border-emerald-500/20">
                               <CheckCircle className="w-3 h-3" /> Approved
                             </span>
                           )}
@@ -218,7 +218,7 @@ const Notifications = () => {
                       <div className="mt-2 mb-1 bg-white/5 border border-white/10 rounded-lg p-2.5 flex flex-col gap-2.5">
                         <div className="flex items-center gap-1.5 text-xs text-slate-300">
                           <User className="w-3.5 h-3.5 text-indigo-400" />
-                          <span className="font-bold">From: {note.senderId.name}</span>
+                          <span className="font-medium">From: {note.senderId.name}</span>
                           {note.classId && <span className="text-slate-500">| Class: {note.classId.title}</span>}
                         </div>
                         
@@ -235,13 +235,13 @@ const Notifications = () => {
                             <button 
                               onClick={() => handleReply(note)}
                               disabled={sendingReply}
-                              className="bg-indigo-500 hover:bg-indigo-600 text-white px-3 py-1.5 rounded-md text-xs font-bold flex items-center gap-1 transition-colors disabled:opacity-50"
+                              className="bg-indigo-500 hover:bg-indigo-600 text-white px-3 py-1.5 rounded-md text-xs font-medium flex items-center gap-1 transition-colors disabled:opacity-50"
                             >
                               {sendingReply ? <Loader className="w-3 h-3 animate-spin" /> : <Send className="w-3 h-3" />}
                             </button>
                             <button 
                               onClick={() => { setReplyingTo(null); setReplyMessage(''); }}
-                              className="text-slate-400 hover:text-white px-2 font-bold text-xs"
+                              className="text-slate-400 hover:text-white px-2 font-medium text-xs"
                             >
                               Cancel
                             </button>
@@ -250,7 +250,7 @@ const Notifications = () => {
                           <div>
                             <button 
                               onClick={() => setReplyingTo(note._id)}
-                              className="bg-indigo-500/20 hover:bg-indigo-500 text-indigo-300 hover:text-white border border-indigo-500/30 font-bold text-[10px] px-3 py-1 rounded-md transition-all shadow-sm flex items-center gap-1 w-fit"
+                              className="bg-indigo-500/20 hover:bg-indigo-500 text-indigo-300 hover:text-white border border-indigo-500/30 font-medium text-[10px] px-3 py-1 rounded-md transition-all shadow-sm flex items-center gap-1 w-fit"
                             >
                               <MessageCircle className="w-3 h-3" /> Reply
                             </button>
@@ -259,7 +259,7 @@ const Notifications = () => {
                       </div>
                     )}
 
-                    <span className="text-[9px] text-slate-500 font-bold uppercase tracking-wider block mt-1.5">
+                    <span className="text-[9px] text-slate-500 font-medium uppercase tracking-wider block mt-1.5">
                       {new Date(note.createdAt).toLocaleDateString(undefined, { weekday: 'long', hour: '2-digit', minute: '2-digit' })}
                     </span>
                   </div>
@@ -268,7 +268,7 @@ const Notifications = () => {
                 {!note.isRead && (
                   <button 
                     onClick={() => markAsRead(note._id)}
-                    className="flex items-center gap-1 bg-indigo-500/20 hover:bg-indigo-500 text-indigo-300 hover:text-white font-bold text-[10px] px-2.5 py-1.5 rounded-md transition-all border border-indigo-500/30 hover:border-indigo-400 cursor-pointer shadow-sm whitespace-nowrap group-hover:-translate-y-0.5 ml-3"
+                    className="flex items-center gap-1 bg-indigo-500/20 hover:bg-indigo-500 text-indigo-300 hover:text-white font-medium text-[10px] px-2.5 py-1.5 rounded-md transition-all border border-indigo-500/30 hover:border-indigo-400 cursor-pointer shadow-sm whitespace-nowrap group-hover:-translate-y-0.5 ml-3"
                   >
                     <CheckCheck className="w-3 h-3" />
                     Mark Read

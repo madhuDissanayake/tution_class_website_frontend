@@ -10,7 +10,7 @@ const About = () => {
       <section className="relative px-6 pt-6 pb-12 text-center z-10">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-blue-500/10 blur-[100px] -z-10"></div>
         
-        <div className="inline-flex items-center space-x-2.5 bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20 rounded-full px-4 py-1.5 text-xs font-bold text-blue-700 dark:text-blue-400 mb-6 shadow-sm">
+        <div className="inline-flex items-center space-x-2.5 bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20 rounded-full px-4 py-1.5 text-xs font-medium text-blue-700 dark:text-blue-400 mb-6 shadow-sm">
           <Logo iconOnly className="w-4 h-4" />
           <span>Our Story</span>
         </div>
@@ -33,7 +33,7 @@ const About = () => {
           <div className="absolute inset-0 bg-gradient-to-t from-blue-900/50 to-transparent pointer-events-none opacity-60"></div>
           
           <div className="absolute bottom-8 left-8 md:bottom-10 md:left-12 text-left pointer-events-none">
-            <div className="inline-block px-3 py-1 bg-blue-600 text-white text-xs font-bold rounded-lg mb-3 shadow-lg">Our Vision in Action</div>
+            <div className="inline-block px-3 py-1 bg-blue-600 text-white text-xs font-medium rounded-lg mb-3 shadow-lg">Our Vision in Action</div>
             <p className="text-white font-black text-2xl md:text-4xl drop-shadow-lg mb-2">Empowering the next generation</p>
             <p className="text-slate-200 font-medium text-sm md:text-base drop-shadow-md max-w-lg">Building the largest, most connected, and technologically advanced island-wide tuition network.</p>
           </div>
@@ -78,32 +78,32 @@ const About = () => {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
              <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700/50 hover:shadow-md transition-shadow">
                 <Users className="w-8 h-8 text-blue-500 mb-4" />
-                <h4 className="text-lg font-bold text-slate-900 dark:text-white mb-2">Multi-Role Portals</h4>
+                <h4 className="text-lg font-medium text-slate-900 dark:text-white mb-2">Multi-Role Portals</h4>
                 <p className="text-sm text-slate-600 dark:text-slate-400">Dedicated dashboards for Students to track progress, Teachers to manage classes, and Admins to oversee the entire platform.</p>
              </div>
              <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700/50 hover:shadow-md transition-shadow">
                 <Map className="w-8 h-8 text-emerald-500 mb-4" />
-                <h4 className="text-lg font-bold text-slate-900 dark:text-white mb-2">Smart Location Search</h4>
+                <h4 className="text-lg font-medium text-slate-900 dark:text-white mb-2">Smart Location Search</h4>
                 <p className="text-sm text-slate-600 dark:text-slate-400">Integrated with Google Maps API, allowing students to effortlessly find physical classes nearest to their location, alongside online options.</p>
              </div>
              <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700/50 hover:shadow-md transition-shadow">
                 <Bot className="w-8 h-8 text-purple-500 mb-4" />
-                <h4 className="text-lg font-bold text-slate-900 dark:text-white mb-2">AI-Powered Assistance</h4>
+                <h4 className="text-lg font-medium text-slate-900 dark:text-white mb-2">AI-Powered Assistance</h4>
                 <p className="text-sm text-slate-600 dark:text-slate-400">Powered by Google Gemini AI, offering intelligent chatbot support, study recommendations, and automated content generation.</p>
              </div>
              <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700/50 hover:shadow-md transition-shadow">
                 <CalendarCheck className="w-8 h-8 text-pink-500 mb-4" />
-                <h4 className="text-lg font-bold text-slate-900 dark:text-white mb-2">Instant Reservations</h4>
+                <h4 className="text-lg font-medium text-slate-900 dark:text-white mb-2">Instant Reservations</h4>
                 <p className="text-sm text-slate-600 dark:text-slate-400">A seamless booking system that tracks available seats in real-time, allowing students to reserve their spot with a single click.</p>
              </div>
              <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700/50 hover:shadow-md transition-shadow">
                 <Shield className="w-8 h-8 text-amber-500 mb-4" />
-                <h4 className="text-lg font-bold text-slate-900 dark:text-white mb-2">Secure Authentication</h4>
+                <h4 className="text-lg font-medium text-slate-900 dark:text-white mb-2">Secure Authentication</h4>
                 <p className="text-sm text-slate-600 dark:text-slate-400">Enterprise-grade security using JWT and bcrypt, ensuring user data is protected across our MongoDB database.</p>
              </div>
              <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700/50 hover:shadow-md transition-shadow">
                 <Bell className="w-8 h-8 text-sky-500 mb-4" />
-                <h4 className="text-lg font-bold text-slate-900 dark:text-white mb-2">Real-time Notifications</h4>
+                <h4 className="text-lg font-medium text-slate-900 dark:text-white mb-2">Real-time Notifications</h4>
                 <p className="text-sm text-slate-600 dark:text-slate-400">Stay updated with instant alerts for class schedule changes, new review postings, and platform announcements.</p>
              </div>
           </div>
@@ -114,10 +114,10 @@ const About = () => {
       <section className="px-6 py-24 text-center">
          <h2 className="text-3xl font-black text-slate-900 dark:text-white mb-6">Ready to start your journey?</h2>
          <div className="flex justify-center gap-4">
-            <Link to="/register" className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-lg transition-all">
+            <Link to="/register" className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-xl shadow-lg transition-all">
               Join as a Student
             </Link>
-            <Link to="/contact" className="px-8 py-3 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white font-bold rounded-xl hover:bg-slate-200 dark:hover:bg-slate-700 transition-all">
+            <Link to="/contact" className="px-8 py-3 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white font-medium rounded-xl hover:bg-slate-200 dark:hover:bg-slate-700 transition-all">
               Contact Us
             </Link>
          </div>

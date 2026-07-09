@@ -15,7 +15,7 @@ const Map = ({ locations = [], onMapClick }) => {
   }, [locations]); 
 
   if (!isLoaded) return (
-    <div className="h-full w-full bg-slate-100 animate-pulse rounded-2xl flex items-center justify-center text-slate-500 font-bold border border-slate-200 text-sm">
+    <div className="h-full w-full bg-slate-100 animate-pulse rounded-2xl flex items-center justify-center text-slate-500 font-medium border border-slate-200 text-sm">
       Loading Interactive Map...
     </div>
   );

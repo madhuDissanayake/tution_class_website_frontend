@@ -82,7 +82,7 @@ const Register = () => {
           <div className="inline-flex p-3.5 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-2xl shadow-sm mb-4">
             <UserPlus className="w-6 h-6" />
           </div>
-          <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">Create an Account</h2>
+          <h2 className="text-3xl font-semibold text-slate-900 dark:text-white tracking-tight">Create an Account</h2>
           <p className="text-slate-500 text-sm mt-1.5 font-semibold">Join Sri Lanka's leading tuition marketplace</p>
         </div>
 
@@ -94,7 +94,7 @@ const Register = () => {
 
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Full Name</label>
+            <label className="block text-xs font-medium text-slate-600 uppercase tracking-wider mb-2">Full Name</label>
             <div className="relative">
               <User className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
               <input 
@@ -110,7 +110,7 @@ const Register = () => {
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Email Address</label>
+            <label className="block text-xs font-medium text-slate-600 uppercase tracking-wider mb-2">Email Address</label>
             <div className="relative">
               <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
               <input 
@@ -126,7 +126,7 @@ const Register = () => {
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Password</label>
+            <label className="block text-xs font-medium text-slate-600 uppercase tracking-wider mb-2">Password</label>
             <div className="relative">
               <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
               <input 
@@ -142,7 +142,7 @@ const Register = () => {
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Phone Number</label>
+            <label className="block text-xs font-medium text-slate-600 uppercase tracking-wider mb-2">Phone Number</label>
             <div className="relative">
               <input 
                 type="text" 
@@ -157,7 +157,7 @@ const Register = () => {
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">I am a...</label>
+            <label className="block text-xs font-medium text-slate-600 uppercase tracking-wider mb-2">I am a...</label>
             <div className="grid grid-cols-2 gap-4">
               <label className={`flex flex-col items-center justify-center p-4 rounded-2xl border cursor-pointer transition-all duration-300 ${formData.role === 'student' ? 'border-blue-600 bg-blue-50/40 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 shadow-sm' : 'border-slate-200 dark:border-slate-700 bg-slate-50/40 dark:bg-slate-800/40 text-slate-600 dark:text-slate-400 hover:border-slate-300'}`}>
                 <input 
@@ -169,7 +169,7 @@ const Register = () => {
                   className="sr-only" 
                 />
                 <GraduationCap className="w-6 h-6 mb-1.5" />
-                <span className="text-xs font-bold uppercase tracking-wider">Student</span>
+                <span className="text-xs font-medium uppercase tracking-wider">Student</span>
               </label>
 
               <label className={`flex flex-col items-center justify-center p-4 rounded-2xl border cursor-pointer transition-all duration-300 ${formData.role === 'teacher' ? 'border-sky-600 bg-sky-50/40 dark:bg-sky-900/30 text-sky-600 dark:text-sky-400 shadow-sm' : 'border-slate-200 dark:border-slate-700 bg-slate-50/40 dark:bg-slate-800/40 text-slate-600 dark:text-slate-400 hover:border-slate-300'}`}>
@@ -182,16 +182,16 @@ const Register = () => {
                   className="sr-only" 
                 />
                 <Briefcase className="w-6 h-6 mb-1.5" />
-                <span className="text-xs font-bold uppercase tracking-wider">Teacher</span>
+                <span className="text-xs font-medium uppercase tracking-wider">Teacher</span>
               </label>
             </div>
           </div>
 
           {formData.role === 'teacher' && (
             <div className="space-y-4 animate-slide-up border-t border-slate-200 dark:border-slate-700 pt-4 mt-4">
-              <h3 className="text-sm font-bold text-slate-800 dark:text-white mb-2">Teacher Additional Details</h3>
+              <h3 className="text-sm font-medium text-slate-800 dark:text-white mb-2">Teacher Additional Details</h3>
               <div>
-                <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">NIC Number</label>
+                <label className="block text-xs font-medium text-slate-600 uppercase tracking-wider mb-2">NIC Number</label>
                 <input 
                   type="text" 
                   name="nic"
@@ -203,7 +203,7 @@ const Register = () => {
                 />
               </div>
               <div>
-                <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Qualifications</label>
+                <label className="block text-xs font-medium text-slate-600 uppercase tracking-wider mb-2">Qualifications</label>
                 <textarea 
                   name="qualifications"
                   className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-sky-500/20 focus:border-sky-600 outline-none text-slate-800 dark:text-white bg-slate-50 dark:bg-slate-800 transition-all font-medium text-sm"
@@ -214,7 +214,7 @@ const Register = () => {
                 />
               </div>
               <div>
-                <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Experience</label>
+                <label className="block text-xs font-medium text-slate-600 uppercase tracking-wider mb-2">Experience</label>
                 <textarea 
                   name="experience"
                   className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-sky-500/20 focus:border-sky-600 outline-none text-slate-800 dark:text-white bg-slate-50 dark:bg-slate-800 transition-all font-medium text-sm"
@@ -225,7 +225,7 @@ const Register = () => {
                 />
               </div>
               <div>
-                <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Subjects You Teach</label>
+                <label className="block text-xs font-medium text-slate-600 uppercase tracking-wider mb-2">Subjects You Teach</label>
                 <input 
                   type="text" 
                   name="subjects"
@@ -238,7 +238,7 @@ const Register = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Mediums You Teach</label>
+                <label className="block text-xs font-medium text-slate-600 uppercase tracking-wider mb-2">Mediums You Teach</label>
                 <div className="grid grid-cols-3 gap-2">
                   {['Sinhala', 'English', 'Tamil'].map(medium => (
                     <label key={medium} className="flex items-center space-x-2 p-2 border border-slate-200 dark:border-slate-700 rounded-lg cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
@@ -256,7 +256,7 @@ const Register = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Grades You Teach</label>
+                <label className="block text-xs font-medium text-slate-600 uppercase tracking-wider mb-2">Grades You Teach</label>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                   {['Grade 6', 'Grade 7', 'Grade 8', 'Grade 9', 'Grade 10', 'Ordinary Level', 'Advanced Level'].map(grade => (
                     <label key={grade} className="flex items-center space-x-2 p-2 border border-slate-200 dark:border-slate-700 rounded-lg cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
@@ -278,7 +278,7 @@ const Register = () => {
           <button 
             type="submit" 
             disabled={loading}
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 rounded-xl shadow-md transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center cursor-pointer mt-4"
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3.5 rounded-xl shadow-md transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center cursor-pointer mt-4"
           >
             {loading ? (
               <>
@@ -293,7 +293,7 @@ const Register = () => {
 
         <p className="mt-8 text-center text-slate-500 text-sm font-semibold">
           Already have an account?{' '}
-          <Link to="/login" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 font-bold hover:underline transition-colors">
+          <Link to="/login" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 font-medium hover:underline transition-colors">
             Log in
           </Link>
         </p>

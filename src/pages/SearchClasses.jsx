@@ -170,10 +170,10 @@ const SearchClasses = () => {
         {loading ? (
           <div className="flex flex-col items-center justify-center min-h-[40vh] space-y-4">
             <Loader className="w-12 h-12 text-blue-600 animate-spin" />
-            <p className="text-slate-500 font-bold animate-pulse text-sm">Searching class databases...</p>
+            <p className="text-slate-500 font-medium animate-pulse text-sm">Searching class databases...</p>
           </div>
         ) : error ? (
-          <div className="bg-red-50 text-red-600 p-4 rounded-2xl text-center font-bold border border-red-100/60 animate-fade-in text-sm">
+          <div className="bg-red-50 text-red-600 p-4 rounded-2xl text-center font-medium border border-red-100/60 animate-fade-in text-sm">
             {error}
           </div>
         ) : classes.length === 0 ? (
@@ -194,29 +194,29 @@ const SearchClasses = () => {
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent"></div>
-                      <div className="absolute bottom-3 left-3 bg-white/20 backdrop-blur-md text-white px-3 py-1 rounded-xl text-xs font-bold flex items-center shadow-sm border border-white/20">
+                      <div className="absolute bottom-3 left-3 bg-white/20 backdrop-blur-md text-white px-3 py-1 rounded-xl text-xs font-medium flex items-center shadow-sm border border-white/20">
                         <Globe className="w-3.5 h-3.5 mr-1" /> {cls.medium} Medium
                       </div>
-                      <div className={`absolute top-3 right-3 backdrop-blur-md text-white px-2.5 py-1 rounded-md text-xs font-bold shadow-sm border border-white/20 ${cls.availableSeats > 0 ? 'bg-blue-600/80' : 'bg-red-500/80'}`}>
+                      <div className={`absolute top-3 right-3 backdrop-blur-md text-white px-2.5 py-1 rounded-md text-xs font-medium shadow-sm border border-white/20 ${cls.availableSeats > 0 ? 'bg-blue-600/80' : 'bg-red-500/80'}`}>
                         {cls.availableSeats > 0 ? `${cls.availableSeats} Seats Left` : 'Fully Booked'}
                       </div>
                     </div>
                     <div className="p-6 pb-2">
                       <div className="flex justify-between items-start mb-2 gap-2">
-                        <h3 className="text-lg font-extrabold text-slate-900 dark:text-white tracking-tight line-clamp-1 group-hover:text-blue-600 transition-colors duration-300">{cls.title}</h3>
-                        <span className="bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-xs font-bold px-3 py-1 rounded-full shrink-0 shadow-sm border border-blue-100 dark:border-blue-800">Rs. {cls.fee}/mo</span>
+                        <h3 className="text-lg font-semibold text-slate-900 dark:text-white tracking-tight line-clamp-1 group-hover:text-blue-600 transition-colors duration-300">{cls.title}</h3>
+                        <span className="bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-xs font-medium px-3 py-1 rounded-full shrink-0 shadow-sm border border-blue-100 dark:border-blue-800">Rs. {cls.fee}/mo</span>
                       </div>
                       
                       <div className="flex items-center mb-4">
                         <div className="flex mr-2">
                           {renderStars(cls.avgRating)}
                         </div>
-                        <span className="text-slate-500 text-xs font-bold mt-0.5">
+                        <span className="text-slate-500 text-xs font-medium mt-0.5">
                           {cls.avgRating ? `${cls.avgRating.toFixed(1)} (${cls.reviewCount || 0} reviews)` : 'No reviews'}
                         </span>
                       </div>
 
-                      <div className="flex items-center text-slate-500 text-xs font-bold mb-4 gap-4">
+                      <div className="flex items-center text-slate-500 text-xs font-medium mb-4 gap-4">
                         <div className="flex items-center"><Book className="w-4 h-4 mr-1 text-blue-500" /> {cls.subject}</div>
                         <div className="flex items-center"><Calendar className="w-4 h-4 mr-1 text-blue-500" /> {cls.grade}</div>
                       </div>
@@ -224,7 +224,7 @@ const SearchClasses = () => {
                     </div>
                   </div>
                   <div className="p-6 pt-2">
-                    <Link to={`/class/${cls._id}`} className="block w-full text-center bg-blue-50 dark:bg-blue-900/20 hover:bg-blue-600 text-blue-600 dark:text-blue-400 hover:text-white font-bold py-2.5 rounded-xl transition-all border border-blue-100 dark:border-blue-800 hover:scale-[1.02] active:scale-98 duration-300 text-sm">
+                    <Link to={`/class/${cls._id}`} className="block w-full text-center bg-blue-50 dark:bg-blue-900/20 hover:bg-blue-600 text-blue-600 dark:text-blue-400 hover:text-white font-medium py-2.5 rounded-xl transition-all border border-blue-100 dark:border-blue-800 hover:scale-[1.02] active:scale-98 duration-300 text-sm">
                       View Details
                     </Link>
                   </div>

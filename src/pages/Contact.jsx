@@ -29,8 +29,8 @@ const Contact = () => {
         
         {/* Header */}
         <div className="text-center mb-12 relative z-10">
-           <h1 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white mb-4">Get in Touch</h1>
-           <p className="text-lg text-slate-600 dark:text-slate-400 font-medium mb-8">Have questions about our classes or need help? We are here for you.</p>
+           <h1 className="text-3xl md:text-4xl font-semibold text-slate-900 dark:text-white mb-3">Get in Touch</h1>
+           <p className="text-base text-slate-600 dark:text-slate-400 font-medium mb-8">Have questions about our classes or need help? We are here for you.</p>
         </div>
 
         <div className="grid lg:grid-cols-3 gap-10">
@@ -41,7 +41,7 @@ const Contact = () => {
                 <Phone className="w-6 h-6 text-blue-600 dark:text-blue-400" />
               </div>
               <div>
-                <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-1">Phone & WhatsApp</h3>
+                <h3 className="text-lg font-medium text-slate-900 dark:text-white mb-1">Phone & WhatsApp</h3>
                 <div className="flex flex-col space-y-1">
                   <a href="tel:+94779803887" className="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-semibold transition-colors flex items-center group">
                     <span className="w-0 group-hover:w-2 h-px bg-blue-600 dark:bg-blue-400 mr-0 group-hover:mr-1.5 transition-all duration-300"></span>
@@ -60,7 +60,7 @@ const Contact = () => {
                 <Mail className="w-6 h-6 text-blue-600 dark:text-blue-400" />
               </div>
               <div>
-                <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-1">Email</h3>
+                <h3 className="text-lg font-medium text-slate-900 dark:text-white mb-1">Email</h3>
                 <a href="mailto:tuitionhub0011@gmail.com" className="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-semibold transition-colors flex items-center group">
                   <span className="w-0 group-hover:w-2 h-px bg-blue-600 dark:bg-blue-400 mr-0 group-hover:mr-1.5 transition-all duration-300"></span>
                   tuitionhub0011@gmail.com
@@ -73,7 +73,7 @@ const Contact = () => {
                 <Clock className="w-6 h-6 text-blue-600 dark:text-blue-400" />
               </div>
               <div>
-                <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-1">Working Hours</h3>
+                <h3 className="text-lg font-medium text-slate-900 dark:text-white mb-1">Working Hours</h3>
                 <p className="text-sm text-slate-500">Monday - Friday: 9:00 AM - 6:00 PM</p>
                 <p className="text-sm text-slate-500">Saturday: 8:00 AM - 2:00 PM</p>
               </div>
@@ -83,10 +83,10 @@ const Contact = () => {
           {/* Contact Form */}
           <div className="lg:col-span-2">
             <div className="bg-white dark:bg-slate-800 p-6 md:p-8 rounded-2xl shadow-xl shadow-indigo-500/5 border border-slate-100 dark:border-slate-700/50">
-              <h2 className="text-xl md:text-2xl font-black text-slate-900 dark:text-white mb-6">Send us a message</h2>
+              <h2 className="text-lg md:text-xl font-semibold text-slate-900 dark:text-white mb-6">Send us a message</h2>
               
               {status && (
-                <div className="mb-6 bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 text-emerald-700 dark:text-emerald-400 px-4 py-3 rounded-xl flex items-center text-sm font-bold animate-fade-in">
+                <div className="mb-6 bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 text-emerald-700 dark:text-emerald-400 px-4 py-3 rounded-xl flex items-center text-sm font-medium animate-fade-in">
                   <CheckCircle2 className="w-5 h-5 mr-2" />
                   {status}
                 </div>
@@ -95,7 +95,7 @@ const Contact = () => {
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label className="text-sm font-bold text-slate-700 dark:text-slate-300">Your Name</label>
+                    <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Your Name</label>
                     <input 
                       type="text" 
                       required
@@ -106,7 +106,7 @@ const Contact = () => {
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-sm font-bold text-slate-700 dark:text-slate-300">Email Address</label>
+                    <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Email Address</label>
                     <input 
                       type="email" 
                       required
@@ -120,7 +120,7 @@ const Contact = () => {
 
 
                 <div className="space-y-2">
-                  <label className="text-sm font-bold text-slate-700 dark:text-slate-300">Message</label>
+                  <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Message</label>
                   <textarea 
                     rows="4"
                     required
@@ -134,7 +134,7 @@ const Contact = () => {
                 <button 
                   type="submit" 
                   disabled={isSubmitting}
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 text-sm rounded-lg shadow-md transition-all duration-300 flex items-center justify-center cursor-pointer disabled:opacity-70"
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 text-sm rounded-lg shadow-md transition-all duration-300 flex items-center justify-center cursor-pointer disabled:opacity-70"
                 >
                   {isSubmitting ? (
                     <span className="flex items-center"><div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div> Sending...</span>

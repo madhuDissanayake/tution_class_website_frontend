@@ -201,22 +201,22 @@ const ClassDetails = () => {
             >
               <ArrowLeft className="w-4 h-4" /> Back to Search
             </Link>
-            <span className="bg-blue-600 text-white text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider shadow-sm">
+            <span className="bg-blue-600 text-white text-xs font-medium px-3 py-1.5 rounded-full uppercase tracking-wider shadow-sm">
               {cls.subject}
             </span>
           </div>
 
           <div className="mt-6 flex flex-col md:flex-row justify-between items-end gap-4 w-full">
             <div className="text-left space-y-1.5">
-              <h1 className="text-2xl md:text-4xl font-bold text-slate-900 dark:text-white tracking-tight leading-none">
+              <h1 className="text-2xl md:text-4xl font-medium text-slate-900 dark:text-white tracking-tight leading-none">
                 {cls.title}
               </h1>
               <p className="text-base md:text-lg text-slate-600 dark:text-slate-300 font-medium flex items-center gap-2">
-                By <span className="text-blue-600 dark:text-blue-400 font-bold">{cls.teacherId?.name || cls.teacher?.name || 'Unknown Teacher'}</span>
+                By <span className="text-blue-600 dark:text-blue-400 font-medium">{cls.teacherId?.name || cls.teacher?.name || 'Unknown Teacher'}</span>
               </p>
             </div>
             <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-md border border-slate-200 dark:border-slate-700 rounded-xl p-3 md:p-4 text-right shadow-sm shrink-0">
-              <span className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white leading-none">Rs. {cls.fee}</span>
+              <span className="text-3xl md:text-4xl font-medium text-slate-900 dark:text-white leading-none">Rs. {cls.fee}</span>
               <span className="text-slate-500 dark:text-slate-400 block text-xs font-semibold mt-1 uppercase tracking-wider">per month</span>
             </div>
           </div>
@@ -235,7 +235,7 @@ const ClassDetails = () => {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
                 </span>
-                <span className="font-bold text-sm md:text-base">{successMessage}</span>
+                <span className="font-medium text-sm md:text-base">{successMessage}</span>
               </div>
               <button onClick={() => setSuccessMessage(null)} className="text-emerald-800 hover:text-emerald-950 font-black text-xl leading-none px-2">×</button>
             </div>
@@ -243,7 +243,7 @@ const ClassDetails = () => {
           
           {error && (
             <div className="bg-rose-50 text-rose-800 p-5 rounded-2xl border border-rose-100 shadow-sm flex items-center justify-between animate-fade-in">
-              <span className="font-bold text-sm md:text-base">{error}</span>
+              <span className="font-medium text-sm md:text-base">{error}</span>
               <button onClick={() => setError(null)} className="text-rose-800 hover:text-rose-950 font-black text-xl leading-none px-2">×</button>
             </div>
           )}
@@ -251,7 +251,7 @@ const ClassDetails = () => {
           {/* Description Section */}
           <div className="bg-white/80 dark:bg-slate-900/60 backdrop-blur-xl border border-white/20 dark:border-slate-700/50 rounded-2xl p-5 md:p-6 space-y-4 shadow-lg shadow-slate-200/20 dark:shadow-none">
             <div>
-              <h3 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">About this class</h3>
+              <h3 className="text-xl font-medium text-slate-900 dark:text-white tracking-tight">About this class</h3>
               <div className="w-10 h-1 bg-blue-600 rounded-full mt-1.5" />
             </div>
             <p className="text-slate-600 dark:text-slate-300 leading-relaxed font-medium text-sm md:text-base">{cls.description}</p>
@@ -260,18 +260,18 @@ const ClassDetails = () => {
             <div className="grid grid-cols-3 gap-3 border-t border-slate-100 dark:border-slate-800 pt-5">
               <div className="bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700 p-3 rounded-xl text-center flex flex-col items-center justify-center space-y-1">
                 <Book className="w-5 h-5 text-blue-600" />
-                <span className="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider">Grade</span>
-                <span className="text-sm text-slate-900 dark:text-white font-bold">{cls.grade}</span>
+                <span className="text-[10px] text-slate-500 dark:text-slate-400 font-medium uppercase tracking-wider">Grade</span>
+                <span className="text-sm text-slate-900 dark:text-white font-medium">{cls.grade}</span>
               </div>
               <div className="bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700 p-3 rounded-xl text-center flex flex-col items-center justify-center space-y-1">
                 <Users className="w-5 h-5 text-sky-600" />
-                <span className="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider">Seats Free</span>
-                <span className="text-sm text-slate-900 dark:text-white font-bold">{cls.availableSeats} / {cls.capacity}</span>
+                <span className="text-[10px] text-slate-500 dark:text-slate-400 font-medium uppercase tracking-wider">Seats Free</span>
+                <span className="text-sm text-slate-900 dark:text-white font-medium">{cls.availableSeats} / {cls.capacity}</span>
               </div>
               <div className="bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700 p-3 rounded-xl text-center flex flex-col items-center justify-center space-y-1">
                 <Globe className="w-5 h-5 text-indigo-600" />
-                <span className="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider">Medium</span>
-                <span className="text-sm text-slate-900 dark:text-white font-bold">{cls.medium}</span>
+                <span className="text-[10px] text-slate-500 dark:text-slate-400 font-medium uppercase tracking-wider">Medium</span>
+                <span className="text-sm text-slate-900 dark:text-white font-medium">{cls.medium}</span>
               </div>
             </div>
           </div>
@@ -279,7 +279,7 @@ const ClassDetails = () => {
           {/* Schedule Section */}
           <div className="bg-white/80 dark:bg-slate-900/60 backdrop-blur-xl border border-white/20 dark:border-slate-700/50 rounded-2xl p-5 md:p-6 space-y-4 shadow-lg shadow-slate-200/20 dark:shadow-none">
             <div>
-              <h3 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">Class Schedule</h3>
+              <h3 className="text-xl font-medium text-slate-900 dark:text-white tracking-tight">Class Schedule</h3>
               <div className="w-10 h-1 bg-blue-600 rounded-full mt-1.5" />
             </div>
 
@@ -292,13 +292,13 @@ const ClassDetails = () => {
                         <Calendar className="w-4 h-4" />
                       </div>
                       <div>
-                        <span className="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider block">Day</span>
-                        <span className="font-bold text-slate-900 dark:text-white text-sm">{slot.day}</span>
+                        <span className="text-[10px] text-slate-500 dark:text-slate-400 font-medium uppercase tracking-wider block">Day</span>
+                        <span className="font-medium text-slate-900 dark:text-white text-sm">{slot.day}</span>
                       </div>
                     </div>
                     <div className="text-right">
-                      <span className="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider block">Time</span>
-                      <span className="font-bold text-slate-900 dark:text-white text-xs">
+                      <span className="text-[10px] text-slate-500 dark:text-slate-400 font-medium uppercase tracking-wider block">Time</span>
+                      <span className="font-medium text-slate-900 dark:text-white text-xs">
                         {slot.startTime} - {slot.endTime}
                       </span>
                     </div>
@@ -313,7 +313,7 @@ const ClassDetails = () => {
           {/* Reviews & Ratings Section */}
           <div className="bg-white/80 dark:bg-slate-900/60 backdrop-blur-xl border border-white/20 dark:border-slate-700/50 rounded-2xl p-4 space-y-4 shadow-lg shadow-slate-200/20 dark:shadow-none mt-6">
             <div>
-              <h3 className="text-lg font-bold text-slate-900 dark:text-white tracking-tight">Reviews & Ratings</h3>
+              <h3 className="text-lg font-medium text-slate-900 dark:text-white tracking-tight">Reviews & Ratings</h3>
               <div className="w-8 h-1 bg-amber-500 rounded-full mt-1" />
             </div>
 
@@ -343,10 +343,10 @@ const ClassDetails = () => {
                   <div key={review._id} className="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-3 border border-slate-100 dark:border-slate-700">
                     <div className="flex items-center justify-between mb-1.5">
                       <div className="flex items-center gap-2">
-                        <div className="w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center text-blue-600 dark:text-blue-400 font-bold text-xs">
+                        <div className="w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center text-blue-600 dark:text-blue-400 font-medium text-xs">
                           {review.studentId?.name ? review.studentId.name.charAt(0).toUpperCase() : 'S'}
                         </div>
-                        <span className="font-bold text-slate-900 dark:text-white text-xs">{review.studentId?.name || 'Student'}</span>
+                        <span className="font-medium text-slate-900 dark:text-white text-xs">{review.studentId?.name || 'Student'}</span>
                       </div>
                       <div className="flex gap-0.5">
                         {[1, 2, 3, 4, 5].map((star) => (
@@ -358,7 +358,7 @@ const ClassDetails = () => {
                       </div>
                     </div>
                     <p className="text-slate-600 dark:text-slate-300 text-xs font-medium">{review.comment}</p>
-                    <p className="text-[9px] text-slate-400 font-bold mt-2">{new Date(review.createdAt).toLocaleDateString()}</p>
+                    <p className="text-[9px] text-slate-400 font-medium mt-2">{new Date(review.createdAt).toLocaleDateString()}</p>
                   </div>
                 ))
               ) : (
@@ -369,23 +369,23 @@ const ClassDetails = () => {
             {/* Write a Review Form */}
             {user?.role === 'student' && (
               <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800">
-                <h4 className="text-base font-bold text-slate-900 dark:text-white mb-3">Write a Review</h4>
+                <h4 className="text-base font-medium text-slate-900 dark:text-white mb-3">Write a Review</h4>
                 
                 {reviewSuccess && (
-                  <div className="bg-emerald-50 text-emerald-600 p-2.5 rounded-xl mb-3 text-xs font-bold border border-emerald-100/60 text-center">
+                  <div className="bg-emerald-50 text-emerald-600 p-2.5 rounded-xl mb-3 text-xs font-medium border border-emerald-100/60 text-center">
                     {reviewSuccess}
                   </div>
                 )}
                 
                 {reviewError && (
-                  <div className="bg-rose-50 text-rose-600 p-2.5 rounded-xl mb-3 text-xs font-bold border border-rose-100/60 text-center">
+                  <div className="bg-rose-50 text-rose-600 p-2.5 rounded-xl mb-3 text-xs font-medium border border-rose-100/60 text-center">
                     {reviewError}
                   </div>
                 )}
 
                 <form onSubmit={handleReviewSubmit} className="space-y-3">
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1.5">Rating</label>
+                    <label className="block text-[10px] font-medium text-slate-500 uppercase tracking-wider mb-1.5">Rating</label>
                     <div className="flex gap-1.5">
                       {[1, 2, 3, 4, 5].map((star) => (
                         <button
@@ -400,7 +400,7 @@ const ClassDetails = () => {
                     </div>
                   </div>
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1.5">Comment</label>
+                    <label className="block text-[10px] font-medium text-slate-500 uppercase tracking-wider mb-1.5">Comment</label>
                     <textarea
                       className="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none resize-none text-xs font-medium bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white transition-all"
                       rows="2"
@@ -412,7 +412,7 @@ const ClassDetails = () => {
                   <button
                     type="submit"
                     disabled={reviewLoading}
-                    className="bg-slate-900 dark:bg-blue-600 hover:bg-slate-800 dark:hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg text-xs transition-all shadow-md disabled:opacity-50 flex items-center justify-center gap-2"
+                    className="bg-slate-900 dark:bg-blue-600 hover:bg-slate-800 dark:hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg text-xs transition-all shadow-md disabled:opacity-50 flex items-center justify-center gap-2"
                   >
                     {reviewLoading ? <Loader className="w-3.5 h-3.5 animate-spin" /> : 'Submit Review'}
                   </button>
@@ -428,7 +428,7 @@ const ClassDetails = () => {
           {/* Reservation Card / Call to Action */}
           <div className="bg-white/80 dark:bg-slate-900/60 backdrop-blur-xl border border-white/20 dark:border-slate-700/50 rounded-2xl p-5 md:p-6 space-y-4 relative overflow-hidden shadow-lg shadow-blue-900/5">
             <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-blue-500/20 to-transparent rounded-full -mr-8 -mt-8 blur-xl pointer-events-none" />
-            <h4 className="text-lg font-bold text-slate-900 dark:text-white relative z-10">Reserve Your Seat</h4>
+            <h4 className="text-lg font-medium text-slate-900 dark:text-white relative z-10">Reserve Your Seat</h4>
             <p className="text-slate-600 dark:text-slate-400 font-medium text-sm leading-relaxed relative z-10">Join this cohort of students today. Secure your admission to learn directly from {cls.teacherId?.name || cls.teacher?.name || 'our highly specialized teacher'}.</p>
             
             <div className="relative z-10 mt-2">
@@ -437,7 +437,7 @@ const ClassDetails = () => {
                   <button 
                     onClick={handleReserve}
                     disabled={reserveLoading}
-                    className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold py-3 px-5 rounded-xl shadow-md shadow-blue-500/25 disabled:opacity-50 transition-all transform hover:-translate-y-0.5 text-sm flex items-center justify-center gap-2 cursor-pointer"
+                    className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-medium py-3 px-5 rounded-xl shadow-md shadow-blue-500/25 disabled:opacity-50 transition-all transform hover:-translate-y-0.5 text-sm flex items-center justify-center gap-2 cursor-pointer"
                   >
                     {reserveLoading ? (
                       <>
@@ -451,7 +451,7 @@ const ClassDetails = () => {
                 ) : (
                   <button 
                     disabled
-                    className="w-full bg-slate-200 dark:bg-slate-800 text-slate-500 dark:text-slate-500 font-bold py-3 px-5 rounded-xl shadow-sm cursor-not-allowed flex items-center justify-center gap-2 text-sm"
+                    className="w-full bg-slate-200 dark:bg-slate-800 text-slate-500 dark:text-slate-500 font-medium py-3 px-5 rounded-xl shadow-sm cursor-not-allowed flex items-center justify-center gap-2 text-sm"
                   >
                     Class is full. No seats available.
                   </button>
@@ -461,7 +461,7 @@ const ClassDetails = () => {
                   <p className="text-slate-500 italic text-xs font-semibold">Please log in as a student to reserve your seat.</p>
                   <Link 
                     to="/login" 
-                    className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold py-3 px-5 rounded-xl shadow-md shadow-blue-500/25 transition-all transform hover:-translate-y-0.5 text-center block text-sm"
+                    className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-medium py-3 px-5 rounded-xl shadow-md shadow-blue-500/25 transition-all transform hover:-translate-y-0.5 text-center block text-sm"
                   >
                     Log In
                   </Link>
@@ -475,7 +475,7 @@ const ClassDetails = () => {
               {user?.role === 'student' && (
                 <button 
                   onClick={() => setShowMessageModal(true)}
-                  className="w-full mt-3 bg-white dark:bg-slate-800 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 font-bold py-3 px-5 rounded-xl shadow-sm transition-all transform hover:-translate-y-0.5 text-sm flex items-center justify-center gap-2 border border-indigo-100 dark:border-indigo-500/20"
+                  className="w-full mt-3 bg-white dark:bg-slate-800 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 font-medium py-3 px-5 rounded-xl shadow-sm transition-all transform hover:-translate-y-0.5 text-sm flex items-center justify-center gap-2 border border-indigo-100 dark:border-indigo-500/20"
                 >
                   <MessageCircle className="w-4 h-4" /> Message Teacher
                 </button>
@@ -493,8 +493,8 @@ const ClassDetails = () => {
                   <MapPin className="w-4 h-4 animate-pulse" />
                 </div>
                 <div>
-                  <h4 className="text-base font-bold text-slate-900 dark:text-white">Class Location</h4>
-                  <p className="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider">Address details</p>
+                  <h4 className="text-base font-medium text-slate-900 dark:text-white">Class Location</h4>
+                  <p className="text-[10px] text-slate-500 dark:text-slate-400 font-medium uppercase tracking-wider">Address details</p>
                 </div>
               </div>
 
@@ -535,7 +535,7 @@ const ClassDetails = () => {
             <p className="text-slate-500 text-sm font-medium mb-6">Send a private message to {cls.teacherId?.name || 'the teacher'}.</p>
             
             {messageSuccess ? (
-              <div className="bg-emerald-50 text-emerald-600 p-4 rounded-xl text-center font-bold mb-4">
+              <div className="bg-emerald-50 text-emerald-600 p-4 rounded-xl text-center font-medium mb-4">
                 {messageSuccess}
               </div>
             ) : (
@@ -549,7 +549,7 @@ const ClassDetails = () => {
                 <button
                   onClick={handleSendMessage}
                   disabled={messageSending || !messageContent.trim()}
-                  className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold py-3.5 px-6 rounded-2xl shadow-md disabled:opacity-50 transition-all flex items-center justify-center gap-2"
+                  className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3.5 px-6 rounded-2xl shadow-md disabled:opacity-50 transition-all flex items-center justify-center gap-2"
                 >
                   {messageSending ? <Loader className="w-5 h-5 animate-spin" /> : 'Send Message'}
                 </button>
