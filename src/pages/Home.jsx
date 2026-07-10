@@ -42,14 +42,8 @@ const Home = () => {
   useEffect(() => {
     const fetchPopularClasses = async () => {
       try {
-        const { data } = await axios.get(import.meta.env.VITE_API_URL + '/api/classes');
-        // Simple sorting by reviews/rating
-        const sorted = data.sort((a, b) => {
-          const scoreA = (a.avgRating || 0) * (a.reviewCount || 1);
-          const scoreB = (b.avgRating || 0) * (b.reviewCount || 1);
-          return scoreB - scoreA;
-        });
-        setPopularClasses(sorted.slice(0, 4));
+        const { data } = await axios.get(import.meta.env.VITE_API_URL + '/api/classes?isPopular=true');
+        setPopularClasses(data.slice(0, 4));
       } catch (error) {
         console.error("Failed to fetch popular classes", error);
       } finally {
@@ -58,6 +52,21 @@ const Home = () => {
     };
     
     fetchPopularClasses();
+  }, []);
+
+  useEffect(() => {
+    const fetchFeaturedTutors = async () => {
+      try {
+        const { data } = await axios.get(import.meta.env.VITE_API_URL + '/api/admin/featured-tutors/public');
+        setFeaturedTutors(data);
+      } catch (error) {
+        console.error("Failed to fetch featured tutors", error);
+      } finally {
+        setLoadingTutors(false);
+      }
+    };
+    
+    fetchFeaturedTutors();
   }, []);
 
   return (
@@ -206,6 +215,60 @@ const Home = () => {
                     </div>
                   </div>
                 </Link>
+              ))
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Tutors Section */}
+      <section className="py-20 px-6 bg-surface-900 border-b border-surface-600">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col text-center items-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-medium text-white mb-3">
+              Meet Our Featured Tutors
+            </h2>
+            <p className="text-muted-400 font-medium max-w-2xl">
+              Learn from the best. Our top-rated tutors are here to guide you to academic excellence.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {loadingTutors ? (
+               <div className="col-span-full text-center py-10 text-muted-500 animate-pulse">Loading Featured Tutors...</div>
+            ) : featuredTutors.length === 0 ? (
+               <div className="col-span-full text-center py-10 text-muted-500">No featured tutors available at the moment.</div>
+            ) : (
+              featuredTutors.map(tutor => (
+                <div key={tutor._id} className="group bg-surface-800 rounded-2xl p-6 shadow-card hover:shadow-card-hover hover:bg-surface-700 hover:-translate-y-1 transition-all duration-300 border border-surface-600 flex flex-col items-center text-center">
+                  <div className={`w-20 h-20 rounded-full mb-4 flex items-center justify-center text-3xl shadow-lg font-bold
+                    ${tutor.themeColor === 'indigo' ? 'bg-indigo-500/20 text-indigo-400 border border-indigo-500/30' : ''}
+                    ${tutor.themeColor === 'pink' ? 'bg-pink-500/20 text-pink-400 border border-pink-500/30' : ''}
+                    ${tutor.themeColor === 'emerald' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : ''}
+                    ${tutor.themeColor === 'blue' ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30' : ''}
+                    ${tutor.themeColor === 'purple' ? 'bg-purple-500/20 text-purple-400 border border-purple-500/30' : ''}
+                    ${tutor.themeColor === 'rose' ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30' : ''}
+                    ${tutor.themeColor === 'teal' ? 'bg-teal-500/20 text-teal-400 border border-teal-500/30' : ''}
+                    ${tutor.themeColor === 'cyan' ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/30' : ''}
+                    ${!['indigo','pink','emerald','blue','purple','rose','teal','cyan'].includes(tutor.themeColor) ? 'bg-primary/20 text-primary-light border border-primary/30' : ''}
+                  `}>
+                    {tutor.name.charAt(0).toUpperCase()}
+                  </div>
+                  <h3 className="text-lg font-semibold text-white mb-1 group-hover:text-primary-light transition-colors">{tutor.name}</h3>
+                  <p className="text-sm text-muted-400 font-medium mb-4">{tutor.subject} Specialist</p>
+                  
+                  <div className="flex items-center gap-4 mt-auto pt-4 border-t border-surface-600 w-full justify-center">
+                    <div className="flex items-center">
+                      <Star className="w-4 h-4 fill-amber-400 text-amber-400 mr-1.5" />
+                      <span className="text-sm font-medium text-white">{tutor.rating ? tutor.rating.toFixed(1) : '5.0'}</span>
+                    </div>
+                    <div className="w-1 h-1 rounded-full bg-surface-500"></div>
+                    <div className="flex items-center">
+                      <Users className="w-4 h-4 text-primary-light mr-1.5" />
+                      <span className="text-sm font-medium text-white">{tutor.studentsCount} Students</span>
+                    </div>
+                  </div>
+                </div>
               ))
             )}
           </div>

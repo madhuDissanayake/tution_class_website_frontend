@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
-import { Loader, Users, BookOpen, Bell, Trash2, Mail, ChevronDown, ChevronRight, Edit, PlusCircle } from 'lucide-react';
+import { Loader, Users, BookOpen, Bell, Trash2, Mail, ChevronDown, ChevronRight, Edit, PlusCircle, Star } from 'lucide-react';
 
 const AdminPanel = () => {
   const { user } = useContext(AuthContext);
@@ -199,6 +199,27 @@ const AdminPanel = () => {
       setTeacherClasses(previousClasses);
       console.error(err);
       setError('Failed to delete class');
+    }
+  };
+
+  const handleTogglePopularClass = async (classId, currentStatus) => {
+    try {
+      setError(null);
+      const config = { headers: { Authorization: `Bearer ${user.token}` } };
+      
+      // Optimistic update
+      setTeacherClasses(teacherClasses.map(c => 
+        c._id === classId ? { ...c, isPopular: !currentStatus } : c
+      ));
+      
+      await axios.put(import.meta.env.VITE_API_URL + `/api/admin/classes/${classId}/toggle-popular`, {}, config);
+      setSuccess(`Class ${!currentStatus ? 'marked as popular' : 'removed from popular'} successfully!`);
+    } catch (err) {
+      // Revert optimistic update
+      setTeacherClasses(teacherClasses.map(c => 
+        c._id === classId ? { ...c, isPopular: currentStatus } : c
+      ));
+      setError(err.response?.data?.message || 'Failed to toggle popular status');
     }
   };
 
@@ -606,6 +627,9 @@ const AdminPanel = () => {
                               <div className="flex justify-between items-start mb-2">
                                 <h4 className="font-medium text-white text-sm line-clamp-1">{cls.title}</h4>
                                 <div className="flex gap-1 shrink-0">
+                                  <button onClick={() => handleTogglePopularClass(cls._id, cls.isPopular)} className={`p-1.5 rounded-md transition-colors ${cls.isPopular ? 'text-amber-500 hover:bg-amber-50 dark:hover:bg-amber-500/10' : 'text-slate-400 hover:text-amber-500 hover:bg-amber-50 dark:hover:bg-amber-500/10'}`} title={cls.isPopular ? "Remove from Popular" : "Make Popular"}>
+                                    <Star className={`w-3.5 h-3.5 ${cls.isPopular ? 'fill-amber-500' : ''}`} />
+                                  </button>
                                   <button onClick={() => navigate(`/edit-class/${cls._id}`)} className="p-1.5 text-blue-500 hover:bg-blue-50 dark:hover:bg-primary/10 rounded-md transition-colors" title="Edit Class">
                                     <Edit className="w-3.5 h-3.5" />
                                   </button>
@@ -637,7 +661,7 @@ const AdminPanel = () => {
         <div className="p-4 md:p-5 border-b border-slate-200/60 dark:border-slate-700/60 bg-slate-50/50 dark:bg-slate-800/50 flex flex-col md:flex-row justify-between items-start md:items-center gap-3">
           <h2 className="text-lg font-medium text-white flex items-center">
             <span className="w-1.5 h-5 bg-purple-500 rounded-full mr-2.5"></span>
-            Manage Top Tier Tutors
+            Manage Featured Tutors
           </h2>
         </div>
         

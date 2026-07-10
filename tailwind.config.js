@@ -55,8 +55,8 @@ export default {
         '2xl': '1.25rem',
       },
       animation: {
-        'fade-in': 'fadeIn 0.5s ease-in-out',
-        'slide-up': 'slideUp 0.4s ease-out',
+        'fade-in': 'fadeIn 0.5s ease-in-out both',
+        'slide-up': 'slideUp 0.4s ease-out both',
       },
       keyframes: {
         fadeIn: {
