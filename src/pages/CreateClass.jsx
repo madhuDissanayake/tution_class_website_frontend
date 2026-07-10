@@ -141,27 +141,27 @@ const CreateClass = () => {
 
   return (
     <div className="max-w-3xl mx-auto animate-fade-in relative">
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-[100px] pointer-events-none -z-10"></div>
-      <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-purple-500/10 rounded-full blur-[100px] pointer-events-none -z-10"></div>
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[100px] pointer-events-none -z-10"></div>
+      <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-primary/10 rounded-full blur-[100px] pointer-events-none -z-10"></div>
 
-      <h1 className="text-3xl font-black bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 tracking-tight mb-8">Create a New Class</h1>
-      <div className="glass-panel bg-white/80 dark:bg-slate-900/60 dark:backdrop-blur-2xl p-8 rounded-3xl shadow-lg border border-slate-200/60 dark:border-slate-700/60 relative z-10">
+      <h1 className="text-3xl font-black bg-clip-text text-transparent bg-gradient-to-r from-primary-light to-primary tracking-tight mb-8">Create a New Class</h1>
+      <div className="glass-panel bg-surface-900/80 p-8 rounded-3xl shadow-card border border-surface-700 relative z-10">
         
         {error && (
-          <div className="bg-red-50 text-red-700 p-4 rounded-xl border border-red-200 mb-6 flex items-center justify-between animate-fade-in">
+          <div className="bg-red-500/10 text-red-400 p-4 rounded-xl border border-red-500/20 mb-6 flex items-center justify-between animate-fade-in">
             <span className="font-semibold">{error}</span>
-            <button onClick={() => setError(null)} className="text-red-700 hover:text-red-900 font-medium ml-4 text-xl leading-none">×</button>
+            <button onClick={() => setError(null)} className="text-red-400 hover:text-red-300 font-medium ml-4 text-xl leading-none">×</button>
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Class Title</label>
+              <label className="block text-sm font-medium text-muted-400 mb-1">Class Title</label>
               <input 
                 type="text" 
                 name="title"
-                className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-primary/50 outline-none text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800/50 placeholder-slate-400 dark:placeholder-slate-500 transition-all font-semibold"
+                className="w-full px-4 py-3 border border-surface-600 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-white bg-surface-800 placeholder-muted-500 transition-all font-semibold"
                 value={formData.title}
                 onChange={handleChange}
                 placeholder="e.g. Advanced Mathematics for O/L"
@@ -170,10 +170,10 @@ const CreateClass = () => {
             </div>
 
             <div className="md:col-span-2 border-b border-slate-100 pb-4 mb-2">
-              <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Assign Teacher</label>
+              <label className="block text-sm font-medium text-muted-400 mb-1">Assign Teacher</label>
               <select 
                 name="teacherId"
-                className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-primary/50 outline-none text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800/50 placeholder-slate-400 dark:placeholder-slate-500 transition-all font-semibold"
+                className="w-full px-4 py-3 border border-surface-600 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-white bg-surface-800 placeholder-muted-500 transition-all font-semibold"
                 value={formData.teacherId}
                 onChange={handleChange}
                 required
@@ -188,10 +188,10 @@ const CreateClass = () => {
             </div>
             
             <div>
-              <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Subject</label>
+              <label className="block text-sm font-medium text-muted-400 mb-1">Subject</label>
               <select 
                 name="subject"
-                className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-primary/50 outline-none text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800/50 placeholder-slate-400 dark:placeholder-slate-500 transition-all font-semibold"
+                className="w-full px-4 py-3 border border-surface-600 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-white bg-surface-800 placeholder-muted-500 transition-all font-semibold"
                 value={formData.subject}
                 onChange={handleChange}
                 required
@@ -214,10 +214,10 @@ const CreateClass = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Grade Level</label>
+              <label className="block text-sm font-medium text-muted-400 mb-1">Grade Level</label>
               <select 
                 name="grade"
-                className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-primary/50 outline-none text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800/50 placeholder-slate-400 dark:placeholder-slate-500 transition-all font-semibold"
+                className="w-full px-4 py-3 border border-surface-600 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-white bg-surface-800 placeholder-muted-500 transition-all font-semibold"
                 value={formData.grade}
                 onChange={handleChange}
                 required
@@ -234,10 +234,10 @@ const CreateClass = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Medium (Language)</label>
+              <label className="block text-sm font-medium text-muted-400 mb-1">Medium (Language)</label>
               <select 
                 name="medium"
-                className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-primary/50 outline-none text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800/50 placeholder-slate-400 dark:placeholder-slate-500 transition-all font-semibold"
+                className="w-full px-4 py-3 border border-surface-600 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-white bg-surface-800 placeholder-muted-500 transition-all font-semibold"
                 value={formData.medium}
                 onChange={handleChange}
                 required
@@ -250,11 +250,11 @@ const CreateClass = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Monthly Fee (Rs.)</label>
+              <label className="block text-sm font-medium text-muted-400 mb-1">Monthly Fee (Rs.)</label>
               <input 
                 type="number" 
                 name="fee"
-                className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-primary/50 outline-none text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800/50 placeholder-slate-400 dark:placeholder-slate-500 transition-all font-semibold"
+                className="w-full px-4 py-3 border border-surface-600 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-white bg-surface-800 placeholder-muted-500 transition-all font-semibold"
                 value={formData.fee}
                 onChange={handleChange}
                 placeholder="e.g. 50"
@@ -263,11 +263,11 @@ const CreateClass = () => {
             </div>
 
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Student Capacity</label>
+              <label className="block text-sm font-medium text-muted-400 mb-1">Student Capacity</label>
               <input 
                 type="number" 
                 name="capacity"
-                className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-primary/50 outline-none text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800/50 placeholder-slate-400 dark:placeholder-slate-500 transition-all font-semibold"
+                className="w-full px-4 py-3 border border-surface-600 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-white bg-surface-800 placeholder-muted-500 transition-all font-semibold"
                 value={formData.capacity}
                 onChange={handleChange}
                 placeholder="e.g. 30"
@@ -276,11 +276,11 @@ const CreateClass = () => {
             </div>
             
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Description</label>
+              <label className="block text-sm font-medium text-muted-400 mb-1">Description</label>
               <textarea 
                 name="description"
                 rows="4"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary outline-none resize-none text-slate-900 bg-white placeholder-slate-400 font-semibold"
+                className="w-full px-4 py-3 border border-surface-600 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none resize-none text-white bg-surface-800 placeholder-muted-500 font-semibold"
                 value={formData.description}
                 onChange={handleChange}
                 placeholder="Describe your class..."
@@ -289,48 +289,48 @@ const CreateClass = () => {
             </div>
 
             {/* Online/Physical Toggle & Location Fields */}
-            <div className="md:col-span-2 border-t border-slate-100 dark:border-slate-800 pt-6 mt-2">
+            <div className="md:col-span-2 border-t border-surface-700 pt-6 mt-2">
               <div className="flex items-center mb-6">
                 <input
                   type="checkbox"
                   id="isOnline"
                   name="isOnline"
-                  className="w-5 h-5 text-primary border-gray-300 rounded focus:ring-primary"
+                  className="w-5 h-5 text-primary border-surface-600 bg-surface-800 rounded focus:ring-primary/50"
                   checked={formData.isOnline}
                   onChange={handleChange}
                 />
-                <label htmlFor="isOnline" className="ml-3 text-lg font-medium text-slate-900 dark:text-white">
+                <label htmlFor="isOnline" className="ml-3 text-lg font-medium text-white">
                   This is an Online Class (Zoom/Meet/WhatsApp)
                 </label>
               </div>
 
               {formData.isOnline ? (
                 <div className="animate-fade-in">
-                  <h3 className="text-lg font-medium text-slate-900 dark:text-white mb-4">Online Class Details</h3>
+                  <h3 className="text-lg font-medium text-white mb-4">Online Class Details</h3>
                   <div className="md:col-span-3">
-                    <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Group Link (Zoom, WhatsApp, etc.)</label>
+                    <label className="block text-sm font-medium text-muted-400 mb-1">Group Link (Zoom, WhatsApp, etc.)</label>
                     <input 
                       type="url" 
                       name="groupLink"
-                      className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-primary/50 outline-none text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800/50 placeholder-slate-400 dark:placeholder-slate-500 transition-all font-semibold"
+                      className="w-full px-4 py-3 border border-surface-600 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-white bg-surface-800 placeholder-muted-500 transition-all font-semibold"
                       value={formData.groupLink}
                       onChange={handleChange}
                       placeholder="e.g. https://chat.whatsapp.com/..."
                       required={formData.isOnline} 
                     />
-                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 italic">Students will receive this link once you approve their reservation.</p>
+                    <p className="text-xs text-muted-500 mt-2 italic">Students will receive this link once you approve their reservation.</p>
                   </div>
                 </div>
               ) : (
                 <div className="animate-fade-in">
-                  <h3 className="text-lg font-medium text-slate-900 dark:text-white mb-4">Physical Class Location Details</h3>
+                  <h3 className="text-lg font-medium text-white mb-4">Physical Class Location Details</h3>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="md:col-span-3">
-                      <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Physical Address</label>
+                      <label className="block text-sm font-medium text-muted-400 mb-1">Physical Address</label>
                       <input 
                         type="text" 
                         name="address"
-                        className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-primary/50 outline-none text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800/50 placeholder-slate-400 dark:placeholder-slate-500 transition-all font-semibold"
+                        className="w-full px-4 py-3 border border-surface-600 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-white bg-surface-800 placeholder-muted-500 transition-all font-semibold"
                         value={formData.address}
                         onChange={handleChange}
                         placeholder="e.g. 123, Galle Road, Colombo 03"
@@ -338,12 +338,12 @@ const CreateClass = () => {
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Latitude</label>
+                      <label className="block text-sm font-medium text-muted-400 mb-1">Latitude</label>
                       <input 
                         type="number" 
                         step="any"
                         name="lat"
-                        className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-primary/50 outline-none text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800/50 placeholder-slate-400 dark:placeholder-slate-500 transition-all font-semibold"
+                        className="w-full px-4 py-3 border border-surface-600 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-white bg-surface-800 placeholder-muted-500 transition-all font-semibold"
                         value={formData.lat}
                         onChange={handleChange}
                         placeholder="e.g. 6.9271"
@@ -351,12 +351,12 @@ const CreateClass = () => {
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Longitude</label>
+                      <label className="block text-sm font-medium text-muted-400 mb-1">Longitude</label>
                       <input 
                         type="number" 
                         step="any"
                         name="lng"
-                        className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-primary/50 outline-none text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800/50 placeholder-slate-400 dark:placeholder-slate-500 transition-all font-semibold"
+                        className="w-full px-4 py-3 border border-surface-600 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-white bg-surface-800 placeholder-muted-500 transition-all font-semibold"
                         value={formData.lng}
                         onChange={handleChange}
                         placeholder="e.g. 79.8612"
@@ -364,39 +364,39 @@ const CreateClass = () => {
                       />
                     </div>
                   </div>
-                  <div className="mt-4 h-64 w-full rounded-2xl overflow-hidden border border-gray-300">
+                  <div className="mt-4 h-64 w-full rounded-2xl overflow-hidden border border-surface-600">
                     <Map 
                       locations={formData.lat && formData.lng ? [{ lat: formData.lat, lng: formData.lng, title: formData.title || 'Class Location' }] : []} 
                       onMapClick={handleMapClick}
                     />
                   </div>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 italic">Tip: You can also click on the map to automatically set latitude and longitude.</p>
+                  <p className="text-xs text-muted-500 mt-2 italic">Tip: You can also click on the map to automatically set latitude and longitude.</p>
                 </div>
               )}
             </div>
 
             {/* Dynamic Schedule Section */}
-            <div className="md:col-span-2 border-t border-slate-100 dark:border-slate-800 pt-6">
+            <div className="md:col-span-2 border-t border-surface-700 pt-6">
               <div className="flex justify-between items-center mb-4">
-                <h3 className="text-lg font-medium text-slate-900 dark:text-white">Class Schedule</h3>
+                <h3 className="text-lg font-medium text-white">Class Schedule</h3>
                 <button 
                   type="button"
                   onClick={handleAddScheduleRow}
-                  className="text-xs bg-indigo-50 hover:bg-primary hover:text-white text-primary font-medium py-2 px-4 rounded-lg transition-colors border border-indigo-100"
+                  className="text-xs bg-primary/10 hover:bg-primary hover:text-white text-primary-light font-medium py-2 px-4 rounded-lg transition-colors border border-primary/20"
                 >
                   + Add Day
                 </button>
               </div>
 
               {schedule.length === 0 ? (
-                <p className="text-slate-500 dark:text-slate-400 text-sm italic">No schedule rows added. Please add at least one day.</p>
+                <p className="text-muted-500 text-sm italic">No schedule rows added. Please add at least one day.</p>
               ) : (
                 <div className="space-y-3">
                   {schedule.map((row, idx) => (
-                    <div key={idx} className="flex flex-col sm:flex-row items-center gap-3 bg-slate-50 dark:bg-slate-800/30 p-3 rounded-lg border border-slate-100 dark:border-slate-800 animate-fade-in animate-duration-300">
+                    <div key={idx} className="flex flex-col sm:flex-row items-center gap-3 bg-surface-800/50 p-3 rounded-lg border border-surface-600 animate-fade-in animate-duration-300">
                       <div className="w-full sm:w-1/3">
                         <select
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-white outline-none focus:ring-2 focus:ring-primary text-slate-900 font-semibold"
+                          className="w-full px-3 py-2 border border-surface-600 rounded-lg bg-surface-900 outline-none focus:ring-2 focus:ring-primary/20 text-white font-semibold"
                           value={row.day}
                           onChange={(e) => handleScheduleChange(idx, 'day', e.target.value)}
                         >
@@ -410,20 +410,20 @@ const CreateClass = () => {
                         </select>
                       </div>
                       <div className="w-full sm:w-1/3 flex items-center gap-2">
-                        <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 shrink-0">Start:</span>
+                        <span className="text-xs font-semibold text-muted-400 shrink-0">Start:</span>
                         <input
                           type="time"
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-primary text-slate-900 bg-white font-semibold"
+                          className="w-full px-3 py-2 border border-surface-600 rounded-lg outline-none focus:ring-2 focus:ring-primary/20 text-white bg-surface-900 font-semibold"
                           value={row.startTime}
                           onChange={(e) => handleScheduleChange(idx, 'startTime', e.target.value)}
                           required
                         />
                       </div>
                       <div className="w-full sm:w-1/3 flex items-center gap-2">
-                        <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 shrink-0">End:</span>
+                        <span className="text-xs font-semibold text-muted-400 shrink-0">End:</span>
                         <input
                           type="time"
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-primary text-slate-900 bg-white font-semibold"
+                          className="w-full px-3 py-2 border border-surface-600 rounded-lg outline-none focus:ring-2 focus:ring-primary/20 text-white bg-surface-900 font-semibold"
                           value={row.endTime}
                           onChange={(e) => handleScheduleChange(idx, 'endTime', e.target.value)}
                           required
@@ -433,7 +433,7 @@ const CreateClass = () => {
                         <button
                           type="button"
                           onClick={() => handleRemoveScheduleRow(idx)}
-                          className="text-red-500 hover:text-red-700 hover:bg-red-50 p-2 rounded-lg transition-colors border border-transparent hover:border-red-100 font-medium shrink-0 self-stretch sm:self-auto flex items-center justify-center"
+                          className="text-red-400 hover:text-red-300 hover:bg-red-500/10 p-2 rounded-lg transition-colors border border-transparent hover:border-red-500/20 font-medium shrink-0 self-stretch sm:self-auto flex items-center justify-center"
                           title="Remove row"
                         >
                           ✕
@@ -447,18 +447,18 @@ const CreateClass = () => {
 
           </div>
 
-          <div className="flex justify-end space-x-4 pt-4 border-t border-slate-100 dark:border-slate-800">
+          <div className="flex justify-end space-x-4 pt-4 border-t border-surface-700">
             <button 
               type="button" 
               onClick={() => navigate('/dashboard')}
-              className="px-6 py-2 border border-gray-300 text-slate-700 dark:text-slate-300 rounded-lg hover:bg-slate-50 dark:bg-slate-800/30 transition-colors"
+              className="px-6 py-2 border border-surface-600 text-muted-400 rounded-lg hover:text-white hover:bg-surface-700 transition-colors"
               disabled={publishing}
             >
               Cancel
             </button>
             <button 
               type="submit" 
-              className="px-6 py-2 bg-primary text-white rounded-lg hover:bg-indigo-700 transition-colors shadow flex items-center"
+              className="px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-all shadow-glow-primary hover:-translate-y-0.5 flex items-center"
               disabled={publishing}
             >
               {publishing ? (

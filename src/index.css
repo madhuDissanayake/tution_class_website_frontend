@@ -1,24 +1,9 @@
 @import "tailwindcss";
-
-@theme {
-  --color-primary: #4F46E5;
-  --color-primary-glow: rgba(79, 70, 229, 0.15);
-  --color-secondary: #10B981;
-  --color-secondary-glow: rgba(16, 185, 129, 0.15);
-  --color-dark: #0B0F19;
-  --color-light: #F8FAFC;
-  --color-accent-pink: #EC4899;
-  --color-accent-purple: #8B5CF6;
-  
-  /* Custom Dark Mode Palette */
-  --color-slate-900: #0a0e1a;
-  --color-slate-800: #141a2e;
-  --color-slate-700: rgba(255, 255, 255, 0.06);
-}
+@config "../tailwind.config.js";
 
 @layer base {
   body {
-    @apply bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans antialiased transition-colors duration-300;
+    @apply bg-surface-950 text-muted-400 font-sans antialiased transition-colors duration-300;
   }
 
   /* Premium Scrollbar */
@@ -130,31 +115,15 @@
   @apply bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 bg-clip-text text-transparent;
 }
 
-/* Custom Card Depth for Dark Mode */
-@layer components {
-  /* Global Dark Mode Texture & Depth */
-  .dark body, .dark .bg-slate-900 {
-    background-color: #0a0e1a !important;
-    background-image: 
-      radial-gradient(circle at 85% 0%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
-      radial-gradient(circle at 15% 100%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
-      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px) !important;
-    background-size: 100vw 100vh, 100vw 100vh, 40px 40px, 40px 40px !important;
-    background-attachment: fixed !important;
-  }
-
-  .dark .bg-slate-800 {
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-  }
-
-  /* Global Button Polish */
+/* Global Button Polish */
   button[class*="bg-blue-"],
   a[class*="bg-blue-"],
   button[class*="bg-indigo-"],
   a[class*="bg-indigo-"],
   button[class*="from-blue-"],
-  a[class*="from-blue-"] {
+  a[class*="from-blue-"],
+  button[class*="bg-primary"],
+  a[class*="bg-primary"] {
     transition: all 0.2s ease;
   }
 
@@ -163,9 +132,9 @@
   button[class*="bg-indigo-"]:hover:not(:disabled),
   a[class*="bg-indigo-"]:hover,
   button[class*="from-blue-"]:hover:not(:disabled),
-  a[class*="from-blue-"]:hover {
+  a[class*="from-blue-"]:hover,
+  button[class*="bg-primary"]:hover:not(:disabled),
+  a[class*="bg-primary"]:hover {
     transform: translateY(-1px);
-    box-shadow: 0 6px 16px rgba(79, 70, 229, 0.4);
+    box-shadow: var(--tw-shadow-glow-primary, 0 8px 24px -4px rgba(79, 70, 229, 0.35));
   }
-}
-

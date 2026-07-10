@@ -61,31 +61,29 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="w-full bg-slate-50 dark:bg-slate-900 overflow-hidden">
+    <div className="w-full bg-surface-950 overflow-hidden">
       {/* Hero Section */}
-      <section className="relative pt-10 lg:pt-14 pb-16 px-6 lg:pb-24">
-        {/* Subtle background glow */}
-        <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-blue-500/10 dark:bg-blue-600/10 blur-[100px] rounded-full pointer-events-none"></div>
+      <section className="relative pt-10 lg:pt-14 pb-16 px-6 lg:pb-24 bg-hero-glow">
         
         <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-16 w-full relative z-10">
           
           {/* Left Text Content */}
           <div className="w-full lg:w-[45%] space-y-6 lg:space-y-8 animate-fade-in z-10 text-center lg:text-left flex flex-col items-center lg:items-start">
-            <h1 className="text-3xl lg:text-4xl xl:text-5xl font-semibold text-slate-900 dark:text-white leading-[1.25] lg:leading-[1.3]">
+            <h1 className="text-3xl lg:text-4xl xl:text-5xl font-semibold text-white leading-[1.25] lg:leading-[1.3]">
               Find the Perfect <br className="hidden lg:block"/>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-violet-600 dark:from-[#60a5fa] dark:to-[#a78bfa]">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary-light">
                 Tuition Class
               </span>
             </h1>
 
-            <p className="text-base lg:text-lg text-slate-600 dark:text-slate-400 font-medium leading-relaxed max-w-lg">
+            <p className="text-base lg:text-lg text-muted-400 font-medium leading-relaxed max-w-lg">
               Find the perfect class, book your seat instantly, and start learning. Whether you prefer physical classrooms or online sessions, we have you covered.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center gap-4 pt-4">
               <Link 
                 to="/search" 
-                className="w-full sm:w-auto bg-gradient-to-br from-[#4f46e5] to-[#6366f1] text-white font-medium px-8 py-4 rounded-xl shadow-[0_8px_20px_rgba(79,70,229,0.35)] hover:shadow-[0_12px_28px_rgba(79,70,229,0.45)] hover:-translate-y-[2px] transition-all duration-200 flex items-center justify-center group border border-white/10"
+                className="w-full sm:w-auto bg-primary text-white font-medium px-8 py-4 rounded-xl shadow-glow-primary hover:bg-primary-dark hover:-translate-y-[2px] transition-all duration-200 flex items-center justify-center group border border-white/10"
               >
                 <Search className="w-5 h-5 mr-2" />
                 <span>Find Classes Now</span>
@@ -93,15 +91,15 @@ const Home = () => {
               </Link>
             </div>
             
-            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-4 text-slate-700 dark:text-slate-300 font-medium text-[13px]">
-              <div className="flex items-center px-4 py-1.5 rounded-full dark:bg-white/5 bg-slate-900/5 border dark:border-white/10 border-slate-900/10 backdrop-blur-sm shadow-sm transition-colors hover:dark:bg-white/10 hover:bg-slate-900/10">
-                <CheckCircle className="w-4 h-4 mr-1.5 text-emerald-500"/> Verified Tutors
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-4 text-muted-400 font-medium text-[13px]">
+              <div className="flex items-center px-4 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm shadow-sm transition-colors hover:bg-white/10">
+                <CheckCircle className="w-4 h-4 mr-1.5 text-secondary"/> Verified Tutors
               </div>
-              <div className="flex items-center px-4 py-1.5 rounded-full dark:bg-white/5 bg-slate-900/5 border dark:border-white/10 border-slate-900/10 backdrop-blur-sm shadow-sm transition-colors hover:dark:bg-white/10 hover:bg-slate-900/10">
-                <CheckCircle className="w-4 h-4 mr-1.5 text-emerald-500"/> Instant Booking
+              <div className="flex items-center px-4 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm shadow-sm transition-colors hover:bg-white/10">
+                <CheckCircle className="w-4 h-4 mr-1.5 text-secondary"/> Instant Booking
               </div>
-              <div className="flex items-center px-4 py-1.5 rounded-full dark:bg-white/5 bg-slate-900/5 border dark:border-white/10 border-slate-900/10 backdrop-blur-sm shadow-sm transition-colors hover:dark:bg-white/10 hover:bg-slate-900/10">
-                <CheckCircle className="w-4 h-4 mr-1.5 text-emerald-500"/> Secure Platform
+              <div className="flex items-center px-4 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm shadow-sm transition-colors hover:bg-white/10">
+                <CheckCircle className="w-4 h-4 mr-1.5 text-secondary"/> Secure Platform
               </div>
             </div>
           </div>
@@ -110,7 +108,7 @@ const Home = () => {
           <div className="w-full lg:w-[45%] relative z-0 mt-12 lg:mt-0 flex justify-center">
             <div className="relative w-full max-w-[500px] aspect-[4/3]">
               {/* Main Image */}
-              <div className="w-full h-full rounded-[2rem] overflow-hidden shadow-[0_20px_60px_rgba(79,70,229,0.25)] border-[6px] border-white dark:border-slate-800 relative z-10 group">
+              <div className="w-full h-full rounded-[2rem] overflow-hidden shadow-card border-[6px] border-surface-800 relative z-10 group">
                 <img 
                   src="/images/authentic_tuition.png" 
                   alt="Sri Lankan Students collaborating" 
@@ -119,30 +117,30 @@ const Home = () => {
               </div>
 
               {/* Background Decoration */}
-              <div className="absolute -inset-4 border border-blue-200 dark:border-blue-500/20 rounded-[2.5rem] -z-10 transform rotate-3"></div>
+              <div className="absolute -inset-4 border border-primary/20 rounded-[2.5rem] -z-10 transform rotate-3"></div>
 
               {/* Floating Stats Card: Students */}
-              <div className="absolute -bottom-4 -left-4 md:-bottom-8 md:-left-8 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-white/20 dark:border-slate-700 p-4 md:p-5 rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.12)] z-20 flex items-center gap-4 animate-slide-up" style={{ animationDelay: '0.1s' }}>
+              <div className="absolute -bottom-4 -left-4 md:-bottom-8 md:-left-8 bg-surface-900/90 backdrop-blur-xl border border-surface-600 p-4 md:p-5 rounded-2xl shadow-card z-20 flex items-center gap-4 animate-slide-up" style={{ animationDelay: '0.1s' }}>
                 <div className="bg-gradient-to-br from-amber-400 to-orange-500 p-3 rounded-xl shadow-inner text-white">
                   <Star className="w-6 h-6 fill-current" />
                 </div>
                 <div>
                   <div className="flex items-center gap-1">
-                    <h4 className="text-xl md:text-2xl font-black text-slate-900 dark:text-white leading-none">500+</h4>
+                    <h4 className="text-xl md:text-2xl font-black text-white leading-none">500+</h4>
                     <span className="text-xs font-bold text-amber-500 bg-amber-500/10 px-1.5 py-0.5 rounded-md">4.8★</span>
                   </div>
-                  <p className="text-[10px] md:text-xs font-semibold text-slate-500 dark:text-slate-400 mt-1 uppercase tracking-wider">Active Students</p>
+                  <p className="text-[10px] md:text-xs font-semibold text-muted-500 mt-1 uppercase tracking-wider">Active Students</p>
                 </div>
               </div>
 
               {/* Floating Stats Card: Tutors */}
-              <div className="absolute -top-4 -right-4 md:-top-6 md:-right-6 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-white/20 dark:border-slate-700 p-3 md:p-4 rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.12)] z-20 flex items-center gap-3 animate-slide-up" style={{ animationDelay: '0.3s' }}>
+              <div className="absolute -top-4 -right-4 md:-top-6 md:-right-6 bg-surface-900/90 backdrop-blur-xl border border-surface-600 p-3 md:p-4 rounded-2xl shadow-card z-20 flex items-center gap-3 animate-slide-up" style={{ animationDelay: '0.3s' }}>
                 <div className="flex -space-x-2">
-                  <div className="w-8 h-8 rounded-full border-2 border-white dark:border-slate-800 bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center text-blue-600 dark:text-blue-400"><Users className="w-4 h-4"/></div>
+                  <div className="w-8 h-8 rounded-full border-2 border-surface-800 bg-primary/20 flex items-center justify-center text-primary-light"><Users className="w-4 h-4"/></div>
                 </div>
                 <div>
-                  <h4 className="text-base md:text-lg font-black text-slate-900 dark:text-white leading-none">50+</h4>
-                  <p className="text-[9px] md:text-[10px] font-semibold text-slate-500 dark:text-slate-400 mt-0.5 uppercase tracking-wider">Verified Tutors</p>
+                  <h4 className="text-base md:text-lg font-black text-white leading-none">50+</h4>
+                  <p className="text-[9px] md:text-[10px] font-semibold text-muted-500 mt-0.5 uppercase tracking-wider">Verified Tutors</p>
                 </div>
               </div>
 
@@ -153,56 +151,56 @@ const Home = () => {
       </section>
 
       {/* Most Popular Classes Section */}
-      <section className="py-20 px-6 bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700/50">
+      <section className="py-20 px-6 bg-surface-950 border-b border-surface-600">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-center mb-12">
             <div className="text-center md:text-left mb-6 md:mb-0">
-              <h2 className="text-3xl md:text-4xl font-medium text-slate-900 dark:text-white mb-3">
+              <h2 className="text-3xl md:text-4xl font-medium text-white mb-3">
                 Most Popular Classes
               </h2>
-              <p className="text-slate-600 dark:text-slate-400 font-medium">
+              <p className="text-muted-400 font-medium">
                 Explore the top-rated classes that students are loving right now.
               </p>
             </div>
-            <Link to="/search" className="inline-flex items-center text-blue-600 dark:text-blue-400 font-medium hover:underline">
+            <Link to="/search" className="inline-flex items-center text-primary-light font-medium hover:underline">
               View All Classes <ArrowRight className="w-4 h-4 ml-1" />
             </Link>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {loadingClasses ? (
-               <div className="col-span-full text-center py-10 text-slate-500 animate-pulse">Loading Popular Classes...</div>
+               <div className="col-span-full text-center py-10 text-muted-500 animate-pulse">Loading Popular Classes...</div>
             ) : popularClasses.length === 0 ? (
-               <div className="col-span-full text-center py-10 text-slate-500">More classes coming soon!</div>
+               <div className="col-span-full text-center py-10 text-muted-500">More classes coming soon!</div>
             ) : (
               popularClasses.map(cls => (
-                <Link key={cls._id} to={`/class/${cls._id}`} className="group bg-white dark:bg-slate-800 rounded-2xl overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-slate-200 dark:border-slate-700 block">
-                  <div className="h-32 relative overflow-hidden bg-slate-200 dark:bg-slate-700">
+                <Link key={cls._id} to={`/class/${cls._id}`} className="group bg-surface-800 rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover hover:bg-surface-700 hover:-translate-y-1 transition-all duration-300 border border-surface-600 block">
+                  <div className="h-32 relative overflow-hidden bg-surface-900">
                     <img 
                       src={cls.image || getSubjectImage(cls.subject)} 
                       alt={cls.title} 
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent"></div>
-                    <div className="absolute bottom-3 left-3 bg-white/20 backdrop-blur-md text-white px-2.5 py-0.5 rounded-lg text-[10px] font-medium border border-white/20">
+                    <div className="absolute inset-0 bg-gradient-to-t from-surface-950/90 to-transparent"></div>
+                    <div className="absolute bottom-3 left-3 bg-black/40 backdrop-blur-md text-white px-2.5 py-0.5 rounded-lg text-[10px] font-medium border border-white/10">
                       {cls.medium} Medium
                     </div>
-                    <div className={`absolute top-3 right-3 backdrop-blur-md text-white px-2 py-1 rounded-md text-[10px] font-medium shadow-sm border border-white/20 ${cls.availableSeats > 0 ? 'bg-blue-600/80' : 'bg-red-500/80'}`}>
+                    <div className={`absolute top-3 right-3 backdrop-blur-md text-white px-2 py-1 rounded-md text-[10px] font-medium shadow-sm border border-white/20 ${cls.availableSeats > 0 ? 'bg-primary/80' : 'bg-red-500/80'}`}>
                       {cls.availableSeats > 0 ? `${cls.availableSeats} Seats Left` : 'Fully Booked'}
                     </div>
                   </div>
                   <div className="p-5">
-                    <h3 className="text-base font-semibold text-slate-900 dark:text-white line-clamp-2 mb-1 group-hover:text-blue-600 transition-colors">{cls.title}</h3>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 font-semibold mb-3">By {cls.teacherId?.name || 'Unknown Teacher'}</p>
+                    <h3 className="text-base font-semibold text-white line-clamp-2 mb-1 group-hover:text-primary-light transition-colors">{cls.title}</h3>
+                    <p className="text-xs text-muted-400 font-semibold mb-3">By {cls.teacherId?.name || 'Unknown Teacher'}</p>
                     
-                    <div className="flex items-center justify-between mt-auto pt-3 border-t border-slate-100 dark:border-slate-700">
+                    <div className="flex items-center justify-between mt-auto pt-3 border-t border-surface-600">
                       <div className="flex items-center">
                         <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400 mr-1" />
-                        <span className="text-xs font-medium text-slate-700 dark:text-slate-300">
+                        <span className="text-xs font-medium text-white">
                           {cls.avgRating ? cls.avgRating.toFixed(1) : 'New'}
                         </span>
                       </div>
-                      <span className="bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-xs font-semibold px-2 py-1 rounded-lg">
+                      <span className="bg-primary-dark/50 text-primary-light text-xs font-semibold px-2 py-1 rounded-lg">
                         Rs. {cls.fee}
                       </span>
                     </div>
@@ -215,59 +213,59 @@ const Home = () => {
       </section>
 
       {/* Interactive Classes Section */}
-      <section className="py-20 px-6">
+      <section className="py-20 px-6 bg-surface-950">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col lg:flex-row-reverse items-center gap-16">
             
             <div className="w-full lg:w-1/2 space-y-6">
-              <h2 className="text-3xl md:text-4xl font-medium text-slate-900 dark:text-white leading-tight">
+              <h2 className="text-3xl md:text-4xl font-medium text-white leading-tight">
                 Physical & Online Classes, <br/>All in One Place
               </h2>
-              <p className="text-lg text-slate-600 dark:text-slate-400 font-medium">
+              <p className="text-lg text-muted-400 font-medium">
                 Our platform streamlines your learning journey. Easily find nearby physical classes or enroll in high-quality virtual sessions from the comfort of your home.
               </p>
               
               <ul className="space-y-4 pt-2">
                 <li className="flex items-start">
-                  <div className="mt-1 bg-blue-100 dark:bg-blue-900/50 p-2 rounded-lg text-blue-600 dark:text-blue-400 mr-4 shadow-sm border border-blue-200 dark:border-blue-800">
+                  <div className="mt-1 bg-primary-dark/30 p-2 rounded-lg text-primary-light mr-4 shadow-sm border border-primary-dark/50">
                     <MapPin className="w-5 h-5" />
                   </div>
                   <div>
-                    <h4 className="font-medium text-slate-900 dark:text-white">Location-based Classes</h4>
-                    <p className="text-sm text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">Find nearby physical classes and tutors conducting sessions in your area easily.</p>
+                    <h4 className="font-medium text-white">Location-based Classes</h4>
+                    <p className="text-sm text-muted-400 mt-1 leading-relaxed">Find nearby physical classes and tutors conducting sessions in your area easily.</p>
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <div className="mt-1 bg-blue-100 dark:bg-blue-900/50 p-2 rounded-lg text-blue-600 dark:text-blue-400 mr-4 shadow-sm border border-blue-200 dark:border-blue-800">
+                  <div className="mt-1 bg-primary-dark/30 p-2 rounded-lg text-primary-light mr-4 shadow-sm border border-primary-dark/50">
                     <Search className="w-5 h-5" />
                   </div>
                   <div>
-                    <h4 className="font-medium text-slate-900 dark:text-white">Find Your Best Fit</h4>
-                    <p className="text-sm text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">Search for physical and online classes to suit your personal preferences perfectly.</p>
+                    <h4 className="font-medium text-white">Find Your Best Fit</h4>
+                    <p className="text-sm text-muted-400 mt-1 leading-relaxed">Search for physical and online classes to suit your personal preferences perfectly.</p>
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <div className="mt-1 bg-blue-100 dark:bg-blue-900/50 p-2 rounded-lg text-blue-600 dark:text-blue-400 mr-4 shadow-sm border border-blue-200 dark:border-blue-800">
+                  <div className="mt-1 bg-primary-dark/30 p-2 rounded-lg text-primary-light mr-4 shadow-sm border border-primary-dark/50">
                     <CheckCircle className="w-5 h-5" />
                   </div>
                   <div>
-                    <h4 className="font-medium text-slate-900 dark:text-white">Details & Instant Booking</h4>
-                    <p className="text-sm text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">View teachers, class times, and monthly fees. Book available seats instantly.</p>
+                    <h4 className="font-medium text-white">Details & Instant Booking</h4>
+                    <p className="text-sm text-muted-400 mt-1 leading-relaxed">View teachers, class times, and monthly fees. Book available seats instantly.</p>
                   </div>
                 </li>
               </ul>
             </div>
             
             <div className="w-full lg:w-1/2">
-              <div className="rounded-2xl overflow-hidden shadow-xl border border-slate-200 dark:border-slate-700 relative">
+              <div className="rounded-2xl overflow-hidden shadow-card border border-surface-600 relative">
                 <img 
                   src="/images/srilankan_student_studying.png" 
                   alt="Sri Lankan Students studying" 
                   className="w-full h-[450px] object-cover hover:scale-105 transition-transform duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent flex flex-col justify-end p-8 pointer-events-none">
+                <div className="absolute inset-0 bg-gradient-to-t from-surface-950/90 via-surface-950/20 to-transparent flex flex-col justify-end p-8 pointer-events-none">
                   <h3 className="text-white text-2xl font-medium">Seamless Learning Experience</h3>
-                  <p className="text-slate-300 mt-2 font-medium">Empowering students with modern educational tools.</p>
+                  <p className="text-muted-400 mt-2 font-medium">Empowering students with modern educational tools.</p>
                 </div>
               </div>
             </div>

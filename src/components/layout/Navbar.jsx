@@ -62,8 +62,8 @@ const Navbar = () => {
   return (
     <nav className={`sticky top-0 z-50 transition-all duration-500 border-b ${
       isScrolled 
-        ? 'bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border-slate-200 dark:border-slate-800 shadow-md py-1.5' 
-        : 'bg-white/50 dark:bg-slate-900/50 backdrop-blur-md border-transparent dark:border-white/10 dark:shadow-[0_2px_10px_rgba(0,0,0,0.2)] py-2'
+        ? 'bg-surface-950/90 backdrop-blur-xl border-surface-700 shadow-md py-1.5' 
+        : 'bg-surface-950/50 backdrop-blur-md border-transparent border-white/10  py-2'
     }`}>
       
       <div className="container mx-auto px-6 relative z-10">
@@ -72,11 +72,11 @@ const Navbar = () => {
           {/* Logo Brand */}
           <Link to="/" className="flex items-center space-x-3 group">
             <div className="relative group-hover:scale-105 transition-transform duration-500 flex items-center justify-center">
-              <Logo className={`dark:bg-slate-800 bg-blue-100 text-blue-600 ${user?.role === 'teacher' ? 'w-10 h-10 md:w-12 md:h-12' : 'w-9 h-9 md:w-11 md:h-11'}`} />
+              <Logo className={`dark:bg-slate-800 bg-primary/20 text-primary ${user?.role === 'teacher' ? 'w-10 h-10 md:w-12 md:h-12' : 'w-9 h-9 md:w-11 md:h-11'}`} />
             </div>
-            <span className={`font-black tracking-tight text-slate-900 dark:text-white flex items-center ${user?.role === 'teacher' ? 'text-2xl md:text-3xl' : 'text-xl md:text-2xl'}`}>
+            <span className={`font-black tracking-tight text-white flex items-center ${user?.role === 'teacher' ? 'text-2xl md:text-3xl' : 'text-xl md:text-2xl'}`}>
               Tuition
-              <span className="text-blue-600 ml-1">Hub</span>
+              <span className="text-primary ml-1">Hub</span>
             </span>
           </Link>
 
@@ -87,8 +87,8 @@ const Navbar = () => {
                 to="/" 
                 className={`text-sm font-black tracking-wide transition-all duration-300 relative after:absolute ${user?.role === 'teacher' ? 'after:-bottom-6' : 'after:-bottom-4'} after:left-0 after:h-1 after:w-full after:rounded-full after:transition-transform after:duration-300 after:origin-left ${
                   isActive('/') 
-                    ? `text-blue-600 dark:text-blue-400 after:bg-blue-600 after:scale-x-100` 
-                    : `text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 after:bg-blue-600/50 dark:after:bg-blue-400/50 after:scale-x-0 hover:after:scale-x-100`
+                    ? `text-primary-light after:bg-primary after:scale-x-100` 
+                    : `text-muted-400 hover:text-primary dark:hover:text-blue-400 after:bg-primary/50 after:scale-x-0 hover:after:scale-x-100`
                 }`}
               >
                 Home
@@ -99,8 +99,8 @@ const Navbar = () => {
                 to="/search" 
                 className={`text-sm font-black tracking-wide transition-all duration-300 relative after:absolute ${user?.role === 'teacher' ? 'after:-bottom-6' : 'after:-bottom-4'} after:left-0 after:h-1 after:w-full after:rounded-full after:transition-transform after:duration-300 after:origin-left ${
                   isActive('/search') 
-                    ? `text-blue-600 dark:text-blue-400 after:bg-blue-600 after:scale-x-100` 
-                    : `text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 after:bg-blue-600/50 dark:after:bg-blue-400/50 after:scale-x-0 hover:after:scale-x-100`
+                    ? `text-primary-light after:bg-primary after:scale-x-100` 
+                    : `text-muted-400 hover:text-primary dark:hover:text-blue-400 after:bg-primary/50 after:scale-x-0 hover:after:scale-x-100`
                 }`}
               >
                 Find Classes
@@ -110,8 +110,8 @@ const Navbar = () => {
               to="/about" 
               className={`font-black tracking-wide transition-all duration-300 ${user?.role === 'teacher' ? 'text-base' : 'text-sm'} relative after:absolute ${user?.role === 'teacher' ? 'after:-bottom-6' : 'after:-bottom-4'} after:left-0 after:h-1 after:w-full after:rounded-full after:transition-transform after:duration-300 after:origin-left ${
                 isActive('/about') 
-                  ? `text-blue-600 dark:text-blue-400 after:bg-blue-600 after:scale-x-100` 
-                  : `text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 after:bg-blue-600/50 dark:after:bg-blue-400/50 after:scale-x-0 hover:after:scale-x-100`
+                  ? `text-primary-light after:bg-primary after:scale-x-100` 
+                  : `text-muted-400 hover:text-primary dark:hover:text-blue-400 after:bg-primary/50 after:scale-x-0 hover:after:scale-x-100`
               }`}
             >
               About
@@ -120,8 +120,8 @@ const Navbar = () => {
               to="/contact" 
               className={`font-black tracking-wide transition-all duration-300 ${user?.role === 'teacher' ? 'text-base' : 'text-sm'} relative after:absolute ${user?.role === 'teacher' ? 'after:-bottom-6' : 'after:-bottom-4'} after:left-0 after:h-1 after:w-full after:rounded-full after:transition-transform after:duration-300 after:origin-left ${
                 isActive('/contact') 
-                  ? `text-blue-600 dark:text-blue-400 after:bg-blue-600 after:scale-x-100` 
-                  : `text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 after:bg-blue-600/50 dark:after:bg-blue-400/50 after:scale-x-0 hover:after:scale-x-100`
+                  ? `text-primary-light after:bg-primary after:scale-x-100` 
+                  : `text-muted-400 hover:text-primary dark:hover:text-blue-400 after:bg-primary/50 after:scale-x-0 hover:after:scale-x-100`
               }`}
             >
               Contact
@@ -135,7 +135,7 @@ const Navbar = () => {
                 {user.role === 'admin' && (
                   <Link 
                     to="/admin" 
-                    className={`${user?.role === 'teacher' ? 'h-10 px-5 text-xs' : 'h-8 px-4 text-[10px]'} flex items-center justify-center gap-2 text-blue-700 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-900/50 rounded-full bg-blue-50 dark:bg-blue-900/30 font-black uppercase tracking-wider transition-all duration-300`}
+                    className={`${user?.role === 'teacher' ? 'h-10 px-5 text-xs' : 'h-8 px-4 text-[10px]'} flex items-center justify-center gap-2 text-primary-light hover:bg-primary/20 rounded-full bg-primary/10 font-black uppercase tracking-wider transition-all duration-300`}
                   >
                     Admin Panel
                   </Link>
@@ -143,7 +143,7 @@ const Navbar = () => {
                 {user.role === 'teacher' && (
                   <Link 
                     to="/dashboard" 
-                    className={`${user?.role === 'teacher' ? 'h-10 px-5 text-xs' : 'h-8 px-4 text-[10px]'} flex items-center justify-center gap-2 text-blue-700 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-900/50 rounded-full bg-blue-50 dark:bg-blue-900/30 font-black uppercase tracking-wider transition-all duration-300`}
+                    className={`${user?.role === 'teacher' ? 'h-10 px-5 text-xs' : 'h-8 px-4 text-[10px]'} flex items-center justify-center gap-2 text-primary-light hover:bg-primary/20 rounded-full bg-primary/10 font-black uppercase tracking-wider transition-all duration-300`}
                   >
                     <GraduationCap className={user?.role === 'teacher' ? 'w-5 h-5' : 'w-4 h-4'} />
                     Teacher Dashboard
@@ -152,7 +152,7 @@ const Navbar = () => {
                 {user.role === 'student' && (
                   <Link 
                     to="/dashboard" 
-                    className={`${user?.role === 'teacher' ? 'h-10 px-5 text-xs' : 'h-8 px-4 text-[10px]'} flex items-center justify-center gap-2 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-100 dark:hover:bg-emerald-900/50 rounded-full bg-emerald-50 dark:bg-emerald-900/30 font-black uppercase tracking-wider transition-all duration-300`}
+                    className={`${user?.role === 'teacher' ? 'h-10 px-5 text-xs' : 'h-8 px-4 text-[10px]'} flex items-center justify-center gap-2 text-secondary-light hover:bg-secondary/20 rounded-full bg-secondary/10 font-black uppercase tracking-wider transition-all duration-300`}
                   >
                     <UserIcon className={user?.role === 'teacher' ? 'w-5 h-5' : 'w-4 h-4'} />
                     My Dashboard
@@ -162,9 +162,9 @@ const Navbar = () => {
                 {/* Notification Bell */}
                 <Link 
                   to="/notifications" 
-                  className={`${user?.role === 'teacher' ? 'h-10 w-10' : 'h-8 w-8'} flex items-center justify-center text-slate-500 hover:text-blue-600 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 transition-all duration-300 relative group shadow-sm`}
+                  className={`${user?.role === 'teacher' ? 'h-10 w-10' : 'h-8 w-8'} flex items-center justify-center text-muted-500 hover:text-primary rounded-full bg-surface-800 border border-surface-600 transition-all duration-300 relative group shadow-sm`}
                 >
-                  <Bell className={`${user?.role === 'teacher' ? 'w-5 h-5' : 'w-4 h-4'} group-hover:text-blue-600 transition-colors`} />
+                  <Bell className={`${user?.role === 'teacher' ? 'w-5 h-5' : 'w-4 h-4'} group-hover:text-primary transition-colors`} />
                   {unreadCount > 0 && (
                     <span className={`absolute -top-1.5 -right-1.5 ${user?.role === 'teacher' ? 'min-w-5 h-5 px-1.5 text-[10px]' : 'min-w-4 h-4 px-1 text-[9px]'} bg-red-500 rounded-full border-2 border-white dark:border-slate-900 font-black text-white flex items-center justify-center shadow-md`}>
                       {unreadCount}
@@ -173,17 +173,17 @@ const Navbar = () => {
                 </Link>
                 
                 {/* User profile avatar pill */}
-                <div className={`${user?.role === 'teacher' ? 'h-10 px-4' : 'h-8 px-3'} flex items-center space-x-2.5 bg-slate-100 dark:bg-slate-800 rounded-full border border-slate-200 dark:border-slate-700 shadow-sm`}>
-                  <div className={`${user?.role === 'teacher' ? 'w-6 h-6' : 'w-5 h-5'} bg-blue-600 rounded-full flex items-center justify-center text-white ${user?.role === 'teacher' ? 'text-xs' : 'text-[10px]'} font-black`}>
+                <div className={`${user?.role === 'teacher' ? 'h-10 px-4' : 'h-8 px-3'} flex items-center space-x-2.5 bg-surface-800 rounded-full border border-surface-600 shadow-sm`}>
+                  <div className={`${user?.role === 'teacher' ? 'w-6 h-6' : 'w-5 h-5'} bg-primary rounded-full flex items-center justify-center text-white ${user?.role === 'teacher' ? 'text-xs' : 'text-[10px]'} font-black`}>
                     {user.name.charAt(0).toUpperCase()}
                   </div>
-                  <span className={`${user?.role === 'teacher' ? 'text-xs' : 'text-[10px]'} font-black text-slate-700 dark:text-slate-200`}>{user.name}</span>
+                  <span className={`${user?.role === 'teacher' ? 'text-xs' : 'text-[10px]'} font-black text-white`}>{user.name}</span>
                 </div>
                 
                 {/* Logout Button */}
                 <button 
                   onClick={handleLogout} 
-                  className={`${user?.role === 'teacher' ? 'h-10 w-10' : 'h-8 w-8'} flex items-center justify-center text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-full transition-all duration-300 cursor-pointer shadow-sm border border-transparent hover:border-red-100 dark:hover:border-red-900/30`}
+                  className={`${user?.role === 'teacher' ? 'h-10 w-10' : 'h-8 w-8'} flex items-center justify-center text-muted-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-full transition-all duration-300 cursor-pointer shadow-sm border border-transparent hover:border-red-100 dark:hover:border-red-900/30`}
                   title="Logout"
                 >
                   <LogOut className={user?.role === 'teacher' ? 'w-5 h-5' : 'w-4 h-4'} />
@@ -193,13 +193,13 @@ const Navbar = () => {
               <>
                 <Link 
                   to="/login" 
-                  className={`h-8 flex items-center justify-center text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 border border-blue-100 dark:border-blue-800 hover:bg-blue-100 dark:hover:bg-blue-900/50 px-5 rounded-full font-black text-[10px] uppercase tracking-wider transition-all duration-300 shadow-sm`}
+                  className={`h-8 flex items-center justify-center text-primary-light bg-primary/10 border border-primary/20 hover:bg-primary/20 px-5 rounded-full font-black text-[10px] uppercase tracking-wider transition-all duration-300 shadow-sm`}
                 >
                   Login
                 </Link>
                 <Link 
                   to="/register" 
-                  className={`h-8 flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white px-5 rounded-full font-black text-[10px] uppercase tracking-wider shadow-sm transition-all duration-300`}
+                  className={`h-8 flex items-center justify-center bg-primary hover:bg-primary-dark text-white px-5 rounded-full font-black text-[10px] uppercase tracking-wider shadow-sm transition-all duration-300`}
                 >
                   Register
                 </Link>
@@ -212,7 +212,7 @@ const Navbar = () => {
             {user && (
               <Link 
                 to="/notifications" 
-                className="text-slate-600 p-2 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 relative"
+                className="text-muted-400 p-2 rounded-xl bg-surface-800 border border-surface-600 relative"
               >
                 <Bell className="w-5 h-5" />
                 {unreadCount > 0 && (
@@ -224,7 +224,7 @@ const Navbar = () => {
             )}
             <button 
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors cursor-pointer"
+              className="p-2 bg-surface-800 border border-surface-600 rounded-xl text-muted-400 hover:bg-surface-700 transition-colors cursor-pointer"
             >
               {isMobileMenuOpen ? <X className="w-5.5 h-5.5" /> : <Menu className="w-5.5 h-5.5" />}
             </button>
@@ -235,14 +235,14 @@ const Navbar = () => {
 
       {/* Mobile Slide-down Glassmorphic Dropdown */}
       {isMobileMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 right-0 mt-1 bg-white/95 dark:bg-slate-900/95 backdrop-blur-2xl border-b border-slate-200 dark:border-slate-800 shadow-2xl py-6 px-6 space-y-5">
+        <div className="md:hidden absolute top-full left-0 right-0 mt-1 bg-surface-950/95 backdrop-blur-2xl border-b border-surface-700 shadow-2xl py-6 px-6 space-y-5">
           <div className="flex flex-col space-y-2">
             {(!user || (user.role !== 'teacher' && user.role !== 'admin')) && (
               <Link 
                 to="/" 
                 onClick={() => setIsMobileMenuOpen(false)}
                 className={`px-4 py-3 rounded-xl text-sm font-black uppercase tracking-wide ${
-                  isActive('/') ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800'
+                  isActive('/') ? 'bg-primary/10 text-blue-700 dark:text-blue-400' : 'text-muted-400 hover:bg-surface-800'
                 }`}
               >
                 Home
@@ -253,7 +253,7 @@ const Navbar = () => {
                 to="/search" 
                 onClick={() => setIsMobileMenuOpen(false)}
                 className={`px-4 py-3 rounded-xl text-sm font-black uppercase tracking-wide ${
-                  isActive('/search') ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800'
+                  isActive('/search') ? 'bg-primary/10 text-blue-700 dark:text-blue-400' : 'text-muted-400 hover:bg-surface-800'
                 }`}
               >
                 Find Classes
@@ -263,7 +263,7 @@ const Navbar = () => {
               to="/about" 
               onClick={() => setIsMobileMenuOpen(false)}
               className={`px-4 py-3 rounded-xl text-sm font-black uppercase tracking-wide ${
-                isActive('/about') ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800'
+                isActive('/about') ? 'bg-primary/10 text-blue-700 dark:text-blue-400' : 'text-muted-400 hover:bg-surface-800'
               }`}
             >
               About
@@ -272,7 +272,7 @@ const Navbar = () => {
               to="/contact" 
               onClick={() => setIsMobileMenuOpen(false)}
               className={`px-4 py-3 rounded-xl text-sm font-black uppercase tracking-wide ${
-                isActive('/contact') ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800'
+                isActive('/contact') ? 'bg-primary/10 text-blue-700 dark:text-blue-400' : 'text-muted-400 hover:bg-surface-800'
               }`}
             >
               Contact
@@ -284,13 +284,13 @@ const Navbar = () => {
           <div className="flex flex-col space-y-3">
             {user ? (
               <>
-                <div className="flex items-center space-x-3 px-4 py-2.5 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700">
-                  <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-sm font-black shadow-sm">
+                <div className="flex items-center space-x-3 px-4 py-2.5 bg-slate-50 dark:bg-slate-800 rounded-xl border border-surface-600">
+                  <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white text-sm font-black shadow-sm">
                     {user.name.charAt(0).toUpperCase()}
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-sm font-black text-slate-800 dark:text-white">{user.name}</span>
-                    <span className="text-[10px] text-slate-500 font-medium uppercase tracking-wider">{user.role}</span>
+                    <span className="text-sm font-black text-white">{user.name}</span>
+                    <span className="text-[10px] text-muted-500 font-medium uppercase tracking-wider">{user.role}</span>
                   </div>
                 </div>
 
@@ -298,7 +298,7 @@ const Navbar = () => {
                   <Link 
                     to="/admin" 
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="flex items-center justify-center gap-2 w-full py-3 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 text-sm font-medium rounded-xl"
+                    className="flex items-center justify-center gap-2 w-full py-3 bg-primary/10 text-blue-700 dark:text-blue-400 text-sm font-medium rounded-xl"
                   >
                     Admin Panel
                   </Link>
@@ -307,7 +307,7 @@ const Navbar = () => {
                   <Link 
                     to="/dashboard" 
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="flex items-center justify-center gap-2 w-full py-3 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 text-sm font-medium rounded-xl"
+                    className="flex items-center justify-center gap-2 w-full py-3 bg-primary/10 text-blue-700 dark:text-blue-400 text-sm font-medium rounded-xl"
                   >
                     <GraduationCap className="w-4.5 h-4.5" />
                     Teacher Dashboard
@@ -317,7 +317,7 @@ const Navbar = () => {
                   <Link 
                     to="/dashboard" 
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="flex items-center justify-center gap-2 w-full py-3 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 text-sm font-medium rounded-xl"
+                    className="flex items-center justify-center gap-2 w-full py-3 bg-secondary/10 text-emerald-700 dark:text-emerald-400 text-sm font-medium rounded-xl"
                   >
                     <UserIcon className="w-4.5 h-4.5" />
                     My Dashboard
@@ -337,14 +337,14 @@ const Navbar = () => {
                 <Link 
                   to="/login" 
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="py-3 text-center text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 border border-blue-100 dark:border-blue-800 hover:bg-blue-100 dark:hover:bg-blue-900/50 font-black text-sm rounded-xl transition-colors"
+                  className="py-3 text-center text-primary-light bg-primary/10 border border-primary/20 hover:bg-primary/20 font-black text-sm rounded-xl transition-colors"
                 >
                   Login
                 </Link>
                 <Link 
                   to="/register" 
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="py-3 text-center bg-blue-600 hover:bg-blue-700 text-white font-black text-sm rounded-xl shadow-md"
+                  className="py-3 text-center bg-primary hover:bg-primary-dark text-white font-black text-sm rounded-xl shadow-md"
                 >
                   Register
                 </Link>

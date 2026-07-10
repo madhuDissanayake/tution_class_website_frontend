@@ -223,7 +223,7 @@ const AdminPanel = () => {
     return (
       <div className="flex flex-col items-center justify-center min-h-[50vh] space-y-4 animate-fade-in">
         <Loader className="w-12 h-12 text-primary animate-spin" />
-        <p className="text-gray-500 font-medium animate-pulse">Loading admin dashboard...</p>
+        <p className="text-muted-500 font-medium animate-pulse">Loading admin dashboard...</p>
       </div>
     );
   }
@@ -231,20 +231,20 @@ const AdminPanel = () => {
   return (
     <div className="max-w-7xl mx-auto animate-fade-in space-y-8 relative">
       {/* Decorative Glows */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-[100px] pointer-events-none -z-10"></div>
-      <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-purple-500/10 rounded-full blur-[100px] pointer-events-none -z-10"></div>
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[100px] pointer-events-none -z-10"></div>
+      <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-primary/10 rounded-full blur-[100px] pointer-events-none -z-10"></div>
 
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 relative z-10">
         <div>
-          <h1 className="text-2xl md:text-3xl font-medium bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 tracking-tight">Admin Dashboard</h1>
-          <p className="text-slate-500 dark:text-slate-400 mt-1 font-medium text-sm">Manage users, classes, and reservations system-wide.</p>
+          <h1 className="text-2xl md:text-3xl font-black bg-clip-text text-transparent bg-gradient-to-r from-primary-light to-primary tracking-tight">Admin Dashboard</h1>
+          <p className="text-muted-400 mt-1 font-medium text-sm">Manage users, classes, and reservations system-wide.</p>
         </div>
       </div>
 
       {success && (
-        <div className="bg-green-50 text-green-700 p-4 rounded-xl border border-green-200 flex items-center justify-between animate-fade-in">
+        <div className="bg-emerald-500/10 text-emerald-400 p-4 rounded-xl border border-emerald-500/20 relative z-10 flex items-center justify-between animate-fade-in">
           <span className="font-semibold">{success}</span>
-          <button onClick={() => setSuccess(null)} className="text-green-700 hover:text-green-900 font-medium ml-4 text-xl">×</button>
+          <button onClick={() => setSuccess(null)} className="text-emerald-400 hover:text-emerald-300 font-medium ml-4 text-xl">×</button>
         </div>
       )}
 
@@ -256,41 +256,41 @@ const AdminPanel = () => {
       )}
       
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        <div className="group relative bg-white dark:bg-slate-900/50 dark:backdrop-blur-xl p-4 rounded-2xl shadow-sm hover:shadow-indigo-500/10 border border-slate-200 dark:border-slate-700 hover:border-indigo-500/30 transition-all duration-300 transform hover:-translate-y-0.5 overflow-hidden">
+        <div className="group relative bg-white dark:bg-slate-900/50 dark:backdrop-blur-xl p-4 rounded-2xl shadow-sm hover:shadow-indigo-500/10 border border-surface-600 hover:border-indigo-500/30 transition-all duration-300 transform hover:-translate-y-0.5 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           <div className="relative flex items-center space-x-4 z-10">
             <div className="p-3 bg-gradient-to-br from-indigo-50 to-indigo-100 dark:from-indigo-500/20 dark:to-indigo-500/10 rounded-xl text-indigo-600 dark:text-indigo-400 shadow-inner group-hover:scale-110 transition-transform duration-300">
               <Users className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-slate-500 dark:text-slate-400 font-medium text-[10px] uppercase tracking-wider mb-0.5">Total Users</h3>
-              <p className="text-xl font-medium text-slate-900 dark:text-white">{stats.totalUsers}</p>
+              <h3 className="text-muted-400 font-medium text-[10px] uppercase tracking-wider mb-0.5">Total Users</h3>
+              <p className="text-xl font-medium text-white">{stats.totalUsers}</p>
             </div>
           </div>
         </div>
 
-        <div className="group relative bg-white dark:bg-slate-900/50 dark:backdrop-blur-xl p-4 rounded-2xl shadow-sm hover:shadow-emerald-500/10 border border-slate-200 dark:border-slate-700 hover:border-emerald-500/30 transition-all duration-300 transform hover:-translate-y-0.5 overflow-hidden">
+        <div className="group relative bg-white dark:bg-slate-900/50 dark:backdrop-blur-xl p-4 rounded-2xl shadow-sm hover:shadow-emerald-500/10 border border-surface-600 hover:border-emerald-500/30 transition-all duration-300 transform hover:-translate-y-0.5 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-teal-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           <div className="relative flex items-center space-x-4 z-10">
             <div className="p-3 bg-gradient-to-br from-emerald-50 to-emerald-100 dark:from-emerald-500/20 dark:to-emerald-500/10 rounded-xl text-emerald-600 dark:text-emerald-400 shadow-inner group-hover:scale-110 transition-transform duration-300">
               <BookOpen className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-slate-500 dark:text-slate-400 font-medium text-[10px] uppercase tracking-wider mb-0.5">Active Classes</h3>
-              <p className="text-xl font-medium text-slate-900 dark:text-white">{stats.totalClasses}</p>
+              <h3 className="text-muted-400 font-medium text-[10px] uppercase tracking-wider mb-0.5">Active Classes</h3>
+              <p className="text-xl font-medium text-white">{stats.totalClasses}</p>
             </div>
           </div>
         </div>
 
-        <div className="group relative bg-white dark:bg-slate-900/50 dark:backdrop-blur-xl p-4 rounded-2xl shadow-sm hover:shadow-purple-500/10 border border-slate-200 dark:border-slate-700 hover:border-purple-500/30 transition-all duration-300 transform hover:-translate-y-0.5 overflow-hidden">
+        <div className="group relative bg-white dark:bg-slate-900/50 dark:backdrop-blur-xl p-4 rounded-2xl shadow-sm hover:shadow-purple-500/10 border border-surface-600 hover:border-purple-500/30 transition-all duration-300 transform hover:-translate-y-0.5 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           <div className="relative flex items-center space-x-4 z-10">
             <div className="p-3 bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-500/20 dark:to-purple-500/10 rounded-xl text-purple-600 dark:text-purple-400 shadow-inner group-hover:scale-110 transition-transform duration-300">
               <Bell className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-slate-500 dark:text-slate-400 font-medium text-[10px] uppercase tracking-wider mb-0.5">Reservations</h3>
-              <p className="text-xl font-medium text-slate-900 dark:text-white">{stats.totalReservations}</p>
+              <h3 className="text-muted-400 font-medium text-[10px] uppercase tracking-wider mb-0.5">Reservations</h3>
+              <p className="text-xl font-medium text-white">{stats.totalReservations}</p>
             </div>
           </div>
         </div>
@@ -299,20 +299,20 @@ const AdminPanel = () => {
 
       <div className="glass-panel bg-white/80 dark:bg-slate-900/60 dark:backdrop-blur-2xl rounded-2xl shadow-md border border-slate-200/60 dark:border-slate-700/60 overflow-hidden relative z-10">
         <div className="p-4 md:p-5 border-b border-slate-200/60 dark:border-slate-700/60 bg-slate-50/50 dark:bg-slate-800/50">
-          <h2 className="text-lg font-medium text-slate-900 dark:text-white flex items-center">
+          <h2 className="text-lg font-medium text-white flex items-center">
             <span className="w-1.5 h-5 bg-blue-500 rounded-full mr-2.5"></span>
             Manage Users
           </h2>
         </div>
         <div className="overflow-x-auto">
           {users.length === 0 ? (
-            <div className="text-center py-8 text-slate-500 dark:text-slate-400">
+            <div className="text-center py-8 text-muted-400">
               <p className="text-sm font-medium">No users found.</p>
             </div>
           ) : (
             <table className="w-full text-left border-collapse text-sm">
               <thead>
-                <tr className="bg-slate-50 dark:bg-slate-900/50 text-slate-500 dark:text-slate-400 border-b border-slate-100 dark:border-slate-700/50">
+                <tr className="bg-slate-50 dark:bg-slate-900/50 text-muted-400 border-b border-surface-700 dark:border-slate-700/50">
                   <th className="p-3 pl-5 font-semibold">Name</th>
                   <th className="p-3 font-semibold">Email</th>
                   <th className="p-3 font-semibold">Role</th>
@@ -322,7 +322,7 @@ const AdminPanel = () => {
               <tbody>
                 {users.map(u => (
                   <tr key={u._id} className="hover:bg-slate-50/50 dark:hover:bg-slate-700/30 transition-colors border-b border-slate-50 dark:border-slate-700/50 last:border-0">
-                    <td className="p-3 pl-5 text-slate-900 dark:text-white font-medium">
+                    <td className="p-3 pl-5 text-white font-medium">
                       {u.name} {u._id === user._id && <span className="text-[10px] text-slate-400 ml-1">(You)</span>}
                     </td>
                     <td className="p-3 text-slate-600 dark:text-slate-300 text-xs">{u.email}</td>
@@ -341,7 +341,7 @@ const AdminPanel = () => {
                       {u._id !== user._id ? (
                         <button 
                           onClick={() => handleDeleteUser(u._id)}
-                          className="p-1.5 text-red-500 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors bg-white dark:bg-slate-800 rounded-md border border-slate-200 dark:border-slate-700 inline-flex items-center justify-center cursor-pointer"
+                          className="p-1.5 text-red-500 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors bg-white dark:bg-slate-800 rounded-md border border-surface-600 inline-flex items-center justify-center cursor-pointer"
                           title="Delete User"
                         >
                           <Trash2 className="w-4 h-4" />
@@ -361,7 +361,7 @@ const AdminPanel = () => {
       {/* Pending Users Section */}
       <div className="glass-panel bg-white/80 dark:bg-slate-900/60 dark:backdrop-blur-2xl rounded-2xl shadow-md border border-slate-200/60 dark:border-slate-700/60 overflow-hidden relative z-10 mt-6">
         <div className="p-4 md:p-5 border-b border-slate-200/60 dark:border-slate-700/60 bg-amber-50/50 dark:bg-amber-900/10">
-          <h2 className="text-lg font-medium text-slate-900 dark:text-white flex items-center">
+          <h2 className="text-lg font-medium text-white flex items-center">
             <span className="w-1.5 h-5 bg-amber-500 rounded-full mr-2.5"></span>
             Pending User Approvals
             {pendingUsers.length > 0 && (
@@ -373,13 +373,13 @@ const AdminPanel = () => {
         </div>
         <div className="overflow-x-auto">
           {pendingUsers.length === 0 ? (
-            <div className="text-center py-6 text-slate-500 dark:text-slate-400">
+            <div className="text-center py-6 text-muted-400">
               <p className="text-sm font-medium">No pending user approvals.</p>
             </div>
           ) : (
             <table className="w-full text-left border-collapse text-sm">
               <thead>
-                <tr className="bg-slate-50 dark:bg-slate-900/50 text-slate-500 dark:text-slate-400 border-b border-slate-100 dark:border-slate-700/50">
+                <tr className="bg-slate-50 dark:bg-slate-900/50 text-muted-400 border-b border-surface-700 dark:border-slate-700/50">
                   <th className="p-3 pl-5 font-semibold w-1/4">User Details</th>
                   <th className="p-3 font-semibold w-1/3">Professional Info</th>
                   <th className="p-3 font-semibold w-1/4">Teaching Preferences</th>
@@ -389,7 +389,7 @@ const AdminPanel = () => {
               <tbody>
                 {pendingUsers.map(u => (
                   <tr key={u._id} className="hover:bg-slate-50/50 dark:hover:bg-slate-700/30 transition-colors border-b border-slate-50 dark:border-slate-700/50 last:border-0 align-top">
-                    <td className="p-4 pl-6 text-slate-900 dark:text-white">
+                    <td className="p-4 pl-6 text-white">
                       <div className="font-medium flex flex-wrap items-center gap-2 mb-2">
                         {u.name}
                         <span className={`px-2 py-0.5 rounded text-[10px] font-medium uppercase tracking-wider ${
@@ -398,10 +398,10 @@ const AdminPanel = () => {
                           {u.role}
                         </span>
                       </div>
-                      <div className="text-xs text-slate-500 mb-1"><span className="font-semibold text-slate-400">Email:</span> {u.email}</div>
-                      <div className="text-xs text-slate-500 mb-1"><span className="font-semibold text-slate-400">Phone:</span> {u.phone || 'N/A'}</div>
+                      <div className="text-xs text-muted-500 mb-1"><span className="font-semibold text-slate-400">Email:</span> {u.email}</div>
+                      <div className="text-xs text-muted-500 mb-1"><span className="font-semibold text-slate-400">Phone:</span> {u.phone || 'N/A'}</div>
                       {u.role === 'teacher' && u.teacherDetails?.nic && (
-                        <div className="text-xs text-slate-500"><span className="font-semibold text-slate-400">NIC:</span> {u.teacherDetails.nic}</div>
+                        <div className="text-xs text-muted-500"><span className="font-semibold text-slate-400">NIC:</span> {u.teacherDetails.nic}</div>
                       )}
                     </td>
                     
@@ -484,7 +484,7 @@ const AdminPanel = () => {
       {/* Pending Seat Reservations Section */}
       <div className="glass-panel bg-white/80 dark:bg-slate-900/60 dark:backdrop-blur-2xl rounded-2xl shadow-md border border-slate-200/60 dark:border-slate-700/60 overflow-hidden relative z-10 mt-6">
         <div className="p-4 md:p-5 border-b border-slate-200/60 dark:border-slate-700/60 bg-blue-50/50 dark:bg-blue-900/10">
-          <h2 className="text-lg font-medium text-slate-900 dark:text-white flex items-center">
+          <h2 className="text-lg font-medium text-white flex items-center">
             <span className="w-1.5 h-5 bg-blue-500 rounded-full mr-2.5"></span>
             Pending Seat Reservations
             {pendingReservations.length > 0 && (
@@ -496,13 +496,13 @@ const AdminPanel = () => {
         </div>
         <div className="overflow-x-auto">
           {pendingReservations.length === 0 ? (
-            <div className="text-center py-6 text-slate-500 dark:text-slate-400">
+            <div className="text-center py-6 text-muted-400">
               <p className="text-sm font-medium">No pending seat reservations.</p>
             </div>
           ) : (
             <table className="w-full text-left border-collapse text-sm">
               <thead>
-                <tr className="bg-slate-50 dark:bg-slate-900/50 text-slate-500 dark:text-slate-400 border-b border-slate-100 dark:border-slate-700/50">
+                <tr className="bg-slate-50 dark:bg-slate-900/50 text-muted-400 border-b border-surface-700 dark:border-slate-700/50">
                   <th className="p-3 pl-5 font-semibold w-1/4">Student Details</th>
                   <th className="p-3 font-semibold w-1/2">Class Details</th>
                   <th className="p-3 pr-5 font-semibold text-right w-1/4">Actions</th>
@@ -511,16 +511,16 @@ const AdminPanel = () => {
               <tbody>
                 {pendingReservations.map(res => (
                   <tr key={res._id} className="hover:bg-slate-50/50 dark:hover:bg-slate-700/30 transition-colors border-b border-slate-50 dark:border-slate-700/50 last:border-0 align-top">
-                    <td className="p-4 pl-6 text-slate-900 dark:text-white">
+                    <td className="p-4 pl-6 text-white">
                       <div className="font-medium flex flex-wrap items-center gap-2 mb-1">
                         {res.studentId?.name || 'Unknown Student'}
                       </div>
-                      <div className="text-xs text-slate-500 mb-1"><span className="font-semibold text-slate-400">Email:</span> {res.studentId?.email || 'N/A'}</div>
-                      <div className="text-xs text-slate-500"><span className="font-semibold text-slate-400">Phone:</span> {res.studentId?.phone || 'N/A'}</div>
+                      <div className="text-xs text-muted-500 mb-1"><span className="font-semibold text-slate-400">Email:</span> {res.studentId?.email || 'N/A'}</div>
+                      <div className="text-xs text-muted-500"><span className="font-semibold text-slate-400">Phone:</span> {res.studentId?.phone || 'N/A'}</div>
                     </td>
                     
                     <td className="p-4 text-slate-600 dark:text-slate-300 text-sm">
-                      <div className="font-medium text-slate-900 dark:text-white mb-1">
+                      <div className="font-medium text-white mb-1">
                         {res.classId?.title || 'Unknown Class'}
                       </div>
                       <div className="flex flex-wrap gap-2 text-[10px] mb-2">
@@ -528,7 +528,7 @@ const AdminPanel = () => {
                         <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 rounded">{res.classId?.medium || 'N/A'}</span>
                         <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 rounded">{res.classId?.grade || 'N/A'}</span>
                       </div>
-                      <div className="text-xs text-slate-500">
+                      <div className="text-xs text-muted-500">
                         Teacher: <span className="font-semibold text-slate-700 dark:text-slate-300">{res.classId?.teacherId?.name || 'Unknown'}</span>
                       </div>
                     </td>
@@ -554,7 +554,7 @@ const AdminPanel = () => {
       {/* Manage Teacher Classes Section */}
       <div className="glass-panel bg-white/80 dark:bg-slate-900/60 dark:backdrop-blur-2xl rounded-2xl shadow-md border border-slate-200/60 dark:border-slate-700/60 overflow-hidden mt-6 relative z-10">
         <div className="p-4 md:p-5 border-b border-slate-200/60 dark:border-slate-700/60 bg-indigo-50/50 dark:bg-indigo-900/10">
-          <h2 className="text-lg font-medium text-slate-900 dark:text-white flex items-center">
+          <h2 className="text-lg font-medium text-white flex items-center">
             <span className="w-1.5 h-5 bg-indigo-500 rounded-full mr-2.5"></span>
             Manage Teacher Classes
             <span className="ml-2 px-1.5 py-0.5 rounded-full bg-indigo-100 text-indigo-700 dark:bg-indigo-900/50 dark:text-indigo-400 text-[10px] font-medium">
@@ -564,13 +564,13 @@ const AdminPanel = () => {
         </div>
         <div className="overflow-x-auto">
           {approvedTeachers.length === 0 ? (
-            <div className="text-center py-8 text-slate-500 dark:text-slate-400">
+            <div className="text-center py-8 text-muted-400">
               <p className="font-medium">No approved teachers found.</p>
             </div>
           ) : (
             <div className="flex flex-col">
               {approvedTeachers.map(teacher => (
-                <div key={teacher._id} className="border-b border-slate-100 dark:border-slate-700/50 last:border-0">
+                <div key={teacher._id} className="border-b border-surface-700 dark:border-slate-700/50 last:border-0">
                   {/* Teacher Row */}
                   <div className="p-4 hover:bg-slate-50/50 dark:hover:bg-slate-700/30 transition-colors flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <div className="flex items-center gap-4 cursor-pointer flex-1" onClick={() => fetchTeacherClasses(teacher._id)}>
@@ -578,8 +578,8 @@ const AdminPanel = () => {
                         {expandedTeacher === teacher._id ? <ChevronDown className="w-5 h-5" /> : <ChevronRight className="w-5 h-5" />}
                       </div>
                       <div>
-                        <div className="font-medium text-slate-900 dark:text-white">{teacher.name}</div>
-                        <div className="text-xs text-slate-500">{teacher.email} • {teacher.phone || 'No phone'}</div>
+                        <div className="font-medium text-white">{teacher.name}</div>
+                        <div className="text-xs text-muted-500">{teacher.email} • {teacher.phone || 'No phone'}</div>
                       </div>
                     </div>
                     <div className="flex items-center gap-3">
@@ -594,19 +594,19 @@ const AdminPanel = () => {
 
                   {/* Expanded Classes Area */}
                   {expandedTeacher === teacher._id && (
-                    <div className="p-4 bg-slate-50/50 dark:bg-slate-800/30 border-t border-slate-100 dark:border-slate-700/50 animate-fade-in">
+                    <div className="p-4 bg-slate-50/50 dark:bg-slate-800/30 border-t border-surface-700 dark:border-slate-700/50 animate-fade-in">
                       {loadingClasses ? (
                         <div className="flex justify-center py-4"><Loader className="w-5 h-5 animate-spin text-indigo-500" /></div>
                       ) : teacherClasses.length === 0 ? (
-                        <div className="text-center py-4 text-sm text-slate-500 dark:text-slate-400 italic">No classes assigned to this teacher yet.</div>
+                        <div className="text-center py-4 text-sm text-muted-400 italic">No classes assigned to this teacher yet.</div>
                       ) : (
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                           {teacherClasses.map(cls => (
-                            <div key={cls._id} className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-4 rounded-xl shadow-sm">
+                            <div key={cls._id} className="bg-white dark:bg-slate-800 border border-surface-600 p-4 rounded-xl shadow-sm">
                               <div className="flex justify-between items-start mb-2">
-                                <h4 className="font-medium text-slate-900 dark:text-white text-sm line-clamp-1">{cls.title}</h4>
+                                <h4 className="font-medium text-white text-sm line-clamp-1">{cls.title}</h4>
                                 <div className="flex gap-1 shrink-0">
-                                  <button onClick={() => navigate(`/edit-class/${cls._id}`)} className="p-1.5 text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-500/10 rounded-md transition-colors" title="Edit Class">
+                                  <button onClick={() => navigate(`/edit-class/${cls._id}`)} className="p-1.5 text-blue-500 hover:bg-blue-50 dark:hover:bg-primary/10 rounded-md transition-colors" title="Edit Class">
                                     <Edit className="w-3.5 h-3.5" />
                                   </button>
                                   <button onClick={() => handleDeleteClass(cls._id)} className="p-1.5 text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 rounded-md transition-colors" title="Delete Class">
@@ -615,7 +615,7 @@ const AdminPanel = () => {
                                 </div>
                               </div>
                               <div className="text-xs text-slate-600 dark:text-slate-300 mb-1 font-medium">{cls.subject} • {cls.grade}</div>
-                              <div className="text-[10px] text-slate-500 flex justify-between">
+                              <div className="text-[10px] text-muted-500 flex justify-between">
                                 <span>{cls.isOnline ? 'Online' : 'Physical'}</span>
                                 <span className="font-semibold">Rs. {cls.fee}</span>
                               </div>
@@ -635,7 +635,7 @@ const AdminPanel = () => {
       {/* Featured Tutors Management Section */}
       <div className="glass-panel bg-white/80 dark:bg-slate-900/60 dark:backdrop-blur-2xl rounded-2xl shadow-md border border-slate-200/60 dark:border-slate-700/60 overflow-hidden mt-6 relative z-10">
         <div className="p-4 md:p-5 border-b border-slate-200/60 dark:border-slate-700/60 bg-slate-50/50 dark:bg-slate-800/50 flex flex-col md:flex-row justify-between items-start md:items-center gap-3">
-          <h2 className="text-lg font-medium text-slate-900 dark:text-white flex items-center">
+          <h2 className="text-lg font-medium text-white flex items-center">
             <span className="w-1.5 h-5 bg-purple-500 rounded-full mr-2.5"></span>
             Manage Top Tier Tutors
           </h2>
@@ -644,10 +644,10 @@ const AdminPanel = () => {
         {/* Add Tutor Form */}
         <div className="p-4 md:p-5 bg-white dark:bg-slate-900/80 border-b border-slate-200/60 dark:border-slate-700/60">
           <form onSubmit={handleAddTutor} className="grid grid-cols-1 md:grid-cols-5 gap-3">
-            <input type="text" placeholder="Tutor Name" required value={newTutor.name} onChange={(e) => setNewTutor({...newTutor, name: e.target.value})} className="px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 text-slate-900 dark:text-white placeholder-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all font-medium text-sm" />
-            <input type="text" placeholder="Subject" required value={newTutor.subject} onChange={(e) => setNewTutor({...newTutor, subject: e.target.value})} className="px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 text-slate-900 dark:text-white placeholder-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all font-medium text-sm" />
-            <input type="text" placeholder="Students (e.g. 2k+)" required value={newTutor.studentsCount} onChange={(e) => setNewTutor({...newTutor, studentsCount: e.target.value})} className="px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 text-slate-900 dark:text-white placeholder-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all font-medium text-sm" />
-            <select value={newTutor.themeColor} onChange={(e) => setNewTutor({...newTutor, themeColor: e.target.value})} className="px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 text-slate-900 dark:text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all font-medium text-sm cursor-pointer">
+            <input type="text" placeholder="Tutor Name" required value={newTutor.name} onChange={(e) => setNewTutor({...newTutor, name: e.target.value})} className="px-3 py-2 rounded-lg border border-surface-600 bg-slate-50 dark:bg-slate-800/50 text-white placeholder-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all font-medium text-sm" />
+            <input type="text" placeholder="Subject" required value={newTutor.subject} onChange={(e) => setNewTutor({...newTutor, subject: e.target.value})} className="px-3 py-2 rounded-lg border border-surface-600 bg-slate-50 dark:bg-slate-800/50 text-white placeholder-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all font-medium text-sm" />
+            <input type="text" placeholder="Students (e.g. 2k+)" required value={newTutor.studentsCount} onChange={(e) => setNewTutor({...newTutor, studentsCount: e.target.value})} className="px-3 py-2 rounded-lg border border-surface-600 bg-slate-50 dark:bg-slate-800/50 text-white placeholder-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all font-medium text-sm" />
+            <select value={newTutor.themeColor} onChange={(e) => setNewTutor({...newTutor, themeColor: e.target.value})} className="px-3 py-2 rounded-lg border border-surface-600 bg-slate-50 dark:bg-slate-800/50 text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all font-medium text-sm cursor-pointer">
               <option value="indigo">Indigo</option>
               <option value="pink">Pink</option>
               <option value="emerald">Emerald</option>
@@ -662,11 +662,11 @@ const AdminPanel = () => {
         {/* Tutors List */}
         <div className="overflow-x-auto">
           {featuredTutors.length === 0 ? (
-            <div className="text-center py-8 text-slate-500 dark:text-slate-400">No featured tutors found.</div>
+            <div className="text-center py-8 text-muted-400">No featured tutors found.</div>
           ) : (
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="bg-slate-50 dark:bg-slate-900/50 text-slate-500 dark:text-slate-400 text-sm border-b border-slate-100 dark:border-slate-700/50">
+                <tr className="bg-slate-50 dark:bg-slate-900/50 text-muted-400 text-sm border-b border-surface-700 dark:border-slate-700/50">
                   <th className="p-4 pl-6 font-semibold">Name</th>
                   <th className="p-4 font-semibold">Subject</th>
                   <th className="p-4 font-semibold">Students</th>
@@ -677,12 +677,12 @@ const AdminPanel = () => {
               <tbody>
                 {featuredTutors.map(t => (
                   <tr key={t._id} className="hover:bg-slate-50/50 dark:hover:bg-slate-700/30 border-b border-slate-50 dark:border-slate-700/50 transition-colors">
-                    <td className="p-4 pl-6 font-semibold text-slate-900 dark:text-white">{t.name}</td>
+                    <td className="p-4 pl-6 font-semibold text-white">{t.name}</td>
                     <td className="p-4 text-slate-600 dark:text-slate-300">{t.subject}</td>
                     <td className="p-4 text-slate-600 dark:text-slate-300">{t.studentsCount}</td>
                     <td className="p-4 text-slate-600 dark:text-slate-300 capitalize">{t.themeColor}</td>
                     <td className="p-4 pr-6 text-right">
-                      <button onClick={() => handleDeleteTutor(t._id)} className="p-2 text-red-500 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-500/10 rounded-lg border border-slate-200 dark:border-slate-700 transition-colors bg-white dark:bg-slate-800 inline-flex" title="Delete Tutor">
+                      <button onClick={() => handleDeleteTutor(t._id)} className="p-2 text-red-500 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-500/10 rounded-lg border border-surface-600 transition-colors bg-white dark:bg-slate-800 inline-flex" title="Delete Tutor">
                         <Trash2 className="w-4.5 h-4.5" />
                       </button>
                     </td>
