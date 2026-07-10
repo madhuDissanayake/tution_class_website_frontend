@@ -28,7 +28,7 @@ const Logo = ({ className = "", iconOnly = false }) => {
   }
 
   return (
-    <div className={`relative flex items-center justify-center shrink-0 w-11 h-11 bg-white dark:bg-gray-900 rounded-xl shadow-lg border border-indigo-100 dark:border-indigo-500/20 ${className}`}>
+    <div className={`relative flex items-center justify-center shrink-0 w-11 h-11 rounded-xl bg-gradient-to-br from-brand-from/20 to-brand-to/20 border border-brand-from/30 shadow-lg ${className}`}>
        {SvgContent}
     </div>
   );

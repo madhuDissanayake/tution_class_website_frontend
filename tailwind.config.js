@@ -16,9 +16,13 @@ export default {
 
         // Brand colors - kept your primary/secondary but added shades
         primary: {
-          DEFAULT: "#4F46E5",
-          light: "#6366F1",
-          dark: "#4338CA",
+          DEFAULT: "#2563EB", // blue-600
+          light: "#3B82F6",   // blue-500
+          dark: "#1D4ED8",    // blue-700
+        },
+        brand: {
+          from: '#2563eb', // blue-600
+          to: '#60a5fa',   // blue-400
         },
         secondary: {
           DEFAULT: "#10B981",

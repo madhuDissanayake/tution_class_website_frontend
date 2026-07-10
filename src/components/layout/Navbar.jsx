@@ -63,7 +63,7 @@ const Navbar = () => {
     <nav className={`sticky top-0 z-50 transition-all duration-500 border-b ${
       isScrolled 
         ? 'bg-surface-950/90 backdrop-blur-xl border-surface-700 shadow-md py-1.5' 
-        : 'bg-surface-950/50 backdrop-blur-md border-transparent border-white/10  py-2'
+        : 'bg-surface-950/50 backdrop-blur-md border-white/10 py-2'
     }`}>
       
       <div className="container mx-auto px-6 relative z-10">
@@ -72,7 +72,7 @@ const Navbar = () => {
           {/* Logo Brand */}
           <Link to="/" className="flex items-center space-x-3 group">
             <div className="relative group-hover:scale-105 transition-transform duration-500 flex items-center justify-center">
-              <Logo className={`dark:bg-slate-800 bg-primary/20 text-primary ${user?.role === 'teacher' ? 'w-10 h-10 md:w-12 md:h-12' : 'w-9 h-9 md:w-11 md:h-11'}`} />
+              <Logo className={`text-primary ${user?.role === 'teacher' ? 'w-10 h-10 md:w-12 md:h-12' : 'w-9 h-9 md:w-11 md:h-11'}`} />
             </div>
             <span className={`font-black tracking-tight text-white flex items-center ${user?.role === 'teacher' ? 'text-2xl md:text-3xl' : 'text-xl md:text-2xl'}`}>
               Tuition
@@ -85,10 +85,10 @@ const Navbar = () => {
             {(!user || (user.role !== 'teacher' && user.role !== 'admin')) && (
               <Link 
                 to="/" 
-                className={`text-sm font-black tracking-wide transition-all duration-300 relative after:absolute ${user?.role === 'teacher' ? 'after:-bottom-6' : 'after:-bottom-4'} after:left-0 after:h-1 after:w-full after:rounded-full after:transition-transform after:duration-300 after:origin-left ${
+                className={`font-black tracking-wide transition-all duration-300 ${user?.role === 'teacher' ? 'text-base px-4 py-2' : 'text-sm px-3 py-1.5'} rounded-lg ${
                   isActive('/') 
-                    ? `text-primary-light after:bg-primary after:scale-x-100` 
-                    : `text-muted-400 hover:text-primary dark:hover:text-blue-400 after:bg-primary/50 after:scale-x-0 hover:after:scale-x-100`
+                    ? `bg-brand-from/10 text-brand-to border-b-2 border-brand-from` 
+                    : `text-muted-400 hover:text-brand-to hover:bg-surface-800 border-b-2 border-transparent`
                 }`}
               >
                 Home
@@ -97,10 +97,10 @@ const Navbar = () => {
             {(!user || (user.role !== 'teacher' && user.role !== 'admin')) && (
               <Link 
                 to="/search" 
-                className={`text-sm font-black tracking-wide transition-all duration-300 relative after:absolute ${user?.role === 'teacher' ? 'after:-bottom-6' : 'after:-bottom-4'} after:left-0 after:h-1 after:w-full after:rounded-full after:transition-transform after:duration-300 after:origin-left ${
+                className={`font-black tracking-wide transition-all duration-300 ${user?.role === 'teacher' ? 'text-base px-4 py-2' : 'text-sm px-3 py-1.5'} rounded-lg ${
                   isActive('/search') 
-                    ? `text-primary-light after:bg-primary after:scale-x-100` 
-                    : `text-muted-400 hover:text-primary dark:hover:text-blue-400 after:bg-primary/50 after:scale-x-0 hover:after:scale-x-100`
+                    ? `bg-brand-from/10 text-brand-to border-b-2 border-brand-from` 
+                    : `text-muted-400 hover:text-brand-to hover:bg-surface-800 border-b-2 border-transparent`
                 }`}
               >
                 Find Classes
@@ -108,20 +108,20 @@ const Navbar = () => {
             )}
             <Link 
               to="/about" 
-              className={`font-black tracking-wide transition-all duration-300 ${user?.role === 'teacher' ? 'text-base' : 'text-sm'} relative after:absolute ${user?.role === 'teacher' ? 'after:-bottom-6' : 'after:-bottom-4'} after:left-0 after:h-1 after:w-full after:rounded-full after:transition-transform after:duration-300 after:origin-left ${
+              className={`font-black tracking-wide transition-all duration-300 ${user?.role === 'teacher' ? 'text-base px-4 py-2' : 'text-sm px-3 py-1.5'} rounded-lg ${
                 isActive('/about') 
-                  ? `text-primary-light after:bg-primary after:scale-x-100` 
-                  : `text-muted-400 hover:text-primary dark:hover:text-blue-400 after:bg-primary/50 after:scale-x-0 hover:after:scale-x-100`
+                  ? `bg-brand-from/10 text-brand-to border-b-2 border-brand-from` 
+                  : `text-muted-400 hover:text-brand-to hover:bg-surface-800 border-b-2 border-transparent`
               }`}
             >
               About
             </Link>
             <Link 
               to="/contact" 
-              className={`font-black tracking-wide transition-all duration-300 ${user?.role === 'teacher' ? 'text-base' : 'text-sm'} relative after:absolute ${user?.role === 'teacher' ? 'after:-bottom-6' : 'after:-bottom-4'} after:left-0 after:h-1 after:w-full after:rounded-full after:transition-transform after:duration-300 after:origin-left ${
+              className={`font-black tracking-wide transition-all duration-300 ${user?.role === 'teacher' ? 'text-base px-4 py-2' : 'text-sm px-3 py-1.5'} rounded-lg ${
                 isActive('/contact') 
-                  ? `text-primary-light after:bg-primary after:scale-x-100` 
-                  : `text-muted-400 hover:text-primary dark:hover:text-blue-400 after:bg-primary/50 after:scale-x-0 hover:after:scale-x-100`
+                  ? `bg-brand-from/10 text-brand-to border-b-2 border-brand-from` 
+                  : `text-muted-400 hover:text-brand-to hover:bg-surface-800 border-b-2 border-transparent`
               }`}
             >
               Contact
@@ -242,7 +242,7 @@ const Navbar = () => {
                 to="/" 
                 onClick={() => setIsMobileMenuOpen(false)}
                 className={`px-4 py-3 rounded-xl text-sm font-black uppercase tracking-wide ${
-                  isActive('/') ? 'bg-primary/10 text-blue-700 dark:text-blue-400' : 'text-muted-400 hover:bg-surface-800'
+                  isActive('/') ? 'bg-brand-from/10 text-brand-to' : 'text-muted-400 hover:bg-surface-800'
                 }`}
               >
                 Home
@@ -253,7 +253,7 @@ const Navbar = () => {
                 to="/search" 
                 onClick={() => setIsMobileMenuOpen(false)}
                 className={`px-4 py-3 rounded-xl text-sm font-black uppercase tracking-wide ${
-                  isActive('/search') ? 'bg-primary/10 text-blue-700 dark:text-blue-400' : 'text-muted-400 hover:bg-surface-800'
+                  isActive('/search') ? 'bg-brand-from/10 text-brand-to' : 'text-muted-400 hover:bg-surface-800'
                 }`}
               >
                 Find Classes
@@ -263,7 +263,7 @@ const Navbar = () => {
               to="/about" 
               onClick={() => setIsMobileMenuOpen(false)}
               className={`px-4 py-3 rounded-xl text-sm font-black uppercase tracking-wide ${
-                isActive('/about') ? 'bg-primary/10 text-blue-700 dark:text-blue-400' : 'text-muted-400 hover:bg-surface-800'
+                isActive('/about') ? 'bg-brand-from/10 text-brand-to' : 'text-muted-400 hover:bg-surface-800'
               }`}
             >
               About
@@ -272,7 +272,7 @@ const Navbar = () => {
               to="/contact" 
               onClick={() => setIsMobileMenuOpen(false)}
               className={`px-4 py-3 rounded-xl text-sm font-black uppercase tracking-wide ${
-                isActive('/contact') ? 'bg-primary/10 text-blue-700 dark:text-blue-400' : 'text-muted-400 hover:bg-surface-800'
+                isActive('/contact') ? 'bg-brand-from/10 text-brand-to' : 'text-muted-400 hover:bg-surface-800'
               }`}
             >
               Contact
