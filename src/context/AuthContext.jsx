@@ -22,6 +22,15 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem('userInfo', JSON.stringify(data));
       return data;
     } catch (error) {
+      // Unpaid teacher: backend still returns a token + requiresPayment on a 402.
+      // Save it so the payment page can call the authenticated initiate endpoint.
+      if (error.response?.status === 402 && error.response?.data?.requiresPayment) {
+        const data = error.response.data;
+        setUser(data);
+        localStorage.setItem('userInfo', JSON.stringify(data));
+        return data;
+      }
+
       if (error.response?.data?.emailUnverified) {
         throw { message: error.response.data.message, emailUnverified: true, email: error.response.data.email };
       }

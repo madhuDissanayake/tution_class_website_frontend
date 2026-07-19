@@ -1,5 +1,5 @@
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Bell, User as UserIcon, LogOut, Menu, X, GraduationCap } from 'lucide-react';
+import { Bell, User as UserIcon, LogOut, Menu, X, GraduationCap, Wallet } from 'lucide-react';
 import { useContext, useState, useEffect } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import axios from 'axios';
@@ -133,13 +133,19 @@ const Navbar = () => {
             {user ? (
               <>
                 {user.role === 'admin' && (
-                  <Link 
-                    to="/admin" 
-                    className={`${user?.role === 'teacher' ? 'h-10 px-5 text-xs' : 'h-8 px-4 text-[10px]'} flex items-center justify-center gap-2 text-primary-light hover:bg-primary/20 rounded-full bg-primary/10 font-black uppercase tracking-wider transition-all duration-300`}
-                  >
-                    Admin Panel
-                  </Link>
-                )}
+  <>
+    <Link to="/admin">
+      Admin Panel
+    </Link>
+    <Link 
+      to="/admin/earnings" 
+      className=" text-emerald-400 hover:bg-emerald-500/20 rounded-full bg-emerald-500/10"
+    >
+      <Wallet className="w-3.5 h-3.5" />
+      Earnings & Payouts
+    </Link>
+  </>
+)}
                 {user.role === 'teacher' && (
                   <Link 
                     to="/dashboard" 

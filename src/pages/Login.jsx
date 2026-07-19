@@ -8,7 +8,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  
+
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
@@ -20,7 +20,12 @@ const Login = () => {
       setLoading(true);
       setError('');
       const userData = await login(email, password);
-      
+
+      if (userData.requiresPayment) {
+        navigate('/payment/teacher-fee');
+        return;
+      }
+
       if (userData.role === 'admin') {
         navigate('/admin');
       } else if (userData.role === 'teacher') {
@@ -71,28 +76,28 @@ const Login = () => {
             <label className="block text-xs font-medium text-muted-400 uppercase tracking-wider mb-2">Email Address</label>
             <div className="relative">
               <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-500 w-5 h-5" />
-              <input 
-                type="email" 
+              <input
+                type="email"
                 className="w-full pl-10 pr-4 py-2 border border-surface-600 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-white bg-surface-800 transition-all font-medium text-sm"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="name@example.com"
-                required 
+                required
               />
             </div>
           </div>
-          
+
           <div>
             <label className="block text-xs font-medium text-muted-400 uppercase tracking-wider mb-2">Password</label>
             <div className="relative">
               <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-500 w-5 h-5" />
-              <input 
-                type="password" 
+              <input
+                type="password"
                 className="w-full pl-10 pr-4 py-2 border border-surface-600 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-white bg-surface-800 transition-all font-medium text-sm"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                required 
+                required
               />
             </div>
             <div className="text-right mt-2">
@@ -100,8 +105,8 @@ const Login = () => {
             </div>
           </div>
 
-          <button 
-            type="submit" 
+          <button
+            type="submit"
             disabled={loading}
             className="w-full bg-primary hover:bg-primary-dark text-white font-medium py-3 text-sm rounded-lg shadow-glow-primary transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center cursor-pointer"
           >
@@ -128,4 +133,3 @@ const Login = () => {
 };
 
 export default Login;
-

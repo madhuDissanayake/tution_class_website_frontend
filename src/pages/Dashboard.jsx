@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
-import { PlusCircle, Edit, Trash2, Book, Calendar, Loader, FileText, Compass, Sparkles, AlertCircle, Users, Video } from 'lucide-react';
+import { PlusCircle, Edit, Trash2, Book, Calendar, Loader, FileText, Compass, Sparkles, AlertCircle, Users, Video, Wallet, ArrowUpRight, Landmark } from 'lucide-react';
 import axios from 'axios';
 
 const Dashboard = () => {
@@ -12,6 +12,20 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
+
+  // ── Teacher earnings/wallet state ──
+  const [earnings, setEarnings] = useState(null);
+  const [earningsLoading, setEarningsLoading] = useState(false);
+  const [showWithdrawModal, setShowWithdrawModal] = useState(false);
+  const [showPayoutModal, setShowPayoutModal] = useState(false);
+  const [withdrawAmount, setWithdrawAmount] = useState('');
+  const [withdrawLoading, setWithdrawLoading] = useState(false);
+  const [withdrawError, setWithdrawError] = useState(null);
+  const [payoutForm, setPayoutForm] = useState({ bankName: '', accountName: '', accountNumber: '', branch: '' });
+  const [payoutLoading, setPayoutLoading] = useState(false);
+  const [payoutError, setPayoutError] = useState(null);
+
+  const authConfig = user?.token ? { headers: { Authorization: `Bearer ${user.token}` } } : null;
 
   useEffect(() => {
     if (!user) return;
@@ -25,7 +39,7 @@ const Dashboard = () => {
       try {
         setLoading(true);
         setError(null);
-        
+
         const config = {
           headers: {
             Authorization: `Bearer ${user.token}`,
@@ -49,6 +63,25 @@ const Dashboard = () => {
 
     fetchData();
   }, [user, navigate]);
+
+  const fetchEarnings = async () => {
+    if (!user || user.role !== 'teacher' || user.status !== 'approved') return;
+    try {
+      setEarningsLoading(true);
+      const { data } = await axios.get(import.meta.env.VITE_API_URL + '/api/earnings/my', authConfig);
+      setEarnings(data);
+      setPayoutForm(data.payoutDetails?.accountNumber ? data.payoutDetails : payoutForm);
+    } catch (err) {
+      console.error('Failed to fetch earnings', err);
+    } finally {
+      setEarningsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchEarnings();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
   const handleDeleteClass = async (classId) => {
     if (!window.confirm('Are you sure you want to delete this class?')) return;
@@ -89,6 +122,42 @@ const Dashboard = () => {
     } catch (err) {
       console.error(err);
       setError(err.response?.data?.message || 'Failed to cancel reservation');
+    }
+  };
+
+  const handleSavePayoutDetails = async (e) => {
+    e.preventDefault();
+    try {
+      setPayoutLoading(true);
+      setPayoutError(null);
+      await axios.put(import.meta.env.VITE_API_URL + '/api/earnings/payout-details', payoutForm, authConfig);
+      setShowPayoutModal(false);
+      await fetchEarnings();
+    } catch (err) {
+      setPayoutError(err.response?.data?.message || 'Failed to save payout details');
+    } finally {
+      setPayoutLoading(false);
+    }
+  };
+
+  const handleRequestWithdrawal = async (e) => {
+    e.preventDefault();
+    try {
+      setWithdrawLoading(true);
+      setWithdrawError(null);
+      await axios.post(
+        import.meta.env.VITE_API_URL + '/api/earnings/withdraw',
+        { amount: Number(withdrawAmount) },
+        authConfig
+      );
+      setShowWithdrawModal(false);
+      setWithdrawAmount('');
+      setSuccess('Withdrawal request submitted! Admin will process it shortly.');
+      await fetchEarnings();
+    } catch (err) {
+      setWithdrawError(err.response?.data?.message || 'Failed to submit withdrawal request');
+    } finally {
+      setWithdrawLoading(false);
     }
   };
 
@@ -140,6 +209,20 @@ const Dashboard = () => {
     }
   };
 
+  const renderWithdrawalStatusBadge = (status) => {
+    const map = {
+      pending: 'bg-amber-50 text-amber-700 border-amber-200/50',
+      approved: 'bg-blue-50 text-blue-700 border-blue-200/50',
+      paid: 'bg-emerald-50 text-emerald-700 border-emerald-200/50',
+      rejected: 'bg-rose-50 text-rose-700 border-rose-200/50'
+    };
+    return (
+      <span className={`inline-flex px-2.5 py-1 rounded-full text-[10px] font-semibold uppercase tracking-wider border ${map[status] || map.pending}`}>
+        {status}
+      </span>
+    );
+  };
+
   const renderPendingState = (role) => (
     <div className="max-w-xl mx-auto text-center mt-20 p-10 bg-surface-800 rounded-3xl border border-surface-600 shadow-card animate-fade-in">
       <AlertCircle className="w-16 h-16 text-amber-500 mx-auto mb-6" />
@@ -153,6 +236,81 @@ const Dashboard = () => {
       <AlertCircle className="w-16 h-16 text-rose-500 mx-auto mb-6" />
       <h2 className="text-3xl font-black text-white mb-4 tracking-tight">Account Rejected</h2>
       <p className="text-muted-400 font-medium text-lg">Your {role} account registration was rejected by an administrator. Please contact support for more information.</p>
+    </div>
+  );
+
+  const renderEarningsCard = () => (
+    <div className="bg-surface-900 rounded-2xl overflow-hidden shadow-card border border-surface-600">
+      <div className="p-4 md:p-5 border-b border-surface-600 flex items-center justify-between bg-surface-800/50">
+        <h2 className="text-lg md:text-xl font-semibold text-white flex items-center gap-2">
+          <Wallet className="w-5 h-5 text-primary-light" /> Earnings Wallet
+        </h2>
+        <span className="text-xs bg-primary-dark/30 text-primary-light border border-primary-dark/50 font-semibold px-2.5 py-1 rounded-full">
+          You keep 90% · 10% platform fee
+        </span>
+      </div>
+      <div className="p-4 md:p-6 space-y-6">
+        {earningsLoading && !earnings ? (
+          <div className="flex justify-center py-6"><Loader className="w-6 h-6 animate-spin text-primary" /></div>
+        ) : earnings ? (
+          <>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="bg-surface-800/50 border border-surface-700 p-4 rounded-xl text-center">
+                <span className="text-[10px] text-white opacity-50 font-medium uppercase tracking-[1px] block mb-1">Available</span>
+                <span className="text-xl text-white font-black">Rs. {earnings.wallet.available.toLocaleString()}</span>
+              </div>
+              <div className="bg-surface-800/50 border border-surface-700 p-4 rounded-xl text-center">
+                <span className="text-[10px] text-white opacity-50 font-medium uppercase tracking-[1px] block mb-1">Pending Payout</span>
+                <span className="text-xl text-white font-black">Rs. {earnings.wallet.pendingWithdrawal.toLocaleString()}</span>
+              </div>
+              <div className="bg-surface-800/50 border border-surface-700 p-4 rounded-xl text-center">
+                <span className="text-[10px] text-white opacity-50 font-medium uppercase tracking-[1px] block mb-1">Total Earned</span>
+                <span className="text-xl text-white font-black">Rs. {earnings.wallet.totalEarned.toLocaleString()}</span>
+              </div>
+              <div className="bg-surface-800/50 border border-surface-700 p-4 rounded-xl text-center">
+                <span className="text-[10px] text-white opacity-50 font-medium uppercase tracking-[1px] block mb-1">Total Withdrawn</span>
+                <span className="text-xl text-white font-black">Rs. {earnings.wallet.totalWithdrawn.toLocaleString()}</span>
+              </div>
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-3">
+              <button
+                onClick={() => setShowWithdrawModal(true)}
+                disabled={earnings.wallet.available < earnings.minWithdrawalAmount}
+                className="flex-1 bg-primary hover:bg-primary-dark disabled:opacity-50 disabled:cursor-not-allowed text-white font-medium py-3 px-5 rounded-xl shadow-glow-primary transition-all flex items-center justify-center gap-2 text-sm cursor-pointer"
+              >
+                <ArrowUpRight className="w-4 h-4" /> Request Withdrawal
+              </button>
+              <button
+                onClick={() => setShowPayoutModal(true)}
+                className="flex-1 bg-surface-800 hover:bg-surface-700 text-white font-medium py-3 px-5 rounded-xl border border-surface-600 transition-all flex items-center justify-center gap-2 text-sm cursor-pointer"
+              >
+                <Landmark className="w-4 h-4" /> {earnings.payoutDetails?.accountNumber ? 'Update' : 'Add'} Bank Details
+              </button>
+            </div>
+            {earnings.wallet.available < earnings.minWithdrawalAmount && (
+              <p className="text-xs text-muted-500 font-medium">Minimum withdrawal amount is Rs. {earnings.minWithdrawalAmount}.</p>
+            )}
+
+            {earnings.withdrawals?.length > 0 && (
+              <div className="pt-4 border-t border-surface-700">
+                <h4 className="text-sm font-semibold text-white mb-3">Withdrawal History</h4>
+                <div className="space-y-2">
+                  {earnings.withdrawals.map((w) => (
+                    <div key={w._id} className="flex items-center justify-between bg-surface-800/50 border border-surface-700 rounded-xl px-4 py-2.5">
+                      <div>
+                        <span className="text-white font-semibold text-sm">Rs. {w.amount.toLocaleString()}</span>
+                        <span className="text-muted-500 text-[10px] font-medium ml-2">{new Date(w.createdAt).toLocaleDateString()}</span>
+                      </div>
+                      {renderWithdrawalStatusBadge(w.status)}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </>
+        ) : null}
+      </div>
     </div>
   );
 
@@ -171,10 +329,12 @@ const Dashboard = () => {
         </div>
       </div>
 
+      {renderEarningsCard()}
+
       <div className="bg-surface-900 rounded-2xl overflow-hidden shadow-card border border-surface-600">
         <div className="p-4 md:p-5 border-b border-surface-600 flex items-center justify-between bg-surface-800/50">
           <h2 className="text-lg md:text-xl font-semibold text-white flex items-center gap-2">
-            Your Active Classes 
+            Your Active Classes
             <span className="text-xs bg-primary-dark/30 text-primary-light border border-primary-dark/50 font-semibold px-2.5 py-1 rounded-full">
               {data.length} Total
             </span>
@@ -195,7 +355,7 @@ const Dashboard = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {data.map((cls, idx) => (
                 <div key={cls._id} className="bg-surface-800 border border-surface-600 rounded-2xl overflow-hidden hover:shadow-card-hover hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between min-h-[260px] group relative">
-                  
+
                   <div className="p-5 space-y-3 relative z-10">
                     <div className="flex justify-between items-start">
                       <span className="bg-primary text-white shadow-sm text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider">
@@ -205,7 +365,7 @@ const Dashboard = () => {
                         {cls.medium}
                       </span>
                     </div>
-                    
+
                     <div>
                       <h3 className="text-xl font-semibold text-white line-clamp-2 mt-2 group-hover:text-primary-light transition-colors">
                         {cls.title}
@@ -214,7 +374,7 @@ const Dashboard = () => {
                         {cls.description}
                       </p>
                     </div>
-                    
+
                     <div className="flex flex-wrap items-center text-muted-400 text-xs font-medium gap-3 pt-2">
                       <div className="flex items-center bg-surface-900/50 px-2.5 py-1.5 rounded-lg border border-surface-700">
                         <Book className="w-3.5 h-3.5 mr-1.5 text-primary-light" /> {cls.grade}
@@ -227,19 +387,19 @@ const Dashboard = () => {
                       </div>
                     </div>
                   </div>
-                  
+
                   <div className="bg-surface-800/50 px-5 py-3 border-t border-surface-700 flex justify-between items-center relative z-10">
                     <span className="text-xl font-black text-white">Rs. {cls.fee}<span className="text-muted-500 text-[10px] font-medium ml-1 uppercase">/mo</span></span>
                     <div className="flex items-center space-x-2">
-                      <Link 
-                        to={`/manage-students/${cls._id}`} 
+                      <Link
+                        to={`/manage-students/${cls._id}`}
                         className="p-2.5 text-emerald-600 hover:text-white transition-all bg-emerald-50 hover:bg-emerald-600 dark:bg-emerald-900/20 dark:text-emerald-400 dark:hover:bg-emerald-600 dark:hover:text-white rounded-xl border border-emerald-100 dark:border-emerald-800 shadow-sm block"
                         title="Manage Students"
                       >
                         <Users className="w-4.5 h-4.5" />
                       </Link>
-                      <Link 
-                        to={`/class/${cls._id}`} 
+                      <Link
+                        to={`/class/${cls._id}`}
                         className="p-2.5 text-blue-600 hover:text-white transition-all bg-blue-50 hover:bg-blue-600 dark:bg-blue-900/20 dark:text-blue-400 dark:hover:bg-blue-600 dark:hover:text-white rounded-xl border border-blue-100 dark:border-blue-800 shadow-sm"
                         title="View Class"
                       >
@@ -254,7 +414,7 @@ const Dashboard = () => {
         </div>
       </div>
     </div>
-  );
+    );
   };
 
   const renderStudentDashboard = () => {
@@ -265,7 +425,7 @@ const Dashboard = () => {
     <div className="space-y-6 animate-slide-up pb-6 pt-0 px-4 md:px-0 -mt-6">
       {/* Dashboard Banner */}
       <div className="relative overflow-hidden bg-primary/5 rounded-2xl p-6 mb-6 border border-primary/20 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-        
+
         {/* Banner Image Background */}
         <div className="absolute right-0 top-0 bottom-0 w-full md:w-1/2 lg:w-5/12 z-0 hidden md:block opacity-90">
           <div className="absolute inset-0 bg-gradient-to-r from-surface-950 via-surface-950/80 to-transparent z-10"></div>
@@ -281,8 +441,8 @@ const Dashboard = () => {
             Welcome back, <span className="text-primary-light font-semibold">{user.name}</span>! Track and manage your reservations.
           </p>
           <div className="pt-2">
-            <Link 
-              to="/search" 
+            <Link
+              to="/search"
               className="bg-primary hover:bg-primary-dark text-white inline-flex items-center px-6 py-3.5 rounded-2xl transition-all shadow-glow-primary transform hover:-translate-y-0.5 font-medium text-sm cursor-pointer w-max"
             >
               Find New Classes
@@ -294,7 +454,7 @@ const Dashboard = () => {
       <div className="bg-surface-900 rounded-2xl overflow-hidden shadow-card border border-surface-600">
         <div className="p-4 md:p-5 border-b border-surface-600 flex items-center justify-between bg-surface-800/50">
           <h2 className="text-lg md:text-xl font-semibold text-white flex items-center gap-2">
-            My Reservations 
+            My Reservations
             <span className="text-xs bg-primary-dark/30 text-primary-light border border-primary-dark/50 font-semibold px-2.5 py-1 rounded-full">
               {data.length} Seats
             </span>
@@ -329,7 +489,7 @@ const Dashboard = () => {
                         </h3>
                         {renderStatusBadge(res.status)}
                       </div>
-                      
+
                       <div className="flex flex-wrap gap-4 text-xs font-medium text-muted-400">
                         <span className="bg-surface-900/50 px-2.5 py-1 rounded-lg border border-surface-700">
                           Subject: {cls.subject}
@@ -344,7 +504,7 @@ const Dashboard = () => {
 
                       <div className="flex items-center gap-2 text-muted-500 text-xs font-semibold pt-1">
                         <span className="w-1.5 h-1.5 rounded-full bg-muted-500"></span>
-                        Teacher: <span className="text-white font-medium">{cls.teacherId?.name || 'Unknown Teacher'}</span> 
+                        Teacher: <span className="text-white font-medium">{cls.teacherId?.name || 'Unknown Teacher'}</span>
                         {cls.teacherId?.email && <span className="font-normal">({cls.teacherId.email})</span>}
                       </div>
                     </div>
@@ -354,10 +514,10 @@ const Dashboard = () => {
                         <span className="text-2xl font-black text-white block">Rs. {cls.fee}</span>
                         <span className="text-muted-500 text-[10px] font-medium block uppercase tracking-wider">per month</span>
                       </div>
-                      
+
                       <div className="flex gap-2 items-center">
                         {res.status === 'confirmed' && cls.isOnline && cls.groupLink && (
-                          <a 
+                          <a
                             href={cls.groupLink}
                             target="_blank"
                             rel="noopener noreferrer"
@@ -374,8 +534,8 @@ const Dashboard = () => {
                             Cancel Seat
                           </button>
                         )}
-                        <Link 
-                          to={`/class/${cls._id}`} 
+                        <Link
+                          to={`/class/${cls._id}`}
                           className="bg-primary/20 hover:bg-primary hover:text-white text-primary-light font-semibold py-2 px-4 rounded-xl transition-all border border-primary-dark/50 hover:border-primary text-xs"
                         >
                           View Details
@@ -404,7 +564,7 @@ const Dashboard = () => {
           <button onClick={() => setSuccess(null)} className="text-emerald-800 hover:text-emerald-950 font-black text-xl leading-none">×</button>
         </div>
       )}
-      
+
       {error && (
         <div className="bg-rose-50 text-rose-800 p-5 rounded-2xl border border-rose-100 shadow-sm mb-6 flex items-center justify-between animate-fade-in">
           <div className="flex items-center gap-2 font-medium">
@@ -416,6 +576,113 @@ const Dashboard = () => {
       )}
 
       {user.role === 'teacher' ? renderTeacherDashboard() : renderStudentDashboard()}
+
+      {/* Withdraw Modal */}
+      {showWithdrawModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-surface-950/80 backdrop-blur-sm p-4 animate-fade-in">
+          <div className="bg-surface-900 border border-surface-700 rounded-3xl p-6 md:p-8 w-full max-w-md shadow-2xl relative">
+            <button onClick={() => setShowWithdrawModal(false)} className="absolute top-4 right-4 p-2 bg-surface-800 hover:bg-surface-700 rounded-full text-muted-400 transition-colors">×</button>
+            <h3 className="text-xl font-black text-white mb-1">Request Withdrawal</h3>
+            <p className="text-muted-500 text-sm font-medium mb-6">
+              Available balance: Rs. {earnings?.wallet.available.toLocaleString()}
+            </p>
+
+            {withdrawError && (
+              <div className="bg-rose-50 text-rose-600 p-3 rounded-xl mb-4 text-xs font-medium border border-rose-100 text-center">
+                {withdrawError}
+              </div>
+            )}
+
+            <form onSubmit={handleRequestWithdrawal} className="space-y-4">
+              <div>
+                <label className="block text-xs font-medium text-muted-400 uppercase tracking-wider mb-2">Amount (Rs.)</label>
+                <input
+                  type="number"
+                  min={earnings?.minWithdrawalAmount || 500}
+                  max={earnings?.wallet.available || 0}
+                  value={withdrawAmount}
+                  onChange={(e) => setWithdrawAmount(e.target.value)}
+                  className="w-full px-4 py-3 border border-surface-600 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-white bg-surface-800 font-medium text-sm"
+                  required
+                />
+              </div>
+              <button
+                type="submit"
+                disabled={withdrawLoading}
+                className="w-full bg-primary hover:bg-primary-dark text-white font-medium py-3 rounded-xl transition-all flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer"
+              >
+                {withdrawLoading ? <Loader className="w-4 h-4 animate-spin" /> : 'Submit Request'}
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Payout Details Modal */}
+      {showPayoutModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-surface-950/80 backdrop-blur-sm p-4 animate-fade-in">
+          <div className="bg-surface-900 border border-surface-700 rounded-3xl p-6 md:p-8 w-full max-w-md shadow-2xl relative">
+            <button onClick={() => setShowPayoutModal(false)} className="absolute top-4 right-4 p-2 bg-surface-800 hover:bg-surface-700 rounded-full text-muted-400 transition-colors">×</button>
+            <h3 className="text-xl font-black text-white mb-1">Bank / Payout Details</h3>
+            <p className="text-muted-500 text-sm font-medium mb-6">Used when we process your withdrawal requests.</p>
+
+            {payoutError && (
+              <div className="bg-rose-50 text-rose-600 p-3 rounded-xl mb-4 text-xs font-medium border border-rose-100 text-center">
+                {payoutError}
+              </div>
+            )}
+
+            <form onSubmit={handleSavePayoutDetails} className="space-y-4">
+              <div>
+                <label className="block text-xs font-medium text-muted-400 uppercase tracking-wider mb-2">Bank Name</label>
+                <input
+                  type="text"
+                  value={payoutForm.bankName}
+                  onChange={(e) => setPayoutForm({ ...payoutForm, bankName: e.target.value })}
+                  className="w-full px-4 py-3 border border-surface-600 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-white bg-surface-800 font-medium text-sm"
+                  required
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-medium text-muted-400 uppercase tracking-wider mb-2">Account Holder Name</label>
+                <input
+                  type="text"
+                  value={payoutForm.accountName}
+                  onChange={(e) => setPayoutForm({ ...payoutForm, accountName: e.target.value })}
+                  className="w-full px-4 py-3 border border-surface-600 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-white bg-surface-800 font-medium text-sm"
+                  required
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-medium text-muted-400 uppercase tracking-wider mb-2">Account Number</label>
+                <input
+                  type="text"
+                  value={payoutForm.accountNumber}
+                  onChange={(e) => setPayoutForm({ ...payoutForm, accountNumber: e.target.value })}
+                  className="w-full px-4 py-3 border border-surface-600 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-white bg-surface-800 font-medium text-sm"
+                  required
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-medium text-muted-400 uppercase tracking-wider mb-2">Branch (optional)</label>
+                <input
+                  type="text"
+                  value={payoutForm.branch}
+                  onChange={(e) => setPayoutForm({ ...payoutForm, branch: e.target.value })}
+                  className="w-full px-4 py-3 border border-surface-600 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-white bg-surface-800 font-medium text-sm"
+                />
+              </div>
+              <button
+                type="submit"
+                disabled={payoutLoading}
+                className="w-full bg-primary hover:bg-primary-dark text-white font-medium py-3 rounded-xl transition-all flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer"
+              >
+                {payoutLoading ? <Loader className="w-4 h-4 animate-spin" /> : 'Save Details'}
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

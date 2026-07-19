@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
-import { PlusCircle, Loader, Trash } from 'lucide-react';
+import { Loader } from 'lucide-react';
 import Map from '../components/ui/Map';
 
 const CreateClass = () => {
@@ -83,61 +83,154 @@ const CreateClass = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    if (!user || !user.token) {
-      setError('Please log in to create a class.');
-      return;
-    }
+  if (!user || !user.token) {
+    setError("Please log in to create a class.");
+    return;
+  }
 
-    if (schedule.length === 0) {
-      setError('Please add at least one schedule row.');
-      return;
-    }
+  if (schedule.length === 0) {
+    setError("Please add at least one schedule row.");
+    return;
+  }
 
-    if (!formData.teacherId) {
-      setError('Please select a teacher for this class.');
-      return;
-    }
+  if (!formData.teacherId) {
+    setError("Please select a teacher for this class.");
+    return;
+  }
 
-    try {
-      setPublishing(true);
-      setError(null);
 
-      const payload = {
-        title: formData.title,
-        subject: formData.subject,
-        grade: formData.grade,
-        medium: formData.medium,
-        fee: parseFloat(formData.fee),
-        capacity: parseInt(formData.capacity),
-        description: formData.description,
-        isOnline: formData.isOnline,
-        groupLink: formData.isOnline ? formData.groupLink : undefined,
-        location: formData.isOnline ? undefined : {
-          type: 'Point',
-          coordinates: formData.lng && formData.lat ? [parseFloat(formData.lng), parseFloat(formData.lat)] : [],
-          address: formData.address,
-        },
-        schedule: schedule,
-        teacherId: formData.teacherId,
-      };
+  // Validate physical class location
+  if (
+    !formData.isOnline &&
+    (!formData.lat || !formData.lng)
+  ) {
+    setError("Please select class location from map or enter latitude and longitude.");
+    return;
+  }
 
-      const config = {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      };
 
-      await axios.post(import.meta.env.VITE_API_URL + '/api/classes', payload, config);
-      navigate('/dashboard');
-    } catch (err) {
-      console.error(err);
-      setError(err.response?.data?.message || 'Failed to create class');
-    } finally {
-      setPublishing(false);
-    }
-  };
+  try {
+
+    setPublishing(true);
+    setError(null);
+
+
+    const payload = {
+
+      title: formData.title,
+
+      subject: formData.subject,
+
+      grade: formData.grade,
+
+      medium: formData.medium,
+
+
+      fee: Number(formData.fee),
+
+      capacity: Number(formData.capacity),
+
+
+      description: formData.description,
+
+
+      isOnline: formData.isOnline,
+
+
+      groupLink: formData.isOnline
+        ? formData.groupLink
+        : undefined,
+
+
+
+      /*
+        FIXED GEO LOCATION
+        Do not send empty coordinates
+      */
+
+      location:
+        !formData.isOnline &&
+        formData.lat &&
+        formData.lng
+        ?
+        {
+          type: "Point",
+
+          coordinates: [
+            Number(formData.lng),
+            Number(formData.lat)
+          ],
+
+          address: formData.address
+        }
+        :
+        undefined,
+
+
+
+      schedule: schedule,
+
+
+      teacherId: formData.teacherId
+
+    };
+
+
+
+    console.log("CREATE CLASS PAYLOAD =>", payload);
+
+
+
+    const config = {
+
+      headers: {
+
+        Authorization: `Bearer ${user.token}`
+
+      }
+
+    };
+
+
+
+    await axios.post(
+
+      import.meta.env.VITE_API_URL + "/api/classes",
+
+      payload,
+
+      config
+
+    );
+
+
+    navigate("/dashboard");
+
+
+
+  } catch (err) {
+
+
+    console.error("Create Class Error:", err);
+
+
+    setError(
+      err.response?.data?.message ||
+      "Failed to create class"
+    );
+
+
+  } finally {
+
+
+    setPublishing(false);
+
+
+  }
+
+};
 
   return (
     <div className="max-w-3xl mx-auto animate-fade-in relative">

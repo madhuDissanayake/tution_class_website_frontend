@@ -19,6 +19,10 @@ import Contact from './pages/Contact';
 import Chatbot from './components/ui/Chatbot';
 import AdminPanel from './pages/AdminPanel';
 import Notifications from './pages/Notifications';
+import TeacherPayment from './pages/TeacherPayment';
+import PaymentSuccess from './pages/PaymentSuccess';
+import PaymentCancel from './pages/Paymentcancel';
+import AdminEarnings from './pages/Adminearnings';
 
 // Admin Route Guard
 const AdminRoute = ({ children }) => {
@@ -62,6 +66,10 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/admin" element={<AdminRoute><AdminPanel /></AdminRoute>} />
             <Route path="/notifications" element={<Notifications />} />
+            <Route path="/payment/teacher-fee" element={<TeacherPayment />} />
+<Route path="/payment/success" element={<PaymentSuccess />} />
+<Route path="/payment/cancel" element={<PaymentCancel />} />
+<Route path="/admin/earnings" element={<AdminEarnings />} />
           </Routes>
         </main>
         <Footer />

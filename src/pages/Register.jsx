@@ -43,10 +43,10 @@ const Register = () => {
     const { value, checked } = e.target;
     setFormData((prev) => {
       const currentList = prev.teacherDetails[field] || [];
-      const updatedList = checked 
-        ? [...currentList, value] 
+      const updatedList = checked
+        ? [...currentList, value]
         : currentList.filter(item => item !== value);
-        
+
       return {
         ...prev,
         teacherDetails: {
@@ -62,7 +62,13 @@ const Register = () => {
     try {
       setLoading(true);
       setError('');
-      await register(formData);
+      const data = await register(formData);
+
+      if (formData.role === 'teacher') {
+        navigate('/login', { state: { message: data?.message || 'Account created. Please log in to complete your registration fee payment.' } });
+        return;
+      }
+
       navigate('/login', { state: { message: 'Registration successful! Your account is pending admin approval.' } });
     } catch (err) {
       setError(err || 'Registration failed. Please try again.');
@@ -97,14 +103,14 @@ const Register = () => {
             <label className="block text-xs font-medium text-muted-400 uppercase tracking-wider mb-2">Full Name</label>
             <div className="relative">
               <User className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-500 w-5 h-5" />
-              <input 
-                type="text" 
+              <input
+                type="text"
                 name="name"
                 className="w-full pl-11 pr-4 py-3 border border-surface-600 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-white bg-surface-800 transition-all font-medium text-sm"
                 value={formData.name}
                 onChange={handleChange}
                 placeholder="John Doe"
-                required 
+                required
               />
             </div>
           </div>
@@ -113,14 +119,14 @@ const Register = () => {
             <label className="block text-xs font-medium text-muted-400 uppercase tracking-wider mb-2">Email Address</label>
             <div className="relative">
               <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-500 w-5 h-5" />
-              <input 
-                type="email" 
+              <input
+                type="email"
                 name="email"
                 className="w-full pl-11 pr-4 py-3 border border-surface-600 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-white bg-surface-800 transition-all font-medium text-sm"
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="name@example.com"
-                required 
+                required
               />
             </div>
           </div>
@@ -129,14 +135,14 @@ const Register = () => {
             <label className="block text-xs font-medium text-muted-400 uppercase tracking-wider mb-2">Password</label>
             <div className="relative">
               <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-500 w-5 h-5" />
-              <input 
-                type="password" 
+              <input
+                type="password"
                 name="password"
                 className="w-full pl-11 pr-4 py-3 border border-surface-600 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-white bg-surface-800 transition-all font-medium text-sm"
                 value={formData.password}
                 onChange={handleChange}
                 placeholder="••••••••"
-                required 
+                required
               />
             </div>
           </div>
@@ -144,14 +150,14 @@ const Register = () => {
           <div>
             <label className="block text-xs font-medium text-muted-400 uppercase tracking-wider mb-2">Phone Number</label>
             <div className="relative">
-              <input 
-                type="text" 
+              <input
+                type="text"
                 name="phone"
                 className="w-full px-4 py-3 border border-surface-600 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-white bg-surface-800 transition-all font-medium text-sm"
                 value={formData.phone}
                 onChange={handleChange}
                 placeholder="07XXXXXXXX"
-                required 
+                required
               />
             </div>
           </div>
@@ -160,26 +166,26 @@ const Register = () => {
             <label className="block text-xs font-medium text-muted-400 uppercase tracking-wider mb-2">I am a...</label>
             <div className="grid grid-cols-2 gap-4">
               <label className={`flex flex-col items-center justify-center p-4 rounded-2xl border cursor-pointer transition-all duration-300 ${formData.role === 'student' ? 'border-primary bg-primary-dark/30 text-primary-light shadow-sm' : 'border-surface-700 bg-surface-800/40 text-muted-400 hover:border-surface-600'}`}>
-                <input 
-                  type="radio" 
-                  name="role" 
-                  value="student" 
-                  checked={formData.role === 'student'} 
-                  onChange={handleChange} 
-                  className="sr-only" 
+                <input
+                  type="radio"
+                  name="role"
+                  value="student"
+                  checked={formData.role === 'student'}
+                  onChange={handleChange}
+                  className="sr-only"
                 />
                 <GraduationCap className="w-6 h-6 mb-1.5" />
                 <span className="text-xs font-medium uppercase tracking-wider">Student</span>
               </label>
 
               <label className={`flex flex-col items-center justify-center p-4 rounded-2xl border cursor-pointer transition-all duration-300 ${formData.role === 'teacher' ? 'border-secondary bg-secondary-dark/30 text-secondary-light shadow-sm' : 'border-surface-700 bg-surface-800/40 text-muted-400 hover:border-surface-600'}`}>
-                <input 
-                  type="radio" 
-                  name="role" 
-                  value="teacher" 
-                  checked={formData.role === 'teacher'} 
-                  onChange={handleChange} 
-                  className="sr-only" 
+                <input
+                  type="radio"
+                  name="role"
+                  value="teacher"
+                  checked={formData.role === 'teacher'}
+                  onChange={handleChange}
+                  className="sr-only"
                 />
                 <Briefcase className="w-6 h-6 mb-1.5" />
                 <span className="text-xs font-medium uppercase tracking-wider">Teacher</span>
@@ -192,48 +198,48 @@ const Register = () => {
               <h3 className="text-sm font-medium text-white mb-2">Teacher Additional Details</h3>
               <div>
                 <label className="block text-xs font-medium text-muted-400 uppercase tracking-wider mb-2">NIC Number</label>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   name="nic"
                   className="w-full px-4 py-3 border border-surface-600 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-white bg-surface-800 transition-all font-medium text-sm"
                   value={formData.teacherDetails.nic}
                   onChange={handleChange}
                   placeholder="e.g. 199012345678"
-                  required={formData.role === 'teacher'} 
+                  required={formData.role === 'teacher'}
                 />
               </div>
               <div>
                 <label className="block text-xs font-medium text-muted-400 uppercase tracking-wider mb-2">Qualifications</label>
-                <textarea 
+                <textarea
                   name="qualifications"
                   className="w-full px-4 py-3 border border-surface-600 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-white bg-surface-800 transition-all font-medium text-sm"
                   value={formData.teacherDetails.qualifications}
                   onChange={handleChange}
                   placeholder="e.g. BSc in Mathematics"
-                  required={formData.role === 'teacher'} 
+                  required={formData.role === 'teacher'}
                 />
               </div>
               <div>
                 <label className="block text-xs font-medium text-muted-400 uppercase tracking-wider mb-2">Experience</label>
-                <textarea 
+                <textarea
                   name="experience"
                   className="w-full px-4 py-3 border border-surface-600 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-white bg-surface-800 transition-all font-medium text-sm"
                   value={formData.teacherDetails.experience}
                   onChange={handleChange}
                   placeholder="e.g. 5 years teaching O/L Mathematics"
-                  required={formData.role === 'teacher'} 
+                  required={formData.role === 'teacher'}
                 />
               </div>
               <div>
                 <label className="block text-xs font-medium text-muted-400 uppercase tracking-wider mb-2">Subjects You Teach</label>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   name="subjects"
                   className="w-full px-4 py-3 border border-surface-600 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-white bg-surface-800 transition-all font-medium text-sm"
                   value={formData.teacherDetails.subjects}
                   onChange={handleChange}
                   placeholder="e.g. Mathematics, Science"
-                  required={formData.role === 'teacher'} 
+                  required={formData.role === 'teacher'}
                 />
               </div>
 
@@ -242,8 +248,8 @@ const Register = () => {
                 <div className="grid grid-cols-3 gap-2">
                   {['Sinhala', 'English', 'Tamil'].map(medium => (
                     <label key={medium} className="flex items-center space-x-2 p-2 border border-surface-700 rounded-lg cursor-pointer hover:bg-surface-800 transition-colors">
-                      <input 
-                        type="checkbox" 
+                      <input
+                        type="checkbox"
                         value={medium}
                         checked={formData.teacherDetails.mediums?.includes(medium) || false}
                         onChange={(e) => handleCheckboxChange(e, 'mediums')}
@@ -260,8 +266,8 @@ const Register = () => {
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                   {['Grade 6', 'Grade 7', 'Grade 8', 'Grade 9', 'Grade 10', 'Ordinary Level', 'Advanced Level'].map(grade => (
                     <label key={grade} className="flex items-center space-x-2 p-2 border border-surface-700 rounded-lg cursor-pointer hover:bg-surface-800 transition-colors">
-                      <input 
-                        type="checkbox" 
+                      <input
+                        type="checkbox"
                         value={grade}
                         checked={formData.teacherDetails.grades?.includes(grade) || false}
                         onChange={(e) => handleCheckboxChange(e, 'grades')}
@@ -275,8 +281,8 @@ const Register = () => {
             </div>
           )}
 
-          <button 
-            type="submit" 
+          <button
+            type="submit"
             disabled={loading}
             className="w-full bg-primary hover:bg-primary-dark text-white font-medium py-3.5 rounded-xl shadow-glow-primary transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center cursor-pointer mt-4"
           >
@@ -303,4 +309,3 @@ const Register = () => {
 };
 
 export default Register;
-

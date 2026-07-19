@@ -1,9 +1,30 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext, useCallback } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { MapPin, Calendar, Users, DollarSign, ArrowLeft, Book, Globe, Loader, MessageCircle, X, Star } from 'lucide-react';
+import { MapPin, Calendar, Users, DollarSign, ArrowLeft, Book, Globe, Loader, MessageCircle, X, Star, CreditCard, CheckCircle2, Clock } from 'lucide-react';
 import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
 import Map from '../components/ui/Map';
+
+const PAYHERE_SCRIPT_ID = 'payhere-checkout-script';
+
+const loadPayHereScript = () =>
+  new Promise((resolve, reject) => {
+    if (document.getElementById(PAYHERE_SCRIPT_ID)) {
+      resolve();
+      return;
+    }
+    const script = document.createElement('script');
+    script.id = PAYHERE_SCRIPT_ID;
+    script.src = 'https://www.payhere.lk/lib/payhere.js';
+    script.onload = resolve;
+    script.onerror = reject;
+    document.body.appendChild(script);
+  });
+
+const currentMonthLabel = () => {
+  const d = new Date();
+  return d.toLocaleString('default', { month: 'long', year: 'numeric' });
+};
 
 const ClassDetails = () => {
   const { id } = useParams();
@@ -14,7 +35,7 @@ const ClassDetails = () => {
   const [error, setError] = useState(null);
   const [reserveLoading, setReserveLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState(null);
-  
+
   const [showMessageModal, setShowMessageModal] = useState(false);
   const [messageContent, setMessageContent] = useState('');
   const [messageSending, setMessageSending] = useState(false);
@@ -27,6 +48,37 @@ const ClassDetails = () => {
   const [reviewError, setReviewError] = useState(null);
   const [reviewSuccess, setReviewSuccess] = useState(null);
 
+  // ── Monthly fee payment state ──
+  const [reservationStatus, setReservationStatus] = useState(null); // null | 'pending' | 'confirmed' | 'cancelled'
+  const [paymentStatus, setPaymentStatus] = useState(null); // 'unpaid' | 'pending' | 'completed' | 'failed' | 'cancelled'
+  const [payLoading, setPayLoading] = useState(false);
+  const [payError, setPayError] = useState(null);
+
+  const authConfig = user?.token ? { headers: { Authorization: `Bearer ${user.token}` } } : null;
+
+  const fetchReservationAndPaymentStatus = useCallback(async () => {
+    if (!user || user.role !== 'student' || !authConfig) return;
+
+    try {
+      const { data: myReservations } = await axios.get(
+        import.meta.env.VITE_API_URL + '/api/reservations/my',
+        authConfig
+      );
+      const match = myReservations.find((r) => (r.classId?._id || r.classId) === id);
+      setReservationStatus(match ? match.status : null);
+
+      if (match?.status === 'confirmed') {
+        const { data: pay } = await axios.get(
+          import.meta.env.VITE_API_URL + `/api/payment/class/${id}/status`,
+          authConfig
+        );
+        setPaymentStatus(pay.status);
+      }
+    } catch (err) {
+      console.error('Failed to fetch reservation/payment status', err);
+    }
+  }, [id, user]);
+
   useEffect(() => {
     const fetchClassDetails = async () => {
       try {
@@ -34,7 +86,7 @@ const ClassDetails = () => {
         setError(null);
         const { data } = await axios.get(import.meta.env.VITE_API_URL + `/api/classes/${id}`);
         setCls(data);
-        
+
         const reviewsRes = await axios.get(import.meta.env.VITE_API_URL + `/api/classes/${id}/reviews`);
         setReviews(reviewsRes.data);
       } catch (err) {
@@ -48,6 +100,11 @@ const ClassDetails = () => {
     fetchClassDetails();
   }, [id]);
 
+  useEffect(() => {
+    fetchReservationAndPaymentStatus();
+    loadPayHereScript().catch(() => console.error('Failed to load PayHere script'));
+  }, [fetchReservationAndPaymentStatus]);
+
   const handleReserve = async () => {
     if (!user || !user.token) {
       setError('Please login to reserve a seat');
@@ -59,20 +116,52 @@ const ClassDetails = () => {
       setError(null);
       setSuccessMessage(null);
 
-      const config = {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      };
-
-      await axios.post(import.meta.env.VITE_API_URL + '/api/reservations', { classId: id }, config);
-      setSuccessMessage('Your seat has been reserved successfully!');
-      setCls(prev => ({ ...prev, availableSeats: prev.availableSeats - 1 }));
+      await axios.post(import.meta.env.VITE_API_URL + '/api/reservations', { classId: id }, authConfig);
+      setSuccessMessage('Your seat has been reserved successfully! Awaiting admin approval.');
+      setCls((prev) => ({ ...prev, availableSeats: prev.availableSeats - 1 }));
+      setReservationStatus('pending');
     } catch (err) {
       console.error(err);
       setError(err.response?.data?.message || 'Failed to reserve seat');
     } finally {
       setReserveLoading(false);
+    }
+  };
+
+  const handlePayMonthlyFee = async () => {
+    try {
+      setPayLoading(true);
+      setPayError(null);
+
+      const { data } = await axios.post(
+        import.meta.env.VITE_API_URL + `/api/payment/class/${id}/initiate`,
+        {},
+        authConfig
+      );
+
+      if (!window.payhere) {
+        await loadPayHereScript();
+      }
+
+      window.payhere.onCompleted = function () {
+        setPaymentStatus('completed');
+        setPayLoading(false);
+      };
+
+      window.payhere.onDismissed = function () {
+        setPayLoading(false);
+        setPayError('Payment was cancelled.');
+      };
+
+      window.payhere.onError = function (err) {
+        setPayLoading(false);
+        setPayError('Payment error: ' + err);
+      };
+
+      window.payhere.startPayment(data);
+    } catch (err) {
+      setPayLoading(false);
+      setPayError(err?.response?.data?.message || 'Could not start payment. Please try again.');
     }
   };
 
@@ -131,7 +220,7 @@ const ClassDetails = () => {
       setReviewSuccess('Review submitted successfully!');
       setRating(0);
       setComment('');
-      
+
       const [classRes, reviewsRes] = await Promise.all([
         axios.get(import.meta.env.VITE_API_URL + `/api/classes/${id}`),
         axios.get(import.meta.env.VITE_API_URL + `/api/classes/${id}/reviews`)
@@ -161,8 +250,8 @@ const ClassDetails = () => {
         <div className="bg-rose-900/30 text-rose-500 p-4 rounded-xl font-medium border border-rose-800">
           {error}
         </div>
-        <Link 
-          to="/search" 
+        <Link
+          to="/search"
           className="inline-flex items-center text-primary-light hover:underline font-semibold"
         >
           <ArrowLeft className="w-5 h-5 mr-2" /> Back to Search
@@ -189,14 +278,14 @@ const ClassDetails = () => {
         <div className="absolute inset-0 bg-gradient-to-br from-surface-800 via-surface-900 to-surface-950 z-0" />
         <div className="absolute -top-40 -right-40 w-96 h-96 rounded-full bg-blue-500/10 blur-3xl" />
         <div className="absolute -bottom-40 -left-40 w-96 h-96 rounded-full bg-sky-500/10 blur-3xl" />
-        
+
         {/* Decorative Grid */}
         <div className="absolute inset-0 opacity-10 bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[size:24px_24px] z-0" />
-        
+
         <div className="relative z-10 p-6 md:p-8 flex flex-col justify-between min-h-[220px]">
           <div className="flex justify-between items-start">
-            <Link 
-              to="/search" 
+            <Link
+              to="/search"
               className="inline-flex items-center gap-2 bg-surface-800/50 hover:bg-surface-800 backdrop-blur-md text-white px-3 py-1.5 rounded-lg transition-all duration-300 border border-surface-700 text-sm font-semibold hover:-translate-x-1 shadow-sm"
             >
               <ArrowLeft className="w-4 h-4" /> Back to Search
@@ -218,7 +307,7 @@ const ClassDetails = () => {
             <div className="bg-gradient-to-br from-primary to-primary-light rounded-xl p-4 md:p-5 text-right shadow-glow-primary shrink-0 relative overflow-hidden group border border-white/10">
               {/* Decorative light flair */}
               <div className="absolute -top-4 -right-4 w-20 h-20 bg-white/20 blur-xl rounded-full group-hover:scale-150 transition-transform duration-700" />
-              
+
               <span className="relative z-10 text-4xl md:text-5xl font-black text-white leading-none tracking-tight drop-shadow-sm">Rs. {cls.fee}</span>
               <span className="relative z-10 text-white/80 block text-[10px] md:text-xs font-bold mt-1.5 uppercase tracking-[1px] opacity-90">per month</span>
             </div>
@@ -243,7 +332,7 @@ const ClassDetails = () => {
               <button onClick={() => setSuccessMessage(null)} className="text-emerald-800 hover:text-emerald-950 font-black text-xl leading-none px-2">×</button>
             </div>
           )}
-          
+
           {error && (
             <div className="bg-rose-50 text-rose-800 p-5 rounded-2xl border border-rose-100 shadow-sm flex items-center justify-between animate-fade-in">
               <span className="font-medium text-sm md:text-base">{error}</span>
@@ -258,7 +347,7 @@ const ClassDetails = () => {
               <div className="w-10 h-1 bg-primary rounded-full mt-1.5" />
             </div>
             <p className="text-muted-400 leading-relaxed font-medium text-sm md:text-base">{cls.description}</p>
-            
+
             {/* Quick Metrics */}
             <div className="grid grid-cols-3 gap-4 border-t border-surface-800 pt-6 mt-6">
               <div className="bg-surface-800/50 border border-surface-700 p-5 rounded-xl text-center flex flex-col items-center justify-center space-y-1">
@@ -370,7 +459,7 @@ const ClassDetails = () => {
                     <MessageCircle className="w-6 h-6" />
                   </div>
                   <p className="text-muted-400 font-medium mb-3">No reviews yet</p>
-                  <button 
+                  <button
                     onClick={() => {
                       const form = document.getElementById('review-form');
                       if (form) {
@@ -391,13 +480,13 @@ const ClassDetails = () => {
             {user?.role === 'student' && (
               <div id="review-form" className="mt-4 pt-4 border-t border-surface-800">
                 <h4 className="text-base font-medium text-white mb-3">Write a Review</h4>
-                
+
                 {reviewSuccess && (
                   <div className="bg-emerald-50 text-emerald-600 p-2.5 rounded-xl mb-3 text-xs font-medium border border-emerald-100/60 text-center">
                     {reviewSuccess}
                   </div>
                 )}
-                
+
                 {reviewError && (
                   <div className="bg-rose-50 text-rose-600 p-2.5 rounded-xl mb-3 text-xs font-medium border border-rose-100/60 text-center">
                     {reviewError}
@@ -451,11 +540,57 @@ const ClassDetails = () => {
             <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-primary/20 to-transparent rounded-full -mr-8 -mt-8 blur-xl pointer-events-none" />
             <h4 className="text-lg font-medium text-white relative z-10">Reserve Your Seat</h4>
             <p className="text-muted-400 font-medium text-sm leading-relaxed relative z-10">Join this cohort of students today. Secure your admission to learn directly from {cls.teacherId?.name || cls.teacher?.name || 'our highly specialized teacher'}.</p>
-            
-            <div className="relative z-10 mt-2">
+
+            <div className="relative z-10 mt-2 space-y-3">
               {user?.role === 'student' ? (
-                cls.availableSeats > 0 ? (
-                  <button 
+                reservationStatus === 'confirmed' ? (
+                  // ── Already confirmed: show monthly fee payment section ──
+                  <div className="space-y-3">
+                    {paymentStatus === 'completed' ? (
+                      <div className="bg-emerald-50 text-emerald-700 rounded-xl p-4 flex items-center gap-3 border border-emerald-100">
+                        <CheckCircle2 className="w-5 h-5 shrink-0" />
+                        <div>
+                          <p className="font-semibold text-sm">Paid for {currentMonthLabel()}</p>
+                          <p className="text-xs opacity-80">You're all set for this month.</p>
+                        </div>
+                      </div>
+                    ) : (
+                      <>
+                        {payError && (
+                          <div className="bg-rose-50 text-rose-600 p-3 rounded-xl text-xs font-medium border border-rose-100 text-center">
+                            {payError}
+                          </div>
+                        )}
+                        <button
+                          onClick={handlePayMonthlyFee}
+                          disabled={payLoading}
+                          className="w-full bg-primary hover:bg-primary-dark text-white font-medium py-3 px-5 rounded-xl shadow-glow-primary disabled:opacity-50 transition-all transform hover:-translate-y-0.5 text-sm flex items-center justify-center gap-2 cursor-pointer"
+                        >
+                          {payLoading ? (
+                            <>
+                              <Loader className="w-4 h-4 animate-spin" />
+                              Redirecting to PayHere...
+                            </>
+                          ) : (
+                            <>
+                              <CreditCard className="w-4 h-4" />
+                              Pay Rs. {cls.fee} for {currentMonthLabel()}
+                            </>
+                          )}
+                        </button>
+                      </>
+                    )}
+                  </div>
+                ) : reservationStatus === 'pending' ? (
+                  <div className="bg-amber-50 text-amber-700 rounded-xl p-4 flex items-center gap-3 border border-amber-100">
+                    <Clock className="w-5 h-5 shrink-0" />
+                    <div>
+                      <p className="font-semibold text-sm">Reservation pending</p>
+                      <p className="text-xs opacity-80">Waiting for admin approval before you can pay.</p>
+                    </div>
+                  </div>
+                ) : cls.availableSeats > 0 ? (
+                  <button
                     onClick={handleReserve}
                     disabled={reserveLoading}
                     className="w-full bg-primary hover:bg-primary-dark text-white font-medium py-3 px-5 rounded-xl shadow-glow-primary disabled:opacity-50 transition-all transform hover:-translate-y-0.5 text-sm flex items-center justify-center gap-2 cursor-pointer"
@@ -470,7 +605,7 @@ const ClassDetails = () => {
                     )}
                   </button>
                 ) : (
-                  <button 
+                  <button
                     disabled
                     className="w-full bg-surface-800 text-muted-500 font-medium py-3 px-5 rounded-xl shadow-sm cursor-not-allowed flex items-center justify-center gap-2 text-sm"
                   >
@@ -480,8 +615,8 @@ const ClassDetails = () => {
               ) : !user ? (
                 <div className="space-y-3">
                   <p className="text-muted-500 italic text-xs font-semibold">Please log in as a student to reserve your seat.</p>
-                  <Link 
-                    to="/login" 
+                  <Link
+                    to="/login"
                     className="w-full bg-primary hover:bg-primary-dark text-white font-medium py-3 px-5 rounded-xl shadow-glow-primary transition-all transform hover:-translate-y-0.5 text-center block text-sm"
                   >
                     Log In
@@ -494,7 +629,7 @@ const ClassDetails = () => {
               )}
 
               {user?.role === 'student' && (
-                <button 
+                <button
                   onClick={() => setShowMessageModal(true)}
                   className="w-full mt-3 bg-surface-800 hover:bg-primary/20 text-primary-light font-medium py-3 px-5 rounded-xl shadow-sm transition-all transform hover:-translate-y-0.5 text-sm flex items-center justify-center gap-2 border border-primary-dark/20"
                 >
@@ -508,7 +643,7 @@ const ClassDetails = () => {
           {cls.location && cls.location.coordinates && cls.location.coordinates.length === 2 && (
             <div className="bg-surface-900/60 backdrop-blur-xl border border-surface-700/50 rounded-2xl p-6 md:p-8 space-y-6 shadow-card relative overflow-hidden">
               <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-primary/10 to-transparent rounded-full -ml-8 -mb-8 blur-xl pointer-events-none" />
-              
+
               <div className="flex items-center gap-3 relative z-10">
                 <div className="p-2 bg-primary-dark/40 rounded-lg text-primary-light border border-primary-dark/50 shadow-inner">
                   <MapPin className="w-4 h-4 animate-pulse" />
@@ -527,12 +662,12 @@ const ClassDetails = () => {
 
               {/* Map Holder */}
               <div className="h-48 rounded-xl overflow-hidden border border-surface-700/80 shadow-inner bg-surface-900 relative z-10">
-                <Map 
+                <Map
                   locations={[{
                     lat: cls.location.coordinates[1],
                     lng: cls.location.coordinates[0],
                     title: cls.title
-                  }]} 
+                  }]}
                 />
               </div>
             </div>
@@ -545,16 +680,16 @@ const ClassDetails = () => {
       {showMessageModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-surface-950/80 backdrop-blur-sm p-4 animate-fade-in">
           <div className="bg-surface-900 border border-surface-700 rounded-3xl p-6 md:p-8 w-full max-w-lg shadow-2xl relative">
-            <button 
+            <button
               onClick={() => setShowMessageModal(false)}
               className="absolute top-4 right-4 p-2 bg-surface-800 hover:bg-surface-700 rounded-full text-muted-400 transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
-            
+
             <h3 className="text-2xl font-black text-white mb-2">Ask a Question</h3>
             <p className="text-muted-500 text-sm font-medium mb-6">Send a private message to {cls.teacherId?.name || 'the teacher'}.</p>
-            
+
             {messageSuccess ? (
               <div className="bg-emerald-50 text-emerald-600 p-4 rounded-xl text-center font-medium mb-4">
                 {messageSuccess}
