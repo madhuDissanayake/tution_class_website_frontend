@@ -300,9 +300,24 @@ const ClassDetails = () => {
               <h1 className="text-2xl md:text-4xl font-medium text-white tracking-tight leading-none">
                 {cls.title}
               </h1>
-              <p className="text-base md:text-lg text-muted-400 font-medium flex items-center gap-2">
-                By <span className="text-primary-light font-medium">{cls.teacherId?.name || cls.teacher?.name || 'Unknown Teacher'}</span>
-              </p>
+              <div className="flex items-center gap-3 mt-2">
+                <div className="w-8 h-8 rounded-full border border-surface-600 bg-surface-800 flex items-center justify-center overflow-hidden shrink-0 shadow-sm">
+                  {cls.teacherId?.profilePicture || cls.teacher?.profilePicture ? (
+                    <img 
+                      src={`${import.meta.env.VITE_API_URL}${cls.teacherId?.profilePicture || cls.teacher?.profilePicture}`} 
+                      alt={cls.teacherId?.name || cls.teacher?.name} 
+                      className="w-full h-full object-cover" 
+                    />
+                  ) : (
+                    <span className="text-[12px] font-bold text-white">
+                      {(cls.teacherId?.name || cls.teacher?.name)?.charAt(0).toUpperCase() || 'U'}
+                    </span>
+                  )}
+                </div>
+                <p className="text-base md:text-lg text-muted-400 font-medium flex items-center gap-2">
+                  By <span className="text-primary-light font-medium">{cls.teacherId?.name || cls.teacher?.name || 'Unknown Teacher'}</span>
+                </p>
+              </div>
             </div>
             <div className="bg-gradient-to-br from-primary to-primary-light rounded-xl p-4 md:p-5 text-right shadow-glow-primary shrink-0 relative overflow-hidden group border border-white/10">
               {/* Decorative light flair */}

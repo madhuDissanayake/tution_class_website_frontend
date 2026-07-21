@@ -221,7 +221,18 @@ const SearchClasses = () => {
                         <div className="flex items-center"><Book className="w-4 h-4 mr-1 text-primary-light" /> {cls.subject}</div>
                         <div className="flex items-center"><Calendar className="w-4 h-4 mr-1 text-primary-light" /> {cls.grade}</div>
                       </div>
-                      <p className="text-muted-500 text-xs font-semibold">By {cls.teacherId?.name || 'Unknown Teacher'}</p>
+                      <div className="flex items-center text-muted-500 text-xs font-semibold gap-2 mt-1">
+                        <div className="w-5 h-5 rounded-full overflow-hidden border border-surface-600 bg-surface-800 flex items-center justify-center shrink-0">
+                          {cls.teacherId?.profilePicture ? (
+                            <img src={`${import.meta.env.VITE_API_URL}${cls.teacherId.profilePicture}`} alt={cls.teacherId.name} className="w-full h-full object-cover" />
+                          ) : (
+                            <span className="text-[9px] font-bold text-white">
+                              {cls.teacherId?.name?.charAt(0).toUpperCase() || 'U'}
+                            </span>
+                          )}
+                        </div>
+                        <span className="truncate">By {cls.teacherId?.name || 'Unknown Teacher'}</span>
+                      </div>
                     </div>
                   </div>
                   <div className="p-5 pt-2">

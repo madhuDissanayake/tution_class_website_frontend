@@ -12,12 +12,17 @@ const AdminPanel = () => {
   const [pendingClasses, setPendingClasses] = useState([]);
   const [pendingReservations, setPendingReservations] = useState([]);
   const [featuredTutors, setFeaturedTutors] = useState([]);
+  const [allClasses, setAllClasses] = useState([]);
+  const [newPopularClassId, setNewPopularClassId] = useState('');
   const [stats, setStats] = useState({ totalUsers: 0, totalClasses: 0, totalReservations: 0 });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const [rejectReason, setRejectReason] = useState({});
   const [showRejectInput, setShowRejectInput] = useState(null);
+
+  const popularClasses = allClasses.filter(c => c.isPopular);
+  const eligibleClasses = allClasses.filter(c => !c.isPopular);
 
   // Teacher Classes State
   const [expandedTeacher, setExpandedTeacher] = useState(null);
@@ -42,13 +47,14 @@ const AdminPanel = () => {
           },
         };
 
-        const [statsRes, usersRes, tutorsRes, pendingRes, pendingResvRes, pendingClassRes] = await Promise.all([
+        const [statsRes, usersRes, tutorsRes, pendingRes, pendingResvRes, pendingClassRes, classesRes] = await Promise.all([
           axios.get(import.meta.env.VITE_API_URL + '/api/admin/stats', config),
           axios.get(import.meta.env.VITE_API_URL + '/api/admin/users', config),
           axios.get(import.meta.env.VITE_API_URL + '/api/admin/featured-tutors', config),
           axios.get(import.meta.env.VITE_API_URL + '/api/admin/pending-users', config),
           axios.get(import.meta.env.VITE_API_URL + '/api/admin/pending-reservations', config),
-          axios.get(import.meta.env.VITE_API_URL + '/api/admin/pending-classes', config)
+          axios.get(import.meta.env.VITE_API_URL + '/api/admin/pending-classes', config),
+          axios.get(import.meta.env.VITE_API_URL + '/api/classes')
         ]);
 
         setStats({ ...statsRes.data });
@@ -57,6 +63,7 @@ const AdminPanel = () => {
         setPendingUsers(pendingRes.data);
         setPendingReservations(pendingResvRes.data);
         setPendingClasses(pendingClassRes.data);
+        setAllClasses(classesRes.data);
       } catch (err) {
         console.error(err);
         setError(err.response?.data?.message || 'Failed to fetch admin dashboard data');
@@ -159,21 +166,39 @@ const AdminPanel = () => {
     if (!window.confirm('Delete this featured tutor?')) return;
     
     const previousTutors = [...featuredTutors];
-    
+    try {
+      setError(null); setSuccess(null);
+      const config = { headers: { Authorization: `Bearer ${user.token}` } };
+      
+      setFeaturedTutors(featuredTutors.filter(t => t._id !== id));
+      await axios.delete(import.meta.env.VITE_API_URL + `/api/admin/featured-tutors/${id}`, config);
+      setSuccess('Tutor removed successfully!');
+    } catch (err) {
+      setFeaturedTutors(previousTutors);
+      setError(err.response?.data?.message || 'Failed to remove tutor');
+    }
+  };
+
+  const handleTogglePopular = async (classId) => {
     try {
       setError(null);
       setSuccess(null);
       const config = { headers: { Authorization: `Bearer ${user.token}` } };
+      await axios.put(import.meta.env.VITE_API_URL + `/api/admin/classes/${classId}/toggle-popular`, {}, config);
       
-      // Optimistic update
-      setFeaturedTutors(featuredTutors.filter(t => t._id !== id));
-      
-      await axios.delete(import.meta.env.VITE_API_URL + `/api/admin/featured-tutors/${id}`, config);
-      setSuccess('Tutor deleted successfully!');
+      setAllClasses(allClasses.map(c => c._id === classId ? { ...c, isPopular: !c.isPopular } : c));
+      setSuccess('Class popular status updated!');
     } catch (err) {
-      setFeaturedTutors(previousTutors);
-      setError(err.response?.data?.message || 'Failed to delete tutor');
+      console.error(err);
+      setError(err.response?.data?.message || 'Failed to update popular status');
     }
+  };
+
+  const handleAddPopularClass = async (e) => {
+    e.preventDefault();
+    if (!newPopularClassId) return;
+    await handleTogglePopular(newPopularClassId);
+    setNewPopularClassId('');
   };
 
   const handleApproveUser = async (id, role) => {
@@ -239,6 +264,7 @@ const AdminPanel = () => {
       
       // Optimistic update
       setTeacherClasses(teacherClasses.filter(c => c._id !== classId));
+      setAllClasses(allClasses.filter(c => c._id !== classId));
       
       await axios.delete(import.meta.env.VITE_API_URL + `/api/classes/${classId}`, config);
       setSuccess('Class deleted successfully!');
@@ -258,12 +284,18 @@ const AdminPanel = () => {
       setTeacherClasses(teacherClasses.map(c => 
         c._id === classId ? { ...c, isPopular: !currentStatus } : c
       ));
+      setAllClasses(allClasses.map(c => 
+        c._id === classId ? { ...c, isPopular: !currentStatus } : c
+      ));
       
       await axios.put(import.meta.env.VITE_API_URL + `/api/admin/classes/${classId}/toggle-popular`, {}, config);
       setSuccess(`Class ${!currentStatus ? 'marked as popular' : 'removed from popular'} successfully!`);
     } catch (err) {
       // Revert optimistic update
       setTeacherClasses(teacherClasses.map(c => 
+        c._id === classId ? { ...c, isPopular: currentStatus } : c
+      ));
+      setAllClasses(allClasses.map(c => 
         c._id === classId ? { ...c, isPopular: currentStatus } : c
       ));
       setError(err.response?.data?.message || 'Failed to toggle popular status');
@@ -923,6 +955,63 @@ const AdminPanel = () => {
         </div>
       </div>
 
+      {/* Popular Classes Management Section */}
+      <div className="glass-panel bg-white/80 dark:bg-slate-900/60 dark:backdrop-blur-2xl rounded-2xl shadow-md border border-slate-200/60 dark:border-slate-700/60 overflow-hidden mt-6 relative z-10 mb-8">
+        <div className="p-4 md:p-5 border-b border-slate-200/60 dark:border-slate-700/60 bg-slate-50/50 dark:bg-slate-800/50 flex flex-col md:flex-row justify-between items-start md:items-center gap-3">
+          <h2 className="text-lg font-medium text-white flex items-center">
+            <span className="w-1.5 h-5 bg-amber-500 rounded-full mr-2.5"></span>
+            Manage Popular Classes
+          </h2>
+        </div>
+        
+        {/* Add Popular Class Form */}
+        <div className="p-4 md:p-5 bg-white dark:bg-slate-900/80 border-b border-slate-200/60 dark:border-slate-700/60">
+          <form onSubmit={handleAddPopularClass} className="flex flex-col sm:flex-row gap-3">
+            <select
+              required
+              value={newPopularClassId}
+              onChange={(e) => setNewPopularClassId(e.target.value)}
+              className="flex-1 px-3 py-2 rounded-lg border border-surface-600 bg-slate-50 dark:bg-slate-800/50 text-white focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 outline-none transition-all font-medium text-sm cursor-pointer"
+            >
+              <option value="" disabled>Select a Class to feature...</option>
+              {eligibleClasses.map(c => (
+                <option key={c._id} value={c._id}>{c.title} - {c.teacherId?.name}</option>
+              ))}
+            </select>
+            <button type="submit" disabled={!newPopularClassId} className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-medium px-6 py-2 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transform hover:-translate-y-0.5 active:translate-y-0 text-sm whitespace-nowrap">Add to Popular</button>
+          </form>
+        </div>
+
+        {/* Popular Classes List */}
+        <div className="overflow-x-auto">
+          {popularClasses.length === 0 ? (
+            <div className="text-center py-8 text-muted-400">No popular classes featured.</div>
+          ) : (
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="bg-slate-50 dark:bg-slate-900/50 text-muted-400 text-sm border-b border-surface-700 dark:border-slate-700/50">
+                  <th className="p-4 pl-6 font-semibold">Class Title</th>
+                  <th className="p-4 font-semibold">Teacher</th>
+                  <th className="p-4 font-semibold">Subject & Grade</th>
+                  <th className="p-4 font-semibold text-right pr-6">Action</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-surface-700 dark:divide-slate-700/50">
+                {popularClasses.map(c => (
+                  <tr key={c._id} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
+                    <td className="p-4 pl-6 font-medium text-white">{c.title}</td>
+                    <td className="p-4 text-slate-300">{c.teacherId?.name}</td>
+                    <td className="p-4 text-slate-400 text-sm">{c.subject} - {c.grade}</td>
+                    <td className="p-4 pr-6 text-right">
+                      <button onClick={() => handleTogglePopular(c._id)} className="text-rose-500 hover:text-rose-400 font-medium text-sm transition-colors px-3 py-1.5 rounded-lg hover:bg-rose-500/10">Remove</button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </div>
+      </div>
     </div>
   );
 };

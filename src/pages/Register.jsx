@@ -1,7 +1,7 @@
 import { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
-import { User, Mail, Lock, GraduationCap, Briefcase, UserPlus, Loader } from 'lucide-react';
+import { User, Mail, Lock, GraduationCap, Briefcase, UserPlus, Loader, Upload, Image as ImageIcon } from 'lucide-react';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -19,6 +19,7 @@ const Register = () => {
       grades: []
     }
   });
+  const [profilePicture, setProfilePicture] = useState(null);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const { register } = useContext(AuthContext);
@@ -57,12 +58,33 @@ const Register = () => {
     });
   };
 
+  const handleFileChange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      setProfilePicture(e.target.files[0]);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       setLoading(true);
       setError('');
-      const data = await register(formData);
+      
+      const submitData = new FormData();
+      submitData.append('name', formData.name);
+      submitData.append('email', formData.email);
+      submitData.append('password', formData.password);
+      submitData.append('phone', formData.phone);
+      submitData.append('role', formData.role);
+      
+      if (formData.role === 'teacher') {
+        submitData.append('teacherDetails', JSON.stringify(formData.teacherDetails));
+        if (profilePicture) {
+          submitData.append('profilePicture', profilePicture);
+        }
+      }
+
+      const data = await register(submitData);
 
       if (formData.role === 'teacher') {
         navigate('/login', { state: { message: data?.message || 'Account created. Please log in to complete your registration fee payment.' } });
@@ -196,6 +218,26 @@ const Register = () => {
           {formData.role === 'teacher' && (
             <div className="space-y-4 animate-slide-up border-t border-surface-700 pt-4 mt-4">
               <h3 className="text-sm font-medium text-white mb-2">Teacher Additional Details</h3>
+              
+              {/* Profile Picture Upload */}
+              <div>
+                <label className="block text-xs font-medium text-muted-400 uppercase tracking-wider mb-2">Profile Picture</label>
+                <div className="flex items-center gap-4">
+                  <div className="w-16 h-16 rounded-full border-2 border-dashed border-surface-600 flex items-center justify-center bg-surface-800 overflow-hidden shrink-0">
+                    {profilePicture ? (
+                      <img src={URL.createObjectURL(profilePicture)} alt="Profile Preview" className="w-full h-full object-cover" />
+                    ) : (
+                      <ImageIcon className="w-6 h-6 text-muted-500" />
+                    )}
+                  </div>
+                  <label className="cursor-pointer bg-surface-800 hover:bg-surface-700 border border-surface-600 px-4 py-2 rounded-xl text-sm font-medium text-white transition-colors flex items-center gap-2">
+                    <Upload className="w-4 h-4 text-primary-light" />
+                    Choose Image
+                    <input type="file" accept="image/png, image/jpeg, image/webp" className="hidden" onChange={handleFileChange} />
+                  </label>
+                </div>
+              </div>
+
               <div>
                 <label className="block text-xs font-medium text-muted-400 uppercase tracking-wider mb-2">NIC Number</label>
                 <input

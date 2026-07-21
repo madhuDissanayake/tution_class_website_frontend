@@ -321,11 +321,20 @@ const Dashboard = () => {
     return (
     <div className="space-y-8 animate-slide-up pb-6 pt-0 px-4 md:px-0 -mt-6">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 pb-4">
-        <div className="space-y-2">
-          <h1 className="text-4xl md:text-5xl font-black text-white tracking-tight leading-tight">
-            Teacher <span className="text-primary-light">Dashboard</span>
-          </h1>
-          <p className="text-muted-400 font-medium text-lg">Welcome back, <span className="text-primary-light font-medium">{user.name}</span>! Let's inspire your classes today.</p>
+        <div className="flex items-center gap-5">
+          <div className="w-16 h-16 md:w-20 md:h-20 rounded-full border-4 border-surface-700 bg-surface-800 flex items-center justify-center overflow-hidden shrink-0 shadow-lg">
+            {user.profilePicture ? (
+              <img src={`${import.meta.env.VITE_API_URL}${user.profilePicture}`} alt={user.name} className="w-full h-full object-cover" />
+            ) : (
+              <span className="text-2xl font-black text-white">{user.name.charAt(0).toUpperCase()}</span>
+            )}
+          </div>
+          <div className="space-y-1">
+            <h1 className="text-4xl md:text-5xl font-black text-white tracking-tight leading-tight">
+              Teacher <span className="text-primary-light">Dashboard</span>
+            </h1>
+            <p className="text-muted-400 font-medium text-lg">Welcome back, <span className="text-primary-light font-medium">{user.name}</span>! Let's inspire your classes today.</p>
+          </div>
         </div>
         <Link
           to="/teacher/create-class"
