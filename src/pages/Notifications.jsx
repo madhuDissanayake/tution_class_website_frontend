@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
-import { Bell, Loader, CheckCheck, AlertCircle, Sparkles, User, Mail, CheckCircle, MessageCircle, Send } from 'lucide-react';
+import { Bell, Loader, CheckCheck, AlertCircle, Sparkles, User, Mail, CheckCircle, MessageCircle, Send, BookOpen } from 'lucide-react';
 import axios from 'axios';
 
 const Notifications = () => {
@@ -12,6 +12,7 @@ const Notifications = () => {
   const [replyingTo, setReplyingTo] = useState(null);
   const [replyMessage, setReplyMessage] = useState('');
   const [sendingReply, setSendingReply] = useState(false);
+  const [processingUser, setProcessingUser] = useState(null);
 
   useEffect(() => {
     if (!user || !user.token) return;
@@ -40,44 +41,72 @@ const Notifications = () => {
 
   const markAsRead = async (id) => {
     if (!user || !user.token) return;
-
     try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      };
+      const config = { headers: { Authorization: `Bearer ${user.token}` } };
       await axios.put(import.meta.env.VITE_API_URL + `/api/notifications/${id}/read`, {}, config);
-      setNotifications(notifications.map(n => n._id === id ? { ...n, isRead: true } : n));
+      setNotifications(prev => prev.map(n => n._id === id ? { ...n, isRead: true } : n));
     } catch (err) {
       console.error(err);
-      setError(err.response?.data?.message || 'Failed to mark notification as read');
     }
   };
 
   const approveReservation = async (reservationId, notificationId) => {
     if (!user || !user.token) return;
-
     try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      };
+      const config = { headers: { Authorization: `Bearer ${user.token}` } };
       await axios.patch(import.meta.env.VITE_API_URL + `/api/reservations/${reservationId}/confirm`, {}, config);
-      
-      setNotifications(notifications.map(n => {
+      setNotifications(prev => prev.map(n => {
         if (n._id === notificationId && n.relatedId) {
-          return {
-            ...n,
-            relatedId: { ...n.relatedId, status: 'confirmed' }
-          };
+          return { ...n, relatedId: { ...n.relatedId, status: 'confirmed' } };
         }
         return n;
       }));
     } catch (err) {
       console.error(err);
       setError(err.response?.data?.message || 'Failed to approve reservation');
+    }
+  };
+
+  const handleApproveTeacher = async (subjectUserId, notificationId) => {
+    try {
+      setProcessingUser(subjectUserId);
+      setError(null);
+      const config = { headers: { Authorization: `Bearer ${user.token}` } };
+      await axios.put(import.meta.env.VITE_API_URL + `/api/admin/approve-user/${subjectUserId}`, {}, config);
+      setNotifications(prev =>
+        prev.map(n =>
+          n.subjectUserId?._id === subjectUserId
+            ? { ...n, isRead: true, _teacherStatus: 'approved' }
+            : n
+        )
+      );
+    } catch (err) {
+      console.error(err);
+      setError(err.response?.data?.message || 'Failed to approve teacher');
+    } finally {
+      setProcessingUser(null);
+    }
+  };
+
+  const handleRejectTeacher = async (subjectUserId, notificationId) => {
+    if (!window.confirm('Are you sure you want to reject this teacher registration?')) return;
+    try {
+      setProcessingUser(subjectUserId);
+      setError(null);
+      const config = { headers: { Authorization: `Bearer ${user.token}` } };
+      await axios.put(import.meta.env.VITE_API_URL + `/api/admin/reject-user/${subjectUserId}`, {}, config);
+      setNotifications(prev =>
+        prev.map(n =>
+          n.subjectUserId?._id === subjectUserId
+            ? { ...n, isRead: true, _teacherStatus: 'rejected' }
+            : n
+        )
+      );
+    } catch (err) {
+      console.error(err);
+      setError(err.response?.data?.message || 'Failed to reject teacher');
+    } finally {
+      setProcessingUser(null);
     }
   };
 
@@ -94,12 +123,7 @@ const Notifications = () => {
       }, config);
       setReplyingTo(null);
       setReplyMessage('');
-      
-      // Optionally show a success toast here
-      // Marking this notification as read since we replied
-      if (!notification.isRead) {
-        markAsRead(notification._id);
-      }
+      if (!notification.isRead) markAsRead(notification._id);
     } catch (err) {
       console.error(err);
       setError(err.response?.data?.message || 'Failed to send reply');
@@ -172,17 +196,17 @@ const Notifications = () => {
             {notifications.map(note => (
               <div 
                 key={note._id} 
-                className={`p-4 md:p-5 flex justify-between items-center transition-all duration-300 relative group overflow-hidden ${note.isRead ? 'bg-transparent' : 'bg-indigo-500/10'}`}
+                className={`p-4 md:p-5 flex justify-between items-start transition-all duration-300 relative group overflow-hidden ${note.isRead ? 'bg-transparent' : 'bg-indigo-500/10'}`}
               >
                 {!note.isRead && (
                   <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-indigo-500 via-purple-500 to-pink-500" />
                 )}
 
-                <div className="flex items-center gap-3 w-full">
-                  <div className={`p-2 rounded-lg border shrink-0 ${note.isRead ? 'bg-white/5 border-white/10 text-slate-400' : 'bg-indigo-500/20 border-indigo-500/30 text-indigo-400 shadow-sm shadow-indigo-500/10'}`}>
+                <div className="flex items-start gap-3 w-full">
+                  <div className={`p-2 rounded-lg border shrink-0 mt-0.5 ${note.isRead ? 'bg-white/5 border-white/10 text-slate-400' : 'bg-indigo-500/20 border-indigo-500/30 text-indigo-400 shadow-sm shadow-indigo-500/10'}`}>
                     {note.type === 'message' ? <MessageCircle className="w-4 h-4" /> : <Bell className="w-4 h-4" />}
                   </div>
-                  <div className="pr-3 flex-1">
+                  <div className="pr-3 flex-1 min-w-0">
                     <p className={`text-sm leading-relaxed ${note.isRead ? 'font-medium text-slate-400' : 'font-medium text-white'}`}>
                       {note.message}
                     </p>
@@ -210,6 +234,131 @@ const Notifications = () => {
                               <CheckCircle className="w-3 h-3" /> Approved
                             </span>
                           )}
+                        </div>
+                      </div>
+                    )}
+
+                    {note.type === 'registration_request' && note.subjectUserId && (
+                      <div className="mt-3 mb-1 bg-amber-500/5 border border-amber-500/20 rounded-xl p-3 space-y-3">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                          <div className="flex items-center gap-2">
+                            <div className="w-7 h-7 bg-amber-500/20 rounded-full flex items-center justify-center shrink-0">
+                              <User className="w-3.5 h-3.5 text-amber-400" />
+                            </div>
+                            <div>
+                              <div className="text-[9px] text-slate-500 uppercase tracking-wider">Name</div>
+                              <div className="text-xs font-semibold text-white">{note.subjectUserId.name}</div>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <div className="w-7 h-7 bg-purple-500/20 rounded-full flex items-center justify-center shrink-0">
+                              <Mail className="w-3.5 h-3.5 text-purple-400" />
+                            </div>
+                            <div className="min-w-0">
+                              <div className="text-[9px] text-slate-500 uppercase tracking-wider">Email</div>
+                              <div className="text-xs font-medium text-slate-200 truncate">{note.subjectUserId.email}</div>
+                            </div>
+                          </div>
+                          {note.subjectUserId.phone && (
+                            <div className="flex items-center gap-2">
+                              <div className="w-7 h-7 bg-sky-500/20 rounded-full flex items-center justify-center shrink-0 text-sky-400 text-[11px]">📞</div>
+                              <div>
+                                <div className="text-[9px] text-slate-500 uppercase tracking-wider">Phone</div>
+                                <div className="text-xs font-medium text-slate-200">{note.subjectUserId.phone}</div>
+                              </div>
+                            </div>
+                          )}
+                          {note.subjectUserId.teacherDetails?.nic && (
+                            <div className="flex items-center gap-2">
+                              <div className="w-7 h-7 bg-rose-500/20 rounded-full flex items-center justify-center shrink-0 text-rose-400 text-[11px]">🪪</div>
+                              <div>
+                                <div className="text-[9px] text-slate-500 uppercase tracking-wider">NIC</div>
+                                <div className="text-xs font-medium text-slate-200">{note.subjectUserId.teacherDetails.nic}</div>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+
+                        {(note.subjectUserId.teacherDetails?.qualifications || note.subjectUserId.teacherDetails?.subjects) && (
+                          <div className="bg-white/5 rounded-lg p-2 space-y-1 border border-white/5 text-xs">
+                            {note.subjectUserId.teacherDetails?.subjects && (
+                              <div>
+                                <span className="text-[9px] text-slate-500 uppercase tracking-wider mr-1">Subjects: </span>
+                                <span className="font-medium text-slate-200">{note.subjectUserId.teacherDetails.subjects}</span>
+                              </div>
+                            )}
+                            {note.subjectUserId.teacherDetails?.qualifications && (
+                              <div>
+                                <span className="text-[9px] text-slate-500 uppercase tracking-wider mr-1">Qualifications: </span>
+                                <span className="text-slate-300">{note.subjectUserId.teacherDetails.qualifications}</span>
+                              </div>
+                            )}
+                          </div>
+                        )}
+
+                        {(() => {
+                          const status = note._teacherStatus || note.subjectUserId.status;
+                          if (status === 'approved') return (
+                            <div className="flex items-center gap-2 text-emerald-400 text-xs font-semibold">
+                              <CheckCircle className="w-4 h-4" /> Teacher Approved ✓
+                            </div>
+                          );
+                          if (status === 'rejected') return (
+                            <div className="flex items-center gap-2 text-rose-400 text-xs font-semibold">
+                              <AlertCircle className="w-4 h-4" /> Teacher Rejected
+                            </div>
+                          );
+                          return (
+                            <div className="flex items-center gap-2 flex-wrap">
+                              <button
+                                onClick={() => handleApproveTeacher(note.subjectUserId._id, note._id)}
+                                disabled={processingUser === note.subjectUserId._id}
+                                className="flex items-center gap-1.5 bg-emerald-500/20 hover:bg-emerald-500 text-emerald-300 hover:text-white border border-emerald-500/30 font-semibold text-[11px] px-3 py-1.5 rounded-lg transition-all shadow-sm disabled:opacity-50 cursor-pointer"
+                              >
+                                {processingUser === note.subjectUserId._id
+                                  ? <Loader className="w-3 h-3 animate-spin" />
+                                  : <CheckCircle className="w-3 h-3" />}
+                                Approve Teacher
+                              </button>
+                              <button
+                                onClick={() => handleRejectTeacher(note.subjectUserId._id, note._id)}
+                                disabled={processingUser === note.subjectUserId._id}
+                                className="flex items-center gap-1.5 bg-rose-500/10 hover:bg-rose-500/30 text-rose-400 hover:text-rose-300 border border-rose-500/20 font-semibold text-[11px] px-3 py-1.5 rounded-lg transition-all disabled:opacity-50 cursor-pointer"
+                              >
+                                Reject
+                              </button>
+                              <a
+                                href="/admin#pending-users"
+                                className="ml-auto text-[10px] text-indigo-400 hover:text-indigo-300 underline underline-offset-2 transition-colors"
+                              >
+                                View all pending →
+                              </a>
+                            </div>
+                          );
+                        })()}
+                      </div>
+                    )}
+                    
+                    {note.type === 'class_approval_request' && (
+                      <div className="mt-3 mb-1 bg-purple-500/5 border border-purple-500/20 rounded-xl p-3 space-y-3">
+                        <div className="flex items-start gap-2">
+                          <div className="w-7 h-7 bg-purple-500/20 rounded-full flex items-center justify-center shrink-0">
+                            <BookOpen className="w-3.5 h-3.5 text-purple-400" />
+                          </div>
+                          <div className="min-w-0">
+                            <div className="text-[9px] text-slate-500 uppercase tracking-wider">Class Approval Required</div>
+                            <div className="text-xs font-semibold text-white mt-0.5 leading-relaxed">
+                              {note.message.replace('Teacher ', '').replace(' submitted a new class for approval:', '').trim()}
+                            </div>
+                          </div>
+                        </div>
+                        <div className="flex justify-end pt-1">
+                          <a
+                            href="/admin#pending-classes"
+                            className="inline-flex items-center gap-1.5 bg-purple-500/20 hover:bg-purple-500 text-purple-300 hover:text-white border border-purple-500/30 font-semibold text-[11px] px-4 py-1.5 rounded-lg transition-all shadow-sm"
+                          >
+                            Review in Admin →
+                          </a>
                         </div>
                       </div>
                     )}
@@ -268,7 +417,7 @@ const Notifications = () => {
                 {!note.isRead && (
                   <button 
                     onClick={() => markAsRead(note._id)}
-                    className="flex items-center gap-1 bg-indigo-500/20 hover:bg-indigo-500 text-indigo-300 hover:text-white font-medium text-[10px] px-2.5 py-1.5 rounded-md transition-all border border-indigo-500/30 hover:border-indigo-400 cursor-pointer shadow-sm whitespace-nowrap group-hover:-translate-y-0.5 ml-3"
+                    className="flex items-center gap-1 bg-indigo-500/20 hover:bg-indigo-500 text-indigo-300 hover:text-white font-medium text-[10px] px-2.5 py-1.5 rounded-md transition-all border border-indigo-500/30 hover:border-indigo-400 cursor-pointer shadow-sm whitespace-nowrap ml-3 shrink-0 mt-0.5"
                   >
                     <CheckCheck className="w-3 h-3" />
                     Mark Read

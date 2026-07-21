@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
 import { Loader, Users, BookOpen, Bell, Trash2, Mail, ChevronDown, ChevronRight, Edit, PlusCircle, Star } from 'lucide-react';
@@ -9,12 +9,15 @@ const AdminPanel = () => {
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
   const [pendingUsers, setPendingUsers] = useState([]);
+  const [pendingClasses, setPendingClasses] = useState([]);
   const [pendingReservations, setPendingReservations] = useState([]);
   const [featuredTutors, setFeaturedTutors] = useState([]);
   const [stats, setStats] = useState({ totalUsers: 0, totalClasses: 0, totalReservations: 0 });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
+  const [rejectReason, setRejectReason] = useState({});
+  const [showRejectInput, setShowRejectInput] = useState(null);
 
   // Teacher Classes State
   const [expandedTeacher, setExpandedTeacher] = useState(null);
@@ -24,6 +27,8 @@ const AdminPanel = () => {
   const approvedTeachers = users.filter(u => u.role === 'teacher' && u.status === 'approved');
 
   const [newTutor, setNewTutor] = useState({ name: '', subject: '', studentsCount: '', rating: 5, themeColor: 'indigo' });
+
+  const location = useLocation();
 
   useEffect(() => {
     const fetchAdminData = async () => {
@@ -37,12 +42,13 @@ const AdminPanel = () => {
           },
         };
 
-        const [statsRes, usersRes, tutorsRes, pendingRes, pendingResvRes] = await Promise.all([
+        const [statsRes, usersRes, tutorsRes, pendingRes, pendingResvRes, pendingClassRes] = await Promise.all([
           axios.get(import.meta.env.VITE_API_URL + '/api/admin/stats', config),
           axios.get(import.meta.env.VITE_API_URL + '/api/admin/users', config),
           axios.get(import.meta.env.VITE_API_URL + '/api/admin/featured-tutors', config),
           axios.get(import.meta.env.VITE_API_URL + '/api/admin/pending-users', config),
-          axios.get(import.meta.env.VITE_API_URL + '/api/admin/pending-reservations', config)
+          axios.get(import.meta.env.VITE_API_URL + '/api/admin/pending-reservations', config),
+          axios.get(import.meta.env.VITE_API_URL + '/api/admin/pending-classes', config)
         ]);
 
         setStats({ ...statsRes.data });
@@ -50,6 +56,7 @@ const AdminPanel = () => {
         setFeaturedTutors(tutorsRes.data);
         setPendingUsers(pendingRes.data);
         setPendingReservations(pendingResvRes.data);
+        setPendingClasses(pendingClassRes.data);
       } catch (err) {
         console.error(err);
         setError(err.response?.data?.message || 'Failed to fetch admin dashboard data');
@@ -62,6 +69,46 @@ const AdminPanel = () => {
       fetchAdminData();
     }
   }, [user]);
+
+  // Auto-scroll to #pending-users when navigated from notification link
+  useEffect(() => {
+    if ((location.hash === '#pending-users' || location.hash === '#pending-classes') && !loading) {
+      setTimeout(() => {
+        const el = document.getElementById(location.hash.replace('#', ''));
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 200);
+    }
+  }, [location.hash, loading]);
+
+  const handleApproveClass = async (classId) => {
+    const prev = [...pendingClasses];
+    try {
+      setError(null); setSuccess(null);
+      const config = { headers: { Authorization: `Bearer ${user.token}` } };
+      setPendingClasses(pendingClasses.filter(c => c._id !== classId));
+      await axios.put(import.meta.env.VITE_API_URL + `/api/admin/classes/${classId}/approve`, {}, config);
+      setSuccess('Class approved and published!');
+    } catch (err) {
+      setPendingClasses(prev);
+      setError(err.response?.data?.message || 'Failed to approve class');
+    }
+  };
+
+  const handleRejectClass = async (classId) => {
+    const reason = rejectReason[classId] || '';
+    const prev = [...pendingClasses];
+    try {
+      setError(null); setSuccess(null);
+      const config = { headers: { Authorization: `Bearer ${user.token}` } };
+      setPendingClasses(pendingClasses.filter(c => c._id !== classId));
+      setShowRejectInput(null);
+      await axios.put(import.meta.env.VITE_API_URL + `/api/admin/classes/${classId}/reject`, { reason }, config);
+      setSuccess('Class rejected.');
+    } catch (err) {
+      setPendingClasses(prev);
+      setError(err.response?.data?.message || 'Failed to reject class');
+    }
+  };
 
   const handleDeleteUser = async (id) => {
     if (!window.confirm('Are you sure you want to delete this user? This action cannot be undone.')) {
@@ -380,7 +427,7 @@ const AdminPanel = () => {
       </div>
 
       {/* Pending Users Section */}
-      <div className="glass-panel bg-white/80 dark:bg-slate-900/60 dark:backdrop-blur-2xl rounded-2xl shadow-md border border-slate-200/60 dark:border-slate-700/60 overflow-hidden relative z-10 mt-6">
+      <div id="pending-users" className="glass-panel bg-white/80 dark:bg-slate-900/60 dark:backdrop-blur-2xl rounded-2xl shadow-md border border-slate-200/60 dark:border-slate-700/60 overflow-hidden relative z-10 mt-6 scroll-mt-24">
         <div className="p-4 md:p-5 border-b border-slate-200/60 dark:border-slate-700/60 bg-amber-50/50 dark:bg-amber-900/10">
           <h2 className="text-lg font-medium text-white flex items-center">
             <span className="w-1.5 h-5 bg-amber-500 rounded-full mr-2.5"></span>
@@ -498,6 +545,147 @@ const AdminPanel = () => {
                 ))}
               </tbody>
             </table>
+          )}
+        </div>
+      </div>
+
+      {/* Pending Class Approvals Section */}
+      <div id="pending-classes" className="glass-panel bg-white/80 dark:bg-slate-900/60 dark:backdrop-blur-2xl rounded-2xl shadow-md border border-slate-200/60 dark:border-slate-700/60 overflow-hidden relative z-10 mt-6 scroll-mt-24">
+        <div className="p-4 md:p-5 border-b border-slate-200/60 dark:border-slate-700/60 bg-purple-50/50 dark:bg-purple-900/10">
+          <h2 className="text-lg font-medium text-white flex items-center">
+            <span className="w-1.5 h-5 bg-purple-500 rounded-full mr-2.5"></span>
+            Pending Class Approvals
+            {pendingClasses.length > 0 && (
+              <span className="ml-2 px-1.5 py-0.5 rounded-full bg-purple-500 text-white text-[10px] font-medium">
+                {pendingClasses.length}
+              </span>
+            )}
+          </h2>
+        </div>
+        <div className="p-4">
+          {pendingClasses.length === 0 ? (
+            <div className="text-center py-6 text-muted-400">
+              <p className="text-sm font-medium">No pending class approvals.</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {pendingClasses.map(cls => (
+                <div key={cls._id} className="bg-white/5 border border-purple-500/20 rounded-xl p-4 space-y-3">
+                  {/* Class header */}
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="flex-1 min-w-0">
+                      <h3 className="text-sm font-semibold text-white truncate">{cls.title}</h3>
+                      <p className="text-[10px] text-slate-500 mt-0.5">
+                        {new Date(cls.createdAt).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                      </p>
+                    </div>
+                    <span className="shrink-0 text-[10px] px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30 font-medium">
+                      ⏳ Pending
+                    </span>
+                  </div>
+
+                  {/* Class meta */}
+                  <div className="grid grid-cols-2 gap-1.5 text-[11px]">
+                    <div className="flex items-center gap-1.5 bg-white/5 rounded-lg px-2 py-1.5 border border-white/5">
+                      <span className="text-slate-500">Subject</span>
+                      <span className="text-slate-200 font-medium ml-auto">{cls.subject}</span>
+                    </div>
+                    <div className="flex items-center gap-1.5 bg-white/5 rounded-lg px-2 py-1.5 border border-white/5">
+                      <span className="text-slate-500">Grade</span>
+                      <span className="text-slate-200 font-medium ml-auto">{cls.grade}</span>
+                    </div>
+                    <div className="flex items-center gap-1.5 bg-white/5 rounded-lg px-2 py-1.5 border border-white/5">
+                      <span className="text-slate-500">Medium</span>
+                      <span className="text-slate-200 font-medium ml-auto">{cls.medium}</span>
+                    </div>
+                    <div className="flex items-center gap-1.5 bg-white/5 rounded-lg px-2 py-1.5 border border-white/5">
+                      <span className="text-slate-500">Fee</span>
+                      <span className="text-slate-200 font-medium ml-auto">Rs. {cls.fee}/mo</span>
+                    </div>
+                    <div className="flex items-center gap-1.5 bg-white/5 rounded-lg px-2 py-1.5 border border-white/5">
+                      <span className="text-slate-500">Capacity</span>
+                      <span className="text-slate-200 font-medium ml-auto">{cls.capacity} students</span>
+                    </div>
+                    <div className="flex items-center gap-1.5 bg-white/5 rounded-lg px-2 py-1.5 border border-white/5">
+                      <span className="text-slate-500">Type</span>
+                      <span className="text-slate-200 font-medium ml-auto">{cls.isOnline ? '🌐 Online' : '📍 Physical'}</span>
+                    </div>
+                  </div>
+
+                  {/* Teacher info */}
+                  {cls.teacherId && (
+                    <div className="flex items-center gap-2 bg-indigo-500/10 border border-indigo-500/20 rounded-lg px-3 py-2">
+                      <div className="w-6 h-6 bg-indigo-500/30 rounded-full flex items-center justify-center text-[10px] text-indigo-300 font-bold shrink-0">
+                        {cls.teacherId.name?.charAt(0)}
+                      </div>
+                      <div className="min-w-0">
+                        <div className="text-[10px] text-slate-500">Submitted by</div>
+                        <div className="text-xs font-semibold text-slate-200">{cls.teacherId.name}</div>
+                      </div>
+                      <span className="ml-auto text-[10px] text-slate-400 truncate">{cls.teacherId.email}</span>
+                    </div>
+                  )}
+
+                  {/* Description */}
+                  {cls.description && (
+                    <p className="text-[11px] text-slate-400 leading-relaxed line-clamp-2">{cls.description}</p>
+                  )}
+
+                  {/* Schedule */}
+                  {cls.schedule?.length > 0 && (
+                    <div className="flex flex-wrap gap-1">
+                      {cls.schedule.map((s, i) => (
+                        <span key={i} className="text-[10px] bg-white/5 border border-white/10 text-slate-300 px-2 py-0.5 rounded-md">
+                          {s.day} {s.startTime}–{s.endTime}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Actions */}
+                  {showRejectInput === cls._id ? (
+                    <div className="space-y-2">
+                      <input
+                        type="text"
+                        placeholder="Rejection reason (optional)"
+                        value={rejectReason[cls._id] || ''}
+                        onChange={e => setRejectReason(prev => ({ ...prev, [cls._id]: e.target.value }))}
+                        className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-1.5 text-xs text-white outline-none focus:border-rose-400 placeholder-slate-500"
+                      />
+                      <div className="flex gap-2">
+                        <button
+                          onClick={() => handleRejectClass(cls._id)}
+                          className="flex-1 text-[11px] font-semibold bg-rose-500/20 hover:bg-rose-500/40 text-rose-300 border border-rose-500/30 px-3 py-1.5 rounded-lg transition-all"
+                        >
+                          Confirm Reject
+                        </button>
+                        <button
+                          onClick={() => setShowRejectInput(null)}
+                          className="text-[11px] text-slate-400 hover:text-white px-3 py-1.5 rounded-lg transition-all bg-white/5"
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="flex gap-2 pt-1">
+                      <button
+                        onClick={() => handleApproveClass(cls._id)}
+                        className="flex-1 text-[11px] font-semibold bg-emerald-500/20 hover:bg-emerald-500 text-emerald-300 hover:text-white border border-emerald-500/30 px-3 py-2 rounded-lg transition-all"
+                      >
+                        ✓ Approve & Publish
+                      </button>
+                      <button
+                        onClick={() => setShowRejectInput(cls._id)}
+                        className="flex-1 text-[11px] font-semibold bg-rose-500/10 hover:bg-rose-500/30 text-rose-400 border border-rose-500/20 px-3 py-2 rounded-lg transition-all"
+                      >
+                        ✗ Reject
+                      </button>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
           )}
         </div>
       </div>

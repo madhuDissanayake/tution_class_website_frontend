@@ -9,6 +9,7 @@ import Register from './pages/Register';
 import VerifyEmail from './pages/VerifyEmail';
 import ForgotPassword from './pages/ForgotPassword';
 import Dashboard from './pages/Dashboard';
+import TeacherCreateClass from './pages/TeacherCreateClass';
 import CreateClass from './pages/CreateClass';
 import EditClass from './pages/EditClass';
 import ManageStudents from './pages/ManageStudents';
@@ -57,6 +58,7 @@ function App() {
             <Route path="/verify-email" element={<VerifyEmail />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/teacher/create-class" element={<TeacherCreateClass />} />
             <Route path="/create-class" element={<CreateClass />} />
             <Route path="/edit-class/:id" element={<EditClass />} />
             <Route path="/manage-students/:id" element={<ManageStudents />} />

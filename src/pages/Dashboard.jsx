@@ -47,7 +47,7 @@ const Dashboard = () => {
         };
 
         if (user.role === 'teacher') {
-          const { data: classes } = await axios.get(import.meta.env.VITE_API_URL + `/api/classes?teacherId=${user._id}`, config);
+          const { data: classes } = await axios.get(import.meta.env.VITE_API_URL + `/api/classes?teacherId=${user._id}&includeAll=true`, config);
           setData(classes);
         } else if (user.role === 'student') {
           const { data: reservations } = await axios.get(import.meta.env.VITE_API_URL + '/api/reservations/my', config);
@@ -327,6 +327,12 @@ const Dashboard = () => {
           </h1>
           <p className="text-muted-400 font-medium text-lg">Welcome back, <span className="text-primary-light font-medium">{user.name}</span>! Let's inspire your classes today.</p>
         </div>
+        <Link
+          to="/teacher/create-class"
+          className="flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold px-5 py-2.5 rounded-xl shadow-md shadow-indigo-500/20 transition-all shrink-0 text-sm"
+        >
+          <PlusCircle className="w-4 h-4" /> Create New Class
+        </Link>
       </div>
 
       {renderEarningsCard()}
@@ -334,7 +340,7 @@ const Dashboard = () => {
       <div className="bg-surface-900 rounded-2xl overflow-hidden shadow-card border border-surface-600">
         <div className="p-4 md:p-5 border-b border-surface-600 flex items-center justify-between bg-surface-800/50">
           <h2 className="text-lg md:text-xl font-semibold text-white flex items-center gap-2">
-            Your Active Classes
+            My Classes
             <span className="text-xs bg-primary-dark/30 text-primary-light border border-primary-dark/50 font-semibold px-2.5 py-1 rounded-full">
               {data.length} Total
             </span>
@@ -347,9 +353,12 @@ const Dashboard = () => {
                 <Compass className="w-8 h-8 animate-spin-slow" />
               </div>
               <div className="space-y-2">
-                <p className="text-lg font-medium text-white">No classes assigned yet.</p>
-                <p className="text-sm">An admin will assign classes to your account soon.</p>
+                <p className="text-lg font-medium text-white">No classes yet.</p>
+                <p className="text-sm">Create your first class and submit it for admin approval.</p>
               </div>
+              <Link to="/teacher/create-class" className="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-5 py-2.5 rounded-xl transition-all text-sm">
+                <PlusCircle className="w-4 h-4" /> Create First Class
+              </Link>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -357,13 +366,24 @@ const Dashboard = () => {
                 <div key={cls._id} className="bg-surface-800 border border-surface-600 rounded-2xl overflow-hidden hover:shadow-card-hover hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between min-h-[260px] group relative">
 
                   <div className="p-5 space-y-3 relative z-10">
-                    <div className="flex justify-between items-start">
+                    <div className="flex justify-between items-start flex-wrap gap-1">
                       <span className="bg-primary text-white shadow-sm text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider">
                         {cls.subject}
                       </span>
-                      <span className="text-white text-[10px] font-medium bg-surface-700 px-2.5 py-1 rounded-lg border border-surface-500">
-                        {cls.medium}
-                      </span>
+                      <div className="flex items-center gap-1.5">
+                        {cls.status === 'pending' && (
+                          <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">⏳ Pending</span>
+                        )}
+                        {cls.status === 'rejected' && (
+                          <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30">✗ Rejected</span>
+                        )}
+                        {(cls.status === 'published' || !cls.status) && (
+                          <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">✓ Live</span>
+                        )}
+                        <span className="text-white text-[10px] font-medium bg-surface-700 px-2.5 py-1 rounded-lg border border-surface-500">
+                          {cls.medium}
+                        </span>
+                      </div>
                     </div>
 
                     <div>
