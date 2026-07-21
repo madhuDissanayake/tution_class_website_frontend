@@ -422,8 +422,19 @@ const AdminPanel = () => {
               <tbody>
                 {users.map(u => (
                   <tr key={u._id} className="hover:bg-slate-50/50 dark:hover:bg-slate-700/30 transition-colors border-b border-slate-50 dark:border-slate-700/50 last:border-0">
-                    <td className="p-3 pl-5 text-white font-medium">
-                      {u.name} {u._id === user._id && <span className="text-[10px] text-slate-400 ml-1">(You)</span>}
+                    <td className="p-3 pl-5 text-white font-medium flex items-center gap-2">
+                      <div className="w-8 h-8 rounded-full overflow-hidden bg-surface-700 border border-surface-600 shrink-0">
+                        {u.profilePicture ? (
+                          <img src={`${import.meta.env.VITE_API_URL}${u.profilePicture}`} alt={u.name} className="w-full h-full object-cover" />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center text-xs font-bold text-white bg-surface-600">
+                            {u.name.charAt(0).toUpperCase()}
+                          </div>
+                        )}
+                      </div>
+                      <div>
+                        {u.name} {u._id === user._id && <span className="text-[10px] text-slate-400 ml-1">(You)</span>}
+                      </div>
                     </td>
                     <td className="p-3 text-slate-600 dark:text-slate-300 text-xs">{u.email}</td>
                     <td className="p-3">
@@ -491,6 +502,15 @@ const AdminPanel = () => {
                   <tr key={u._id} className="hover:bg-slate-50/50 dark:hover:bg-slate-700/30 transition-colors border-b border-slate-50 dark:border-slate-700/50 last:border-0 align-top">
                     <td className="p-4 pl-6 text-white">
                       <div className="font-medium flex flex-wrap items-center gap-2 mb-2">
+                        <div className="w-8 h-8 rounded-full overflow-hidden bg-surface-700 border border-surface-600 shrink-0">
+                          {u.profilePicture ? (
+                            <img src={`${import.meta.env.VITE_API_URL}${u.profilePicture}`} alt={u.name} className="w-full h-full object-cover" />
+                          ) : (
+                            <div className="w-full h-full flex items-center justify-center text-xs font-bold text-white bg-surface-600">
+                              {u.name.charAt(0).toUpperCase()}
+                            </div>
+                          )}
+                        </div>
                         {u.name}
                         <span className={`px-2 py-0.5 rounded text-[10px] font-medium uppercase tracking-wider ${
                           u.role === 'teacher' ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400' : 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400'

@@ -135,10 +135,13 @@ const AdminEarnings = () => {
 
         <div className="bg-surface-900 border border-surface-600 rounded-2xl p-5 space-y-2">
           <div className="flex items-center gap-2 text-muted-500 text-xs font-semibold uppercase tracking-wider">
-            <Wallet className="w-4 h-4" /> Platform Commission
+            <Wallet className="w-4 h-4" /> Total Admin Earnings
           </div>
           <p className="text-2xl font-black text-primary-light">Rs. {overview.summary.totalPlatformCommission.toLocaleString()}</p>
-          <p className="text-[11px] text-muted-500 font-medium">Site's 10% cut, lifetime</p>
+          <div className="text-[11px] text-muted-500 font-medium space-y-0.5 pt-1">
+            <p className="flex justify-between"><span>From Classes (10%):</span> <span className="text-white">Rs. {(overview.summary.classCommission || 0).toLocaleString()}</span></p>
+            <p className="flex justify-between"><span>From Teacher Reg.:</span> <span className="text-white">Rs. {(overview.summary.registrationRevenue || 0).toLocaleString()}</span></p>
+          </div>
         </div>
 
         <div className="bg-surface-900 border border-surface-600 rounded-2xl p-5 space-y-2">

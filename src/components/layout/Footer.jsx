@@ -8,7 +8,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="relative bg-[#0B1120] text-slate-300 pt-12 pb-6 mt-auto overflow-hidden border-t border-slate-800/60">
+    <footer className="relative bg-[#0B1120] text-slate-300 pt-8 pb-4 mt-auto overflow-hidden border-t border-slate-800/60">
       
       {/* Decorative Background Elements */}
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[100px] pointer-events-none" />
@@ -17,9 +17,9 @@ const Footer = () => {
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-blue-500/20 to-transparent"></div>
 
       <div className="container mx-auto px-6 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 mb-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-6 mb-6">
           
-          <div className="lg:col-span-4 space-y-6 pr-0 lg:pr-8">
+          <div className="lg:col-span-4 space-y-4 pr-0 lg:pr-8">
             <Link to="/" className="flex items-center space-x-3 group w-fit">
               <div className="relative group-hover:scale-105 transition-transform duration-500 flex items-center justify-center">
                 <Logo className="dark:bg-transparent bg-transparent" />
@@ -50,8 +50,8 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="lg:col-span-2 lg:col-start-6 space-y-4">
-            <h4 className="text-white font-semibold text-xs uppercase tracking-widest flex items-center mb-4">
+          <div className="lg:col-span-2 lg:col-start-6 space-y-3">
+            <h4 className="text-white font-semibold text-xs uppercase tracking-widest flex items-center mb-3">
               <span className="w-1.5 h-1.5 bg-gradient-to-tr from-blue-600 to-indigo-400 rounded-full mr-2 shadow-[0_0_10px_rgba(96,165,250,0.5)]"></span>
               Explore
             </h4>
@@ -63,8 +63,8 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div className="lg:col-span-2 lg:col-start-8 space-y-4">
-            <h4 className="text-white font-semibold text-xs uppercase tracking-widest flex items-center mb-4">
+          <div className="lg:col-span-2 lg:col-start-8 space-y-3">
+            <h4 className="text-white font-semibold text-xs uppercase tracking-widest flex items-center mb-3">
               <span className="w-1.5 h-1.5 bg-gradient-to-tr from-purple-500 to-pink-500 rounded-full mr-2 shadow-[0_0_10px_rgba(168,85,247,0.5)]"></span>
               Resources
             </h4>
@@ -76,8 +76,8 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div className="lg:col-span-3 lg:col-start-10 space-y-4">
-            <h4 className="text-white font-semibold text-xs uppercase tracking-widest flex items-center mb-4">
+          <div className="lg:col-span-3 lg:col-start-10 space-y-3">
+            <h4 className="text-white font-semibold text-xs uppercase tracking-widest flex items-center mb-3">
               <span className="w-1.5 h-1.5 bg-gradient-to-tr from-sky-500 to-blue-500 rounded-full mr-2 shadow-[0_0_10px_rgba(14,165,233,0.5)]"></span>
               Support
             </h4>

@@ -132,27 +132,27 @@ const Home = () => {
               <div className="absolute -inset-4 border border-primary/20 rounded-[2.5rem] -z-10 transform rotate-3"></div>
 
               {/* Floating Stats Card: Students */}
-              <div className="absolute -bottom-2 left-2 sm:-left-2 md:-bottom-4 md:-left-4 bg-surface-900/90 backdrop-blur-xl border border-surface-600 p-3 rounded-2xl shadow-card z-20 flex items-center gap-3 animate-slide-up scale-90 md:scale-100 origin-bottom-left" style={{ animationDelay: '0.1s' }}>
-                <div className="bg-gradient-to-br from-amber-400 to-orange-500 p-2.5 rounded-xl shadow-inner text-white">
-                  <Star className="w-5 h-5 fill-current" />
+              <div className="absolute -bottom-2 left-2 sm:-left-2 md:-bottom-4 md:-left-4 bg-surface-900/90 backdrop-blur-xl border border-surface-600 p-2 md:p-2.5 rounded-xl shadow-card z-20 flex items-center gap-2 animate-slide-up scale-75 md:scale-90 origin-bottom-left" style={{ animationDelay: '0.1s' }}>
+                <div className="bg-gradient-to-br from-amber-400 to-orange-500 p-1.5 md:p-2 rounded-lg shadow-inner text-white">
+                  <Star className="w-4 h-4 md:w-5 md:h-5 fill-current" />
                 </div>
                 <div>
                   <div className="flex items-center gap-1.5">
-                    <h4 className="text-lg md:text-xl font-black text-white leading-none">500+</h4>
-                    <span className="text-[10px] font-bold text-amber-500 bg-amber-500/10 px-1.5 py-0.5 rounded-md">4.8★</span>
+                    <h4 className="text-base md:text-lg font-black text-white leading-none">500+</h4>
+                    <span className="text-[9px] font-bold text-amber-500 bg-amber-500/10 px-1 py-0.5 rounded">4.8★</span>
                   </div>
-                  <p className="text-[10px] md:text-xs font-bold text-muted-400 mt-1 uppercase tracking-wider">Active Students</p>
+                  <p className="text-[9px] md:text-[10px] font-bold text-muted-400 mt-0.5 uppercase tracking-wider">Active Students</p>
                 </div>
               </div>
 
               {/* Floating Stats Card: Tutors */}
-              <div className="absolute -top-2 right-2 sm:-right-2 md:-top-4 md:-right-4 bg-surface-900/90 backdrop-blur-xl border border-surface-600 p-2.5 md:p-3 rounded-2xl shadow-card z-20 flex items-center gap-2.5 animate-slide-up scale-90 md:scale-100 origin-top-right" style={{ animationDelay: '0.3s' }}>
+              <div className="absolute -top-2 right-2 sm:-right-2 md:-top-4 md:-right-4 bg-surface-900/90 backdrop-blur-xl border border-surface-600 p-2 md:p-2.5 rounded-xl shadow-card z-20 flex items-center gap-2 animate-slide-up scale-75 md:scale-90 origin-top-right" style={{ animationDelay: '0.3s' }}>
                 <div className="flex -space-x-2">
-                  <div className="w-7 h-7 rounded-full border-2 border-surface-800 bg-primary/20 flex items-center justify-center text-primary-light"><Users className="w-3.5 h-3.5"/></div>
+                  <div className="w-6 h-6 md:w-7 md:h-7 rounded-full border-2 border-surface-800 bg-primary/20 flex items-center justify-center text-primary-light"><Users className="w-3 h-3 md:w-3.5 md:h-3.5"/></div>
                 </div>
                 <div>
                   <h4 className="text-sm md:text-base font-black text-white leading-none">50+</h4>
-                  <p className="text-[9px] md:text-[10px] font-bold text-muted-400 mt-1 uppercase tracking-wider">Verified Tutors</p>
+                  <p className="text-[8px] md:text-[9px] font-bold text-muted-400 mt-0.5 uppercase tracking-wider">Verified Tutors</p>
                 </div>
               </div>
 
@@ -226,7 +226,18 @@ const Home = () => {
                   </div>
                   <div className="p-5">
                     <h3 className="text-base font-bold text-white line-clamp-2 mb-1 group-hover:text-primary-light transition-colors">{cls.title}</h3>
-                    <p className="text-xs text-muted-400 font-semibold mb-3">By {cls.teacherId?.name || 'Unknown Teacher'}</p>
+                    <div className="flex items-center text-muted-400 text-xs font-semibold mb-3 gap-2 mt-2">
+                      <div className="w-5 h-5 rounded-full overflow-hidden border border-surface-600 bg-surface-800 flex items-center justify-center shrink-0">
+                        {cls.teacherId?.profilePicture ? (
+                          <img src={`${import.meta.env.VITE_API_URL}${cls.teacherId.profilePicture}`} alt={cls.teacherId.name} className="w-full h-full object-cover" />
+                        ) : (
+                          <span className="text-[9px] font-bold text-white">
+                            {cls.teacherId?.name?.charAt(0).toUpperCase() || 'U'}
+                          </span>
+                        )}
+                      </div>
+                      <span className="truncate">By {cls.teacherId?.name || 'Unknown Teacher'}</span>
+                    </div>
                     
                     <div className="flex items-center justify-between mt-auto pt-3 border-t border-surface-600">
                       <div className="flex items-center">
