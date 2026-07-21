@@ -182,12 +182,12 @@ const SearchClasses = () => {
             <p className="text-muted-500 font-medium text-sm max-w-md mx-auto leading-relaxed">We couldn't find any classes matching your criteria. Try adjusting your search queries or subject filters.</p>
           </div>
         ) : viewMode === 'list' ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {classes.map((cls) => {
               return (
                 <div key={cls._id} className="group bg-surface-800 rounded-3xl overflow-hidden hover:shadow-card-hover hover:border-primary/20 hover:-translate-y-1.5 duration-300 flex flex-col justify-between border border-surface-600">
                   <div>
-                    <div className="h-40 relative flex items-center justify-center overflow-hidden bg-surface-900">
+                    <div className="h-36 relative flex items-center justify-center overflow-hidden bg-surface-900">
                       <img 
                         src={cls.image || getSubjectImage(cls.subject)} 
                         alt={cls.title} 
@@ -201,10 +201,10 @@ const SearchClasses = () => {
                         {cls.availableSeats > 0 ? `${cls.availableSeats} Seats Left` : 'Fully Booked'}
                       </div>
                     </div>
-                    <div className="p-6 pb-2">
+                    <div className="p-5 pb-2">
                       <div className="flex justify-between items-start mb-2 gap-2">
-                        <h3 className="text-lg font-semibold text-white tracking-tight line-clamp-1 group-hover:text-primary-light transition-colors duration-300">{cls.title}</h3>
-                        <span className="bg-primary-dark/30 text-primary-light text-xs font-medium px-3 py-1 rounded-full shrink-0 shadow-sm border border-primary-dark/50">Rs. {cls.fee}/mo</span>
+                        <h3 className="text-base font-semibold text-white tracking-tight line-clamp-2 group-hover:text-primary-light transition-colors duration-300">{cls.title}</h3>
+                        <span className="bg-primary-dark/30 text-primary-light text-[11px] font-bold px-2.5 py-1 rounded-full shrink-0 shadow-sm border border-primary-dark/50">Rs. {cls.fee}/mo</span>
                       </div>
                       
                       <div className="flex items-center mb-4">
@@ -223,8 +223,8 @@ const SearchClasses = () => {
                       <p className="text-muted-500 text-xs font-semibold">By {cls.teacherId?.name || 'Unknown Teacher'}</p>
                     </div>
                   </div>
-                  <div className="p-6 pt-2">
-                    <Link to={`/class/${cls._id}`} className="block w-full text-center bg-primary/20 hover:bg-primary text-primary-light hover:text-white font-medium py-2.5 rounded-xl transition-all border border-primary-dark/50 hover:scale-[1.02] active:scale-98 duration-300 text-sm">
+                  <div className="p-5 pt-2">
+                    <Link to={`/class/${cls._id}`} className="block w-full text-center bg-primary/20 hover:bg-primary text-primary-light hover:text-white font-semibold py-2 rounded-xl transition-all border border-primary-dark/50 hover:scale-[1.02] active:scale-98 duration-300 text-xs tracking-wide">
                       View Details
                     </Link>
                   </div>
