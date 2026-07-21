@@ -8,7 +8,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="relative bg-[#0B1120] text-slate-300 pt-20 pb-8 mt-auto overflow-hidden border-t border-slate-800/60">
+    <footer className="relative bg-[#0B1120] text-slate-300 pt-12 pb-6 mt-auto overflow-hidden border-t border-slate-800/60">
       
       {/* Decorative Background Elements */}
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[100px] pointer-events-none" />
@@ -17,7 +17,7 @@ const Footer = () => {
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-blue-500/20 to-transparent"></div>
 
       <div className="container mx-auto px-6 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 mb-10">
           
           <div className="lg:col-span-4 space-y-6 pr-0 lg:pr-8">
             <Link to="/" className="flex items-center space-x-3 group w-fit">
@@ -30,11 +30,11 @@ const Footer = () => {
               </span>
             </Link>
             
-            <p className="text-muted-400 text-sm leading-relaxed">
+            <p className="text-muted-400 text-xs leading-relaxed max-w-sm">
               Empowering ambitious learners across Sri Lanka by bridging the gap with elite educators. Discover expert tutors, book classes instantly, and elevate your learning.
             </p>
             
-            <div className="flex items-center space-x-4 pt-2">
+            <div className="flex items-center space-x-3 pt-1">
               <a href="#" className="group relative p-2.5 rounded-xl bg-slate-800/80 border border-slate-700 hover:border-blue-500 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(59,130,246,0.4)]" aria-label="Facebook">
                 <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity" />
                 <svg className="h-4 w-4 fill-slate-400 group-hover:fill-white relative z-10 transition-colors" viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z"/></svg>
@@ -50,55 +50,55 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="lg:col-span-2 lg:col-start-6 space-y-5">
-            <h4 className="text-white font-semibold text-sm uppercase tracking-widest flex items-center mb-6">
-              <span className="w-2 h-2 bg-gradient-to-tr from-blue-600 to-indigo-400 rounded-full mr-3 shadow-[0_0_10px_rgba(96,165,250,0.5)]"></span>
+          <div className="lg:col-span-2 lg:col-start-6 space-y-4">
+            <h4 className="text-white font-semibold text-xs uppercase tracking-widest flex items-center mb-4">
+              <span className="w-1.5 h-1.5 bg-gradient-to-tr from-blue-600 to-indigo-400 rounded-full mr-2 shadow-[0_0_10px_rgba(96,165,250,0.5)]"></span>
               Explore
             </h4>
-            <ul className="space-y-3 text-sm font-medium">
-              <li><Link to="/" onClick={scrollToTop} className="text-muted-400 hover:text-blue-400 transition-all duration-300 flex items-center group"><span className="w-0 group-hover:w-2 h-px bg-blue-400 mr-0 group-hover:mr-2 transition-all duration-300"></span>Home</Link></li>
-              <li><Link to="/search" onClick={scrollToTop} className="text-muted-400 hover:text-blue-400 transition-all duration-300 flex items-center group"><span className="w-0 group-hover:w-2 h-px bg-blue-400 mr-0 group-hover:mr-2 transition-all duration-300"></span>Classes</Link></li>
-              <li><Link to="/about" onClick={scrollToTop} className="text-muted-400 hover:text-blue-400 transition-all duration-300 flex items-center group"><span className="w-0 group-hover:w-2 h-px bg-blue-400 mr-0 group-hover:mr-2 transition-all duration-300"></span>About Us</Link></li>
-              <li><Link to="/contact" onClick={scrollToTop} className="text-muted-400 hover:text-blue-400 transition-all duration-300 flex items-center group"><span className="w-0 group-hover:w-2 h-px bg-blue-400 mr-0 group-hover:mr-2 transition-all duration-300"></span>Contact</Link></li>
+            <ul className="space-y-2 text-xs font-medium">
+              <li><Link to="/" onClick={scrollToTop} className="text-muted-400 hover:text-blue-400 transition-all duration-300 flex items-center group"><span className="w-0 group-hover:w-1.5 h-px bg-blue-400 mr-0 group-hover:mr-2 transition-all duration-300"></span>Home</Link></li>
+              <li><Link to="/search" onClick={scrollToTop} className="text-muted-400 hover:text-blue-400 transition-all duration-300 flex items-center group"><span className="w-0 group-hover:w-1.5 h-px bg-blue-400 mr-0 group-hover:mr-2 transition-all duration-300"></span>Classes</Link></li>
+              <li><Link to="/about" onClick={scrollToTop} className="text-muted-400 hover:text-blue-400 transition-all duration-300 flex items-center group"><span className="w-0 group-hover:w-1.5 h-px bg-blue-400 mr-0 group-hover:mr-2 transition-all duration-300"></span>About Us</Link></li>
+              <li><Link to="/contact" onClick={scrollToTop} className="text-muted-400 hover:text-blue-400 transition-all duration-300 flex items-center group"><span className="w-0 group-hover:w-1.5 h-px bg-blue-400 mr-0 group-hover:mr-2 transition-all duration-300"></span>Contact</Link></li>
             </ul>
           </div>
 
-          <div className="lg:col-span-2 lg:col-start-8 space-y-5">
-            <h4 className="text-white font-semibold text-sm uppercase tracking-widest flex items-center mb-6">
-              <span className="w-2 h-2 bg-gradient-to-tr from-purple-500 to-pink-500 rounded-full mr-3 shadow-[0_0_10px_rgba(168,85,247,0.5)]"></span>
+          <div className="lg:col-span-2 lg:col-start-8 space-y-4">
+            <h4 className="text-white font-semibold text-xs uppercase tracking-widest flex items-center mb-4">
+              <span className="w-1.5 h-1.5 bg-gradient-to-tr from-purple-500 to-pink-500 rounded-full mr-2 shadow-[0_0_10px_rgba(168,85,247,0.5)]"></span>
               Resources
             </h4>
-            <ul className="space-y-3 text-sm font-medium">
-              <li><Link to="/dashboard" onClick={scrollToTop} className="text-muted-400 hover:text-purple-400 transition-all duration-300 flex items-center group"><span className="w-0 group-hover:w-2 h-px bg-purple-400 mr-0 group-hover:mr-2 transition-all duration-300"></span>Student Portal</Link></li>
-              <li><Link to="/dashboard" onClick={scrollToTop} className="text-muted-400 hover:text-purple-400 transition-all duration-300 flex items-center group"><span className="w-0 group-hover:w-2 h-px bg-purple-400 mr-0 group-hover:mr-2 transition-all duration-300"></span>Tutor Dashboard</Link></li>
-              <li><Link to="/register" onClick={scrollToTop} className="text-muted-400 hover:text-purple-400 transition-all duration-300 flex items-center group"><span className="w-0 group-hover:w-2 h-px bg-purple-400 mr-0 group-hover:mr-2 transition-all duration-300"></span>Become a Tutor</Link></li>
-              <li><Link to="/contact" onClick={scrollToTop} className="text-muted-400 hover:text-purple-400 transition-all duration-300 flex items-center group"><span className="w-0 group-hover:w-2 h-px bg-purple-400 mr-0 group-hover:mr-2 transition-all duration-300"></span>Help Center</Link></li>
+            <ul className="space-y-2 text-xs font-medium">
+              <li><Link to="/dashboard" onClick={scrollToTop} className="text-muted-400 hover:text-purple-400 transition-all duration-300 flex items-center group"><span className="w-0 group-hover:w-1.5 h-px bg-purple-400 mr-0 group-hover:mr-2 transition-all duration-300"></span>Student Portal</Link></li>
+              <li><Link to="/dashboard" onClick={scrollToTop} className="text-muted-400 hover:text-purple-400 transition-all duration-300 flex items-center group"><span className="w-0 group-hover:w-1.5 h-px bg-purple-400 mr-0 group-hover:mr-2 transition-all duration-300"></span>Tutor Dashboard</Link></li>
+              <li><Link to="/register" onClick={scrollToTop} className="text-muted-400 hover:text-purple-400 transition-all duration-300 flex items-center group"><span className="w-0 group-hover:w-1.5 h-px bg-purple-400 mr-0 group-hover:mr-2 transition-all duration-300"></span>Become a Tutor</Link></li>
+              <li><Link to="/contact" onClick={scrollToTop} className="text-muted-400 hover:text-purple-400 transition-all duration-300 flex items-center group"><span className="w-0 group-hover:w-1.5 h-px bg-purple-400 mr-0 group-hover:mr-2 transition-all duration-300"></span>Help Center</Link></li>
             </ul>
           </div>
 
-          <div className="lg:col-span-3 lg:col-start-10 space-y-5">
-            <h4 className="text-white font-semibold text-sm uppercase tracking-widest flex items-center mb-6">
-              <span className="w-2 h-2 bg-gradient-to-tr from-sky-500 to-blue-500 rounded-full mr-3 shadow-[0_0_10px_rgba(14,165,233,0.5)]"></span>
+          <div className="lg:col-span-3 lg:col-start-10 space-y-4">
+            <h4 className="text-white font-semibold text-xs uppercase tracking-widest flex items-center mb-4">
+              <span className="w-1.5 h-1.5 bg-gradient-to-tr from-sky-500 to-blue-500 rounded-full mr-2 shadow-[0_0_10px_rgba(14,165,233,0.5)]"></span>
               Support
             </h4>
-            <ul className="space-y-4 text-sm font-medium">
-              <li className="flex items-start space-x-3 text-muted-400 group">
-                <div className="p-1.5 rounded-lg bg-slate-800/50 group-hover:bg-blue-500/10 transition-colors">
-                  <MapPin className="h-4 w-4 text-blue-400" />
+            <ul className="space-y-3 text-xs font-medium">
+              <li className="flex items-start space-x-2.5 text-muted-400 group">
+                <div className="p-1 rounded-md bg-slate-800/50 group-hover:bg-blue-500/10 transition-colors">
+                  <MapPin className="h-3.5 w-3.5 text-blue-400" />
                 </div>
-                <span className="mt-1">Colombo, Sri Lanka</span>
+                <span className="mt-0.5">Colombo, Sri Lanka</span>
               </li>
-              <li className="flex items-center space-x-3 text-muted-400 group">
-                <div className="p-1.5 rounded-lg bg-slate-800/50 group-hover:bg-blue-500/10 transition-colors">
-                  <Phone className="h-4 w-4 text-blue-400" />
+              <li className="flex items-center space-x-2.5 text-muted-400 group">
+                <div className="p-1 rounded-md bg-slate-800/50 group-hover:bg-blue-500/10 transition-colors">
+                  <Phone className="h-3.5 w-3.5 text-blue-400" />
                 </div>
                 <a href="tel:+94779803887" className="hover:text-white transition-colors">+94 77 980 3887</a>
               </li>
-              <li className="flex items-center space-x-3 text-muted-400 group">
-                <div className="p-1.5 rounded-lg bg-slate-800/50 group-hover:bg-blue-500/10 transition-colors">
-                  <Mail className="h-4 w-4 text-blue-400" />
+              <li className="flex items-center space-x-2.5 text-muted-400 group">
+                <div className="p-1 rounded-md bg-slate-800/50 group-hover:bg-blue-500/10 transition-colors">
+                  <Mail className="h-3.5 w-3.5 text-blue-400" />
                 </div>
-                <a href="mailto:tuitionhub0011@gmail.com" className="hover:text-white transition-colors">tuitionhub0011@gmail.com</a>
+                <a href="mailto:tuitionhub0011@gmail.com" className="hover:text-white transition-colors truncate">tuitionhub0011@gmail.com</a>
               </li>
             </ul>
           </div>
@@ -106,9 +106,9 @@ const Footer = () => {
 
         </div>
 
-        <div className="h-px bg-gradient-to-r from-transparent via-slate-700 to-transparent my-8"></div>
+        <div className="h-px bg-gradient-to-r from-transparent via-slate-700 to-transparent my-6"></div>
 
-        <div className="flex flex-col md:flex-row justify-between items-center gap-6 text-sm font-medium">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-medium">
           <p className="text-muted-500 text-center md:text-left order-2 md:order-1 flex items-center gap-1.5">
             &copy; {new Date().getFullYear()} <span className="text-slate-300 font-medium">TuitionHub</span>. All rights reserved.
           </p>
