@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { Search as SearchIcon, MapPin, Book, Star, Map as MapIcon, List, Loader, Calendar, Layers, Globe } from 'lucide-react';
 import Map from '../components/ui/Map';
 
@@ -38,8 +38,9 @@ const getSubjectImage = (subject) => {
 };
 
 const SearchClasses = () => {
+  const [searchParams] = useSearchParams();
   const [classes, setClasses] = useState([]);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState(searchParams.get('q') || '');
   const [subject, setSubject] = useState('');
   const [grade, setGrade] = useState('');
   const [medium, setMedium] = useState('');

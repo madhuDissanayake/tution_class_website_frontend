@@ -259,7 +259,7 @@ const Home = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
             {loadingTutors ? (
               Array.from({ length: 4 }).map((_, i) => (
                 <div key={i} className="bg-surface-800 rounded-2xl p-6 shadow-card border border-surface-600 flex flex-col items-center text-center animate-pulse">
@@ -274,37 +274,62 @@ const Home = () => {
             ) : featuredTutors.length === 0 ? (
                <div className="col-span-full text-center py-10 text-muted-500">No featured tutors available at the moment.</div>
             ) : (
-              featuredTutors.map(tutor => (
-                <div key={tutor._id} className="group bg-surface-800 rounded-2xl p-6 shadow-card hover:shadow-card-hover hover:bg-surface-700 hover:-translate-y-1 transition-all duration-300 border border-surface-600 flex flex-col items-center text-center">
-                  <div className={`w-20 h-20 rounded-full mb-4 flex items-center justify-center text-3xl shadow-lg font-bold
-                    ${tutor.themeColor === 'indigo' ? 'bg-indigo-500/20 text-indigo-400 border border-indigo-500/30' : ''}
-                    ${tutor.themeColor === 'pink' ? 'bg-pink-500/20 text-pink-400 border border-pink-500/30' : ''}
-                    ${tutor.themeColor === 'emerald' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : ''}
-                    ${tutor.themeColor === 'blue' ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30' : ''}
-                    ${tutor.themeColor === 'purple' ? 'bg-purple-500/20 text-purple-400 border border-purple-500/30' : ''}
-                    ${tutor.themeColor === 'rose' ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30' : ''}
-                    ${tutor.themeColor === 'teal' ? 'bg-teal-500/20 text-teal-400 border border-teal-500/30' : ''}
-                    ${tutor.themeColor === 'cyan' ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/30' : ''}
-                    ${!['indigo','pink','emerald','blue','purple','rose','teal','cyan'].includes(tutor.themeColor) ? 'bg-primary/20 text-primary-light border border-primary/30' : ''}
-                  `}>
-                    {tutor.name.charAt(0).toUpperCase()}
-                  </div>
-                  <h3 className="text-lg font-bold text-white mb-1 group-hover:text-primary-light transition-colors">{tutor.name}</h3>
-                  <p className="text-sm text-muted-400 font-medium mb-4">{tutor.subject} Specialist</p>
-                  
-                  <div className="flex items-center gap-4 mt-auto pt-4 border-t border-surface-600 w-full justify-center">
-                    <div className="flex items-center">
-                      <Star className="w-4 h-4 fill-amber-400 text-amber-400 mr-1.5" />
-                      <span className="text-sm font-black text-white">{tutor.rating ? tutor.rating.toFixed(1) : '5.0'}</span>
+              featuredTutors.map(tutor => {
+                const colorMap = {
+                  indigo: 'from-indigo-500 to-blue-600',
+                  pink: 'from-pink-500 to-rose-500',
+                  emerald: 'from-emerald-500 to-teal-500',
+                  blue: 'from-blue-500 to-cyan-500',
+                  purple: 'from-purple-500 to-indigo-500',
+                  rose: 'from-rose-500 to-orange-500',
+                  teal: 'from-teal-500 to-emerald-500',
+                  cyan: 'from-cyan-500 to-blue-500',
+                };
+                const bgGradient = colorMap[tutor.themeColor] || 'from-primary to-primary-light';
+
+                return (
+                  <Link to={`/search?q=${encodeURIComponent(tutor.name)}`} key={tutor._id} className="group relative bg-surface-800 rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover hover:-translate-y-1.5 transition-all duration-500 border border-surface-600 flex flex-col items-center">
+                    {/* Top Banner */}
+                    <div className={`w-full h-16 bg-gradient-to-r ${bgGradient} opacity-90 group-hover:opacity-100 transition-opacity duration-500 relative`}>
+                      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.15] mix-blend-overlay"></div>
                     </div>
-                    <div className="w-1 h-1 rounded-full bg-surface-500"></div>
-                    <div className="flex items-center">
-                      <Users className="w-4 h-4 text-primary-light mr-1.5" />
-                      <span className="text-sm font-black text-white">{tutor.studentsCount} Students</span>
+                    
+                    {/* Overlapping Avatar */}
+                    <div className="w-16 h-16 rounded-full border-[4px] border-surface-800 bg-surface-900 flex items-center justify-center text-2xl font-black shadow-xl -mt-8 relative z-10 group-hover:scale-110 transition-transform duration-500">
+                      <span className={`text-transparent bg-clip-text bg-gradient-to-br ${bgGradient}`}>
+                        {tutor.name.charAt(0).toUpperCase()}
+                      </span>
                     </div>
-                  </div>
-                </div>
-              ))
+                    
+                    <div className="p-4 w-full flex flex-col items-center">
+                      <h3 className="text-base font-bold text-white mb-1.5 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-surface-300 transition-colors line-clamp-1">{tutor.name}</h3>
+                      <p className={`text-[9px] font-bold uppercase tracking-wider mb-4 px-2.5 py-0.5 rounded-full border bg-surface-900 border-surface-700 text-transparent bg-clip-text bg-gradient-to-r ${bgGradient}`}>
+                        {tutor.subject}
+                      </p>
+                      
+                      <div className="flex items-center justify-between w-full pt-3 border-t border-surface-700/50">
+                        <div className="flex flex-col items-center w-1/2">
+                          <div className="flex items-center mb-0.5">
+                            <Star className="w-3 h-3 fill-amber-400 text-amber-400 mr-1" />
+                            <span className="text-sm font-black text-white leading-none">{tutor.rating ? tutor.rating.toFixed(1) : '5.0'}</span>
+                          </div>
+                          <span className="text-[8px] text-muted-500 font-semibold uppercase tracking-wider">Rating</span>
+                        </div>
+                        
+                        <div className="w-px h-6 bg-surface-700/80"></div>
+                        
+                        <div className="flex flex-col items-center w-1/2">
+                          <div className="flex items-center mb-0.5">
+                            <Users className="w-3 h-3 text-sky-400 mr-1" />
+                            <span className="text-sm font-black text-white leading-none">{tutor.studentsCount}</span>
+                          </div>
+                          <span className="text-[8px] text-muted-500 font-semibold uppercase tracking-wider">Students</span>
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                );
+              })
             )}
           </div>
         </div>

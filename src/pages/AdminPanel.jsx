@@ -856,7 +856,24 @@ const AdminPanel = () => {
         {/* Add Tutor Form */}
         <div className="p-4 md:p-5 bg-white dark:bg-slate-900/80 border-b border-slate-200/60 dark:border-slate-700/60">
           <form onSubmit={handleAddTutor} className="grid grid-cols-1 md:grid-cols-5 gap-3">
-            <input type="text" placeholder="Tutor Name" required value={newTutor.name} onChange={(e) => setNewTutor({...newTutor, name: e.target.value})} className="px-3 py-2 rounded-lg border border-surface-600 bg-slate-50 dark:bg-slate-800/50 text-white placeholder-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all font-medium text-sm" />
+            <select
+              required
+              value={newTutor.name}
+              onChange={(e) => {
+                const selectedTeacher = approvedTeachers.find(t => t.name === e.target.value);
+                setNewTutor({
+                  ...newTutor, 
+                  name: e.target.value,
+                  subject: selectedTeacher?.teacherDetails?.subjects || ''
+                });
+              }}
+              className="px-3 py-2 rounded-lg border border-surface-600 bg-slate-50 dark:bg-slate-800/50 text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all font-medium text-sm cursor-pointer"
+            >
+              <option value="" disabled>Select Active Teacher...</option>
+              {approvedTeachers.map(t => (
+                <option key={t._id} value={t.name}>{t.name} ({t.teacherDetails?.subjects || 'No Subject'})</option>
+              ))}
+            </select>
             <input type="text" placeholder="Subject" required value={newTutor.subject} onChange={(e) => setNewTutor({...newTutor, subject: e.target.value})} className="px-3 py-2 rounded-lg border border-surface-600 bg-slate-50 dark:bg-slate-800/50 text-white placeholder-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all font-medium text-sm" />
             <input type="text" placeholder="Students (e.g. 2k+)" required value={newTutor.studentsCount} onChange={(e) => setNewTutor({...newTutor, studentsCount: e.target.value})} className="px-3 py-2 rounded-lg border border-surface-600 bg-slate-50 dark:bg-slate-800/50 text-white placeholder-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all font-medium text-sm" />
             <select value={newTutor.themeColor} onChange={(e) => setNewTutor({...newTutor, themeColor: e.target.value})} className="px-3 py-2 rounded-lg border border-surface-600 bg-slate-50 dark:bg-slate-800/50 text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all font-medium text-sm cursor-pointer">
