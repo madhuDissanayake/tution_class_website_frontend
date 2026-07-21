@@ -132,27 +132,27 @@ const Home = () => {
               <div className="absolute -inset-4 border border-primary/20 rounded-[2.5rem] -z-10 transform rotate-3"></div>
 
               {/* Floating Stats Card: Students */}
-              <div className="absolute -bottom-4 left-2 sm:-left-4 md:-bottom-8 md:-left-8 bg-surface-900/90 backdrop-blur-xl border border-surface-600 p-4 md:p-5 rounded-2xl shadow-card z-20 flex items-center gap-4 animate-slide-up" style={{ animationDelay: '0.1s' }}>
-                <div className="bg-gradient-to-br from-amber-400 to-orange-500 p-3 rounded-xl shadow-inner text-white">
-                  <Star className="w-6 h-6 fill-current" />
+              <div className="absolute -bottom-2 left-2 sm:-left-2 md:-bottom-4 md:-left-4 bg-surface-900/90 backdrop-blur-xl border border-surface-600 p-3 rounded-2xl shadow-card z-20 flex items-center gap-3 animate-slide-up scale-90 md:scale-100 origin-bottom-left" style={{ animationDelay: '0.1s' }}>
+                <div className="bg-gradient-to-br from-amber-400 to-orange-500 p-2.5 rounded-xl shadow-inner text-white">
+                  <Star className="w-5 h-5 fill-current" />
                 </div>
                 <div>
-                  <div className="flex items-center gap-1">
-                    <h4 className="text-xl md:text-2xl font-black text-white leading-none">500+</h4>
-                    <span className="text-xs font-bold text-amber-500 bg-amber-500/10 px-1.5 py-0.5 rounded-md">4.8★</span>
+                  <div className="flex items-center gap-1.5">
+                    <h4 className="text-lg md:text-xl font-black text-white leading-none">500+</h4>
+                    <span className="text-[10px] font-bold text-amber-500 bg-amber-500/10 px-1.5 py-0.5 rounded-md">4.8★</span>
                   </div>
-                  <p className="text-xs md:text-[13px] font-bold text-muted-400 mt-1 uppercase tracking-wider">Active Students</p>
+                  <p className="text-[10px] md:text-xs font-bold text-muted-400 mt-1 uppercase tracking-wider">Active Students</p>
                 </div>
               </div>
 
               {/* Floating Stats Card: Tutors */}
-              <div className="absolute -top-4 right-2 sm:-right-4 md:-top-6 md:-right-6 bg-surface-900/90 backdrop-blur-xl border border-surface-600 p-3 md:p-4 rounded-2xl shadow-card z-20 flex items-center gap-3 animate-slide-up" style={{ animationDelay: '0.3s' }}>
+              <div className="absolute -top-2 right-2 sm:-right-2 md:-top-4 md:-right-4 bg-surface-900/90 backdrop-blur-xl border border-surface-600 p-2.5 md:p-3 rounded-2xl shadow-card z-20 flex items-center gap-2.5 animate-slide-up scale-90 md:scale-100 origin-top-right" style={{ animationDelay: '0.3s' }}>
                 <div className="flex -space-x-2">
-                  <div className="w-8 h-8 rounded-full border-2 border-surface-800 bg-primary/20 flex items-center justify-center text-primary-light"><Users className="w-4 h-4"/></div>
+                  <div className="w-7 h-7 rounded-full border-2 border-surface-800 bg-primary/20 flex items-center justify-center text-primary-light"><Users className="w-3.5 h-3.5"/></div>
                 </div>
                 <div>
-                  <h4 className="text-base md:text-lg font-black text-white leading-none">50+</h4>
-                  <p className="text-[11px] md:text-xs font-bold text-muted-400 mt-1 uppercase tracking-wider">Verified Tutors</p>
+                  <h4 className="text-sm md:text-base font-black text-white leading-none">50+</h4>
+                  <p className="text-[9px] md:text-[10px] font-bold text-muted-400 mt-1 uppercase tracking-wider">Verified Tutors</p>
                 </div>
               </div>
 
