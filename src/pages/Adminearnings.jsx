@@ -158,41 +158,52 @@ const AdminEarnings = () => {
         </div>
       </div>
 
-      {/* Monthly Trend Chart */}
-      <div className="bg-surface-900 border border-surface-600 rounded-2xl p-5 md:p-6">
-        <h3 className="text-lg font-semibold text-white mb-4">Monthly Revenue Split</h3>
-        <div className="h-72 w-full">
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={chartData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
-              <XAxis dataKey="month" stroke="#94a3b8" fontSize={12} />
-              <YAxis stroke="#94a3b8" fontSize={12} />
-              <Tooltip
-                contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: 8, color: '#fff' }}
-              />
-              <Legend />
-              <Bar dataKey="Teacher Earnings" stackId="a" fill="#34d399" radius={[0, 0, 0, 0]} />
-              <Bar dataKey="Platform Commission" stackId="a" fill="#818cf8" radius={[4, 4, 0, 0]} />
-            </BarChart>
-          </ResponsiveContainer>
+      {/* Charts — side by side */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        {/* Monthly Revenue Split */}
+        <div className="bg-surface-900 border border-surface-600 rounded-2xl p-4 md:p-5">
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="text-sm font-bold text-white uppercase tracking-wider">Monthly Revenue Split</h3>
+            <span className="text-[10px] font-semibold text-muted-500 bg-surface-800 px-2 py-0.5 rounded-full border border-surface-600">Stacked</span>
+          </div>
+          <div className="h-48 w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={chartData} margin={{ top: 4, right: 8, left: -20, bottom: 0 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
+                <XAxis dataKey="month" stroke="#475569" fontSize={10} tickLine={false} axisLine={false} />
+                <YAxis stroke="#475569" fontSize={10} tickLine={false} axisLine={false} />
+                <Tooltip
+                  contentStyle={{ backgroundColor: '#0f172a', border: '1px solid #1e293b', borderRadius: 10, color: '#fff', fontSize: 12 }}
+                  cursor={{ fill: 'rgba(255,255,255,0.04)' }}
+                />
+                <Legend iconType="circle" iconSize={8} wrapperStyle={{ fontSize: 10, paddingTop: 8 }} />
+                <Bar dataKey="Teacher Earnings" stackId="a" fill="#34d399" radius={[0, 0, 0, 0]} />
+                <Bar dataKey="Platform Commission" stackId="a" fill="#818cf8" radius={[4, 4, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
         </div>
-      </div>
 
-      {/* Gross Revenue Trend Line */}
-      <div className="bg-surface-900 border border-surface-600 rounded-2xl p-5 md:p-6">
-        <h3 className="text-lg font-semibold text-white mb-4">Gross Revenue Trend</h3>
-        <div className="h-64 w-full">
-          <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={chartData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
-              <XAxis dataKey="month" stroke="#94a3b8" fontSize={12} />
-              <YAxis stroke="#94a3b8" fontSize={12} />
-              <Tooltip
-                contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: 8, color: '#fff' }}
-              />
-              <Line type="monotone" dataKey="Gross Revenue" stroke="#38bdf8" strokeWidth={2.5} dot={{ r: 3 }} />
-            </LineChart>
-          </ResponsiveContainer>
+        {/* Gross Revenue Trend */}
+        <div className="bg-surface-900 border border-surface-600 rounded-2xl p-4 md:p-5">
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="text-sm font-bold text-white uppercase tracking-wider">Gross Revenue Trend</h3>
+            <span className="text-[10px] font-semibold text-sky-400 bg-sky-500/10 px-2 py-0.5 rounded-full border border-sky-500/20">Monthly</span>
+          </div>
+          <div className="h-48 w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={chartData} margin={{ top: 4, right: 8, left: -20, bottom: 0 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
+                <XAxis dataKey="month" stroke="#475569" fontSize={10} tickLine={false} axisLine={false} />
+                <YAxis stroke="#475569" fontSize={10} tickLine={false} axisLine={false} />
+                <Tooltip
+                  contentStyle={{ backgroundColor: '#0f172a', border: '1px solid #1e293b', borderRadius: 10, color: '#fff', fontSize: 12 }}
+                  cursor={{ stroke: '#38bdf8', strokeWidth: 1, strokeDasharray: '4 4' }}
+                />
+                <Line type="monotone" dataKey="Gross Revenue" stroke="#38bdf8" strokeWidth={2} dot={{ r: 3, fill: '#38bdf8', strokeWidth: 0 }} activeDot={{ r: 5 }} />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
         </div>
       </div>
 

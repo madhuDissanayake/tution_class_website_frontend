@@ -134,12 +134,23 @@ const Navbar = () => {
               <>
                 {user.role === 'admin' && (
   <>
-    <Link to="/admin">
+    <Link
+      to="/admin"
+      className={`h-8 px-4 flex items-center justify-center gap-1.5 rounded-full font-black text-[10px] uppercase tracking-wider transition-all duration-300 shadow-sm ${
+        isActive('/admin')
+          ? 'bg-primary text-white shadow-primary/30'
+          : 'text-primary-light bg-primary/10 border border-primary/20 hover:bg-primary/20'
+      }`}
+    >
       Admin Panel
     </Link>
-    <Link 
-      to="/admin/earnings" 
-      className=" text-emerald-400 hover:bg-emerald-500/20 rounded-full bg-emerald-500/10"
+    <Link
+      to="/admin/earnings"
+      className={`h-8 px-4 flex items-center justify-center gap-1.5 rounded-full font-black text-[10px] uppercase tracking-wider transition-all duration-300 shadow-sm ${
+        isActive('/admin/earnings')
+          ? 'bg-emerald-500 text-white shadow-emerald-500/30'
+          : 'text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 hover:bg-emerald-500/20'
+      }`}
     >
       <Wallet className="w-3.5 h-3.5" />
       Earnings & Payouts
