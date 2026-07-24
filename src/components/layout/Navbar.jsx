@@ -62,8 +62,8 @@ const Navbar = () => {
   return (
     <nav className={`sticky top-0 z-50 transition-all duration-500 border-b ${
       isScrolled 
-        ? 'bg-surface-950/90 backdrop-blur-xl border-surface-700 shadow-md py-1.5' 
-        : 'bg-surface-950/50 backdrop-blur-md border-white/10 py-2'
+        ? 'bg-white/90 backdrop-blur-xl border-slate-200 shadow-md py-1.5' 
+        : 'bg-white/80 backdrop-blur-2xl border-slate-200 shadow-sm py-2'
     }`}>
       
       <div className="container mx-auto px-6 relative z-10">
@@ -74,7 +74,7 @@ const Navbar = () => {
             <div className="relative group-hover:scale-105 transition-transform duration-500 flex items-center justify-center">
               <Logo className={`text-primary ${user?.role === 'teacher' ? 'w-10 h-10 md:w-12 md:h-12' : 'w-9 h-9 md:w-11 md:h-11'}`} />
             </div>
-            <span className={`font-black tracking-tight text-white flex items-center ${user?.role === 'teacher' ? 'text-2xl md:text-3xl' : 'text-xl md:text-2xl'}`}>
+            <span className={`font-black tracking-tight text-slate-900 flex items-center ${user?.role === 'teacher' ? 'text-2xl md:text-3xl' : 'text-xl md:text-2xl'}`}>
               Tuition
               <span className="text-primary ml-1">Hub</span>
             </span>
@@ -88,7 +88,7 @@ const Navbar = () => {
                 className={`font-black tracking-wide transition-all duration-300 ${user?.role === 'teacher' ? 'text-base px-4 py-2' : 'text-sm px-3 py-1.5'} rounded-lg ${
                   isActive('/') 
                     ? `bg-brand-from/10 text-brand-to border-b-2 border-brand-from` 
-                    : `text-muted-400 hover:text-brand-to hover:bg-surface-800 border-b-2 border-transparent`
+                    : `text-slate-900 font-semibold hover:text-brand-to hover:bg-slate-50 border-b-2 border-transparent`
                 }`}
               >
                 Home
@@ -100,7 +100,7 @@ const Navbar = () => {
                 className={`font-black tracking-wide transition-all duration-300 ${user?.role === 'teacher' ? 'text-base px-4 py-2' : 'text-sm px-3 py-1.5'} rounded-lg ${
                   isActive('/search') 
                     ? `bg-brand-from/10 text-brand-to border-b-2 border-brand-from` 
-                    : `text-muted-400 hover:text-brand-to hover:bg-surface-800 border-b-2 border-transparent`
+                    : `text-slate-900 font-semibold hover:text-brand-to hover:bg-slate-50 border-b-2 border-transparent`
                 }`}
               >
                 Find Classes
@@ -111,7 +111,7 @@ const Navbar = () => {
               className={`font-black tracking-wide transition-all duration-300 ${user?.role === 'teacher' ? 'text-base px-4 py-2' : 'text-sm px-3 py-1.5'} rounded-lg ${
                 isActive('/about') 
                   ? `bg-brand-from/10 text-brand-to border-b-2 border-brand-from` 
-                  : `text-muted-400 hover:text-brand-to hover:bg-surface-800 border-b-2 border-transparent`
+                  : `text-slate-900 font-semibold hover:text-brand-to hover:bg-slate-50 border-b-2 border-transparent`
               }`}
             >
               About
@@ -121,7 +121,7 @@ const Navbar = () => {
               className={`font-black tracking-wide transition-all duration-300 ${user?.role === 'teacher' ? 'text-base px-4 py-2' : 'text-sm px-3 py-1.5'} rounded-lg ${
                 isActive('/contact') 
                   ? `bg-brand-from/10 text-brand-to border-b-2 border-brand-from` 
-                  : `text-muted-400 hover:text-brand-to hover:bg-surface-800 border-b-2 border-transparent`
+                  : `text-slate-900 font-semibold hover:text-brand-to hover:bg-slate-50 border-b-2 border-transparent`
               }`}
             >
               Contact
@@ -138,7 +138,7 @@ const Navbar = () => {
       to="/admin"
       className={`h-8 px-4 flex items-center justify-center gap-1.5 rounded-full font-black text-[10px] uppercase tracking-wider transition-all duration-300 shadow-sm ${
         isActive('/admin')
-          ? 'bg-primary text-white shadow-primary/30'
+          ? 'bg-primary text-slate-900 shadow-primary/30'
           : 'text-primary-light bg-primary/10 border border-primary/20 hover:bg-primary/20'
       }`}
     >
@@ -148,7 +148,7 @@ const Navbar = () => {
       to="/admin/earnings"
       className={`h-8 px-4 flex items-center justify-center gap-1.5 rounded-full font-black text-[10px] uppercase tracking-wider transition-all duration-300 shadow-sm ${
         isActive('/admin/earnings')
-          ? 'bg-emerald-500 text-white shadow-emerald-500/30'
+          ? 'bg-emerald-500 text-slate-900 shadow-emerald-500/30'
           : 'text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 hover:bg-emerald-500/20'
       }`}
     >
@@ -179,28 +179,28 @@ const Navbar = () => {
                 {/* Notification Bell */}
                 <Link 
                   to="/notifications" 
-                  className={`${user?.role === 'teacher' ? 'h-10 w-10' : 'h-8 w-8'} flex items-center justify-center text-muted-500 hover:text-primary rounded-full bg-surface-800 border border-surface-600 transition-all duration-300 relative group shadow-sm`}
+                  className={`${user?.role === 'teacher' ? 'h-10 w-10' : 'h-8 w-8'} flex items-center justify-center text-slate-900 font-semibold hover:text-primary rounded-full bg-slate-50 border border-slate-300 transition-all duration-300 relative group shadow-sm`}
                 >
                   <Bell className={`${user?.role === 'teacher' ? 'w-5 h-5' : 'w-4 h-4'} group-hover:text-primary transition-colors`} />
                   {unreadCount > 0 && (
-                    <span className={`absolute -top-1.5 -right-1.5 ${user?.role === 'teacher' ? 'min-w-5 h-5 px-1.5 text-[10px]' : 'min-w-4 h-4 px-1 text-[9px]'} bg-red-500 rounded-full border-2 border-white dark:border-slate-900 font-black text-white flex items-center justify-center shadow-md`}>
+                    <span className={`absolute -top-1.5 -right-1.5 ${user?.role === 'teacher' ? 'min-w-5 h-5 px-1.5 text-[10px]' : 'min-w-4 h-4 px-1 text-[9px]'} bg-red-500 rounded-full border-2 border-white font-black text-white flex items-center justify-center shadow-md`}>
                       {unreadCount}
                     </span>
                   )}
                 </Link>
                 
                 {/* User profile avatar pill */}
-                <div className={`${user?.role === 'teacher' ? 'h-10 px-4' : 'h-8 px-3'} flex items-center space-x-2.5 bg-surface-800 rounded-full border border-surface-600 shadow-sm`}>
-                  <div className={`${user?.role === 'teacher' ? 'w-6 h-6' : 'w-5 h-5'} bg-primary rounded-full flex items-center justify-center text-white ${user?.role === 'teacher' ? 'text-xs' : 'text-[10px]'} font-black`}>
+                <div className={`${user?.role === 'teacher' ? 'h-10 px-4' : 'h-8 px-3'} flex items-center space-x-2.5 bg-slate-50 rounded-full border border-slate-300 shadow-sm`}>
+                  <div className={`${user?.role === 'teacher' ? 'w-6 h-6' : 'w-5 h-5'} bg-primary rounded-full flex items-center justify-center text-slate-900 ${user?.role === 'teacher' ? 'text-xs' : 'text-[10px]'} font-black`}>
                     {user.name.charAt(0).toUpperCase()}
                   </div>
-                  <span className={`${user?.role === 'teacher' ? 'text-xs' : 'text-[10px]'} font-black text-white`}>{user.name}</span>
+                  <span className={`${user?.role === 'teacher' ? 'text-xs' : 'text-[10px]'} font-black text-slate-900`}>{user.name}</span>
                 </div>
                 
                 {/* Logout Button */}
                 <button 
                   onClick={handleLogout} 
-                  className={`${user?.role === 'teacher' ? 'h-10 w-10' : 'h-8 w-8'} flex items-center justify-center text-muted-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-full transition-all duration-300 cursor-pointer shadow-sm border border-transparent hover:border-red-100 dark:hover:border-red-900/30`}
+                  className={`${user?.role === 'teacher' ? 'h-10 w-10' : 'h-8 w-8'} flex items-center justify-center text-slate-900 font-semibold hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-full transition-all duration-300 cursor-pointer shadow-sm border border-transparent hover:border-red-100 dark:hover:border-red-900/30`}
                   title="Logout"
                 >
                   <LogOut className={user?.role === 'teacher' ? 'w-5 h-5' : 'w-4 h-4'} />
@@ -229,11 +229,11 @@ const Navbar = () => {
             {user && (
               <Link 
                 to="/notifications" 
-                className="text-muted-400 p-2 rounded-xl bg-surface-800 border border-surface-600 relative"
+                className="text-slate-900 font-semibold p-2 rounded-xl bg-slate-50 border border-slate-300 relative"
               >
                 <Bell className="w-5 h-5" />
                 {unreadCount > 0 && (
-                  <span className="absolute -top-1.5 -right-1.5 min-w-4.5 h-4.5 bg-red-500 rounded-full border border-white text-[9px] font-black text-white flex items-center justify-center">
+                  <span className="absolute -top-1.5 -right-1.5 min-w-4.5 h-4.5 bg-red-500 rounded-full border border-white text-[9px] font-black text-slate-900 flex items-center justify-center">
                     {unreadCount}
                   </span>
                 )}
@@ -241,7 +241,7 @@ const Navbar = () => {
             )}
             <button 
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2 bg-surface-800 border border-surface-600 rounded-xl text-muted-400 hover:bg-surface-700 transition-colors cursor-pointer"
+              className="p-2 bg-slate-50 border border-slate-300 rounded-xl text-slate-900 font-semibold hover:bg-slate-200 transition-colors cursor-pointer"
             >
               {isMobileMenuOpen ? <X className="w-5.5 h-5.5" /> : <Menu className="w-5.5 h-5.5" />}
             </button>
@@ -252,14 +252,14 @@ const Navbar = () => {
 
       {/* Mobile Slide-down Glassmorphic Dropdown */}
       {isMobileMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 right-0 mt-1 bg-surface-950/95 backdrop-blur-2xl border-b border-surface-700 shadow-2xl py-6 px-6 space-y-5">
+        <div className="md:hidden absolute top-full left-0 right-0 mt-1 bg-white/95 backdrop-blur-2xl border-b border-slate-200 shadow-2xl py-6 px-6 space-y-5">
           <div className="flex flex-col space-y-2">
             {(!user || (user.role !== 'teacher' && user.role !== 'admin')) && (
               <Link 
                 to="/" 
                 onClick={() => setIsMobileMenuOpen(false)}
                 className={`px-4 py-3 rounded-xl text-sm font-black uppercase tracking-wide ${
-                  isActive('/') ? 'bg-brand-from/10 text-brand-to' : 'text-muted-400 hover:bg-surface-800'
+                  isActive('/') ? 'bg-brand-from/10 text-brand-to' : 'text-slate-900 font-semibold hover:bg-slate-50'
                 }`}
               >
                 Home
@@ -270,7 +270,7 @@ const Navbar = () => {
                 to="/search" 
                 onClick={() => setIsMobileMenuOpen(false)}
                 className={`px-4 py-3 rounded-xl text-sm font-black uppercase tracking-wide ${
-                  isActive('/search') ? 'bg-brand-from/10 text-brand-to' : 'text-muted-400 hover:bg-surface-800'
+                  isActive('/search') ? 'bg-brand-from/10 text-brand-to' : 'text-slate-900 font-semibold hover:bg-slate-50'
                 }`}
               >
                 Find Classes
@@ -280,7 +280,7 @@ const Navbar = () => {
               to="/about" 
               onClick={() => setIsMobileMenuOpen(false)}
               className={`px-4 py-3 rounded-xl text-sm font-black uppercase tracking-wide ${
-                isActive('/about') ? 'bg-brand-from/10 text-brand-to' : 'text-muted-400 hover:bg-surface-800'
+                isActive('/about') ? 'bg-brand-from/10 text-brand-to' : 'text-slate-900 font-semibold hover:bg-slate-50'
               }`}
             >
               About
@@ -289,7 +289,7 @@ const Navbar = () => {
               to="/contact" 
               onClick={() => setIsMobileMenuOpen(false)}
               className={`px-4 py-3 rounded-xl text-sm font-black uppercase tracking-wide ${
-                isActive('/contact') ? 'bg-brand-from/10 text-brand-to' : 'text-muted-400 hover:bg-surface-800'
+                isActive('/contact') ? 'bg-brand-from/10 text-brand-to' : 'text-slate-900 font-semibold hover:bg-slate-50'
               }`}
             >
               Contact
@@ -301,13 +301,13 @@ const Navbar = () => {
           <div className="flex flex-col space-y-3">
             {user ? (
               <>
-                <div className="flex items-center space-x-3 px-4 py-2.5 bg-slate-50 dark:bg-slate-800 rounded-xl border border-surface-600">
-                  <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white text-sm font-black shadow-sm">
+                <div className="flex items-center space-x-3 px-4 py-2.5 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-300">
+                  <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-slate-900 text-sm font-black shadow-sm">
                     {user.name.charAt(0).toUpperCase()}
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-sm font-black text-white">{user.name}</span>
-                    <span className="text-[10px] text-muted-500 font-medium uppercase tracking-wider">{user.role}</span>
+                    <span className="text-sm font-black text-slate-900">{user.name}</span>
+                    <span className="text-[10px] text-slate-900 font-semibold font-medium uppercase tracking-wider">{user.role}</span>
                   </div>
                 </div>
 

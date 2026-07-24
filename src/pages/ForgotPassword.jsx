@@ -57,7 +57,7 @@ const ForgotPassword = () => {
           <h2 className="text-3xl font-semibold text-white tracking-tight">
             {step === 1 ? 'Reset Password' : 'New Password'}
           </h2>
-          <p className="text-muted-500 text-sm mt-2 font-semibold leading-relaxed">
+          <p className="text-slate-900 text-sm mt-2 font-semibold leading-relaxed">
             {step === 1 
               ? "Enter your email and we'll send you a code to reset your password."
               : `Enter the code sent to ${email} and your new password.`}
@@ -79,9 +79,9 @@ const ForgotPassword = () => {
         {step === 1 ? (
           <form onSubmit={handleRequestOTP} className="space-y-6">
             <div>
-              <label className="block text-xs font-medium text-muted-400 uppercase tracking-wider mb-2">Email Address</label>
+              <label className="block text-xs font-medium text-slate-800 uppercase tracking-wider mb-2">Email Address</label>
               <div className="relative">
-                <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-500 w-5 h-5" />
+                <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-900 w-5 h-5" />
                 <input 
                   type="email" 
                   className="w-full pl-11 pr-4 py-3 border border-surface-600 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-white bg-surface-800 transition-all font-medium text-sm"
@@ -104,9 +104,9 @@ const ForgotPassword = () => {
         ) : (
           <form onSubmit={handleResetPassword} className="space-y-5">
             <div>
-              <label className="block text-xs font-medium text-muted-400 uppercase tracking-wider mb-2">Reset Code</label>
+              <label className="block text-xs font-medium text-slate-800 uppercase tracking-wider mb-2">Reset Code</label>
               <div className="relative">
-                <Key className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-500 w-5 h-5" />
+                <Key className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-900 w-5 h-5" />
                 <input 
                   type="text" 
                   maxLength="6"
@@ -120,9 +120,9 @@ const ForgotPassword = () => {
             </div>
 
             <div>
-              <label className="block text-xs font-medium text-muted-400 uppercase tracking-wider mb-2">New Password</label>
+              <label className="block text-xs font-medium text-slate-800 uppercase tracking-wider mb-2">New Password</label>
               <div className="relative">
-                <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-500 w-5 h-5" />
+                <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-900 w-5 h-5" />
                 <input 
                   type="password" 
                   className="w-full pl-11 pr-4 py-3 border border-surface-600 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-white bg-surface-800 transition-all font-medium text-sm"
@@ -144,7 +144,7 @@ const ForgotPassword = () => {
           </form>
         )}
 
-        <p className="mt-8 text-center text-muted-500 text-sm font-semibold">
+        <p className="mt-8 text-center text-slate-900 text-sm font-semibold">
           Remember your password?{' '}
           <Link to="/login" className="text-primary-light hover:text-white font-medium hover:underline transition-colors">
             Back to login

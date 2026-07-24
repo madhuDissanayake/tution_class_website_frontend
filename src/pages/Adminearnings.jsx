@@ -89,14 +89,14 @@ const AdminEarnings = () => {
     return (
       <div className="flex flex-col items-center justify-center min-h-[50vh] space-y-4">
         <Loader className="w-12 h-12 text-primary animate-spin" />
-        <p className="text-muted-500 font-medium animate-pulse">Loading earnings overview...</p>
+        <p className="text-slate-900 font-medium animate-pulse">Loading earnings overview...</p>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="max-w-md mx-auto text-center mt-20 p-8 bg-surface-800 rounded-3xl border border-rose-900 shadow-card">
+      <div className="max-w-md mx-auto text-center mt-20 p-8 bg-slate-50 rounded-3xl border border-rose-900 shadow-card">
         <AlertCircle className="w-12 h-12 text-rose-500 mx-auto mb-4" />
         <p className="text-rose-400 font-medium">{error}</p>
       </div>
@@ -113,71 +113,71 @@ const AdminEarnings = () => {
   }));
 
   return (
-    <div className="max-w-6xl mx-auto py-6 px-4 md:px-0 min-h-[80vh] space-y-8 animate-slide-up">
+    <div className="max-w-6xl mx-auto py-6 px-4 md:px-0 min-h-[80vh] space-y-8 animate-slide-up bg-blue-50/50 p-6 md:p-8 rounded-[32px] border border-blue-100 min-h-[80vh]">
       <div>
-        <h1 className="text-4xl md:text-5xl font-black text-white tracking-tight leading-tight">
+        <h1 className="text-4xl md:text-5xl font-black text-slate-800 tracking-tight leading-tight">
           Platform <span className="text-primary-light">Earnings</span>
         </h1>
-        <p className="text-muted-400 font-medium text-lg mt-2">
-          Commission rate: <span className="text-white font-semibold">{(overview.commissionRate * 100).toFixed(0)}%</span> of every class monthly fee
+        <p className="text-slate-800 font-medium text-lg mt-2">
+          Commission rate: <span className="text-slate-800 font-semibold">{(overview.commissionRate * 100).toFixed(0)}%</span> of every class monthly fee
         </p>
       </div>
 
       {/* Summary Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        <div className="bg-surface-900 border border-surface-600 rounded-2xl p-5 space-y-2">
-          <div className="flex items-center gap-2 text-muted-500 text-xs font-semibold uppercase tracking-wider">
+        <div className="bg-blue-50/30 shadow-sm border border-blue-100 rounded-2xl p-5 space-y-2">
+          <div className="flex items-center gap-2 text-slate-900 text-xs font-semibold uppercase tracking-wider">
             <TrendingUp className="w-4 h-4" /> Gross Revenue
           </div>
-          <p className="text-2xl font-black text-white">Rs. {overview.summary.totalGrossRevenue.toLocaleString()}</p>
-          <p className="text-[11px] text-muted-500 font-medium">{overview.summary.totalTransactions} transactions</p>
+          <p className="text-2xl font-black text-slate-800">Rs. {overview.summary.totalGrossRevenue.toLocaleString()}</p>
+          <p className="text-[11px] text-slate-900 font-medium">{overview.summary.totalTransactions} transactions</p>
         </div>
 
-        <div className="bg-surface-900 border border-surface-600 rounded-2xl p-5 space-y-2">
-          <div className="flex items-center gap-2 text-muted-500 text-xs font-semibold uppercase tracking-wider">
+        <div className="bg-blue-50/30 shadow-sm border border-blue-100 rounded-2xl p-5 space-y-2">
+          <div className="flex items-center gap-2 text-slate-900 text-xs font-semibold uppercase tracking-wider">
             <Wallet className="w-4 h-4" /> Total Admin Earnings
           </div>
           <p className="text-2xl font-black text-primary-light">Rs. {overview.summary.totalPlatformCommission.toLocaleString()}</p>
-          <div className="text-[11px] text-muted-500 font-medium space-y-0.5 pt-1">
-            <p className="flex justify-between"><span>From Classes (10%):</span> <span className="text-white">Rs. {(overview.summary.classCommission || 0).toLocaleString()}</span></p>
-            <p className="flex justify-between"><span>From Teacher Reg.:</span> <span className="text-white">Rs. {(overview.summary.registrationRevenue || 0).toLocaleString()}</span></p>
+          <div className="text-[11px] text-slate-900 font-medium space-y-0.5 pt-1">
+            <p className="flex justify-between"><span>From Classes (10%):</span> <span className="text-slate-800">Rs. {(overview.summary.classCommission || 0).toLocaleString()}</span></p>
+            <p className="flex justify-between"><span>From Teacher Reg.:</span> <span className="text-slate-800">Rs. {(overview.summary.registrationRevenue || 0).toLocaleString()}</span></p>
           </div>
         </div>
 
-        <div className="bg-surface-900 border border-surface-600 rounded-2xl p-5 space-y-2">
-          <div className="flex items-center gap-2 text-muted-500 text-xs font-semibold uppercase tracking-wider">
+        <div className="bg-blue-50/30 shadow-sm border border-blue-100 rounded-2xl p-5 space-y-2">
+          <div className="flex items-center gap-2 text-slate-900 text-xs font-semibold uppercase tracking-wider">
             <Users className="w-4 h-4" /> Teacher Earnings
           </div>
           <p className="text-2xl font-black text-emerald-400">Rs. {overview.summary.totalTeacherEarnings.toLocaleString()}</p>
-          <p className="text-[11px] text-muted-500 font-medium">Paid + owed to teachers</p>
+          <p className="text-[11px] text-slate-900 font-medium">Paid + owed to teachers</p>
         </div>
 
-        <div className="bg-surface-900 border border-surface-600 rounded-2xl p-5 space-y-2">
-          <div className="flex items-center gap-2 text-muted-500 text-xs font-semibold uppercase tracking-wider">
+        <div className="bg-blue-50/30 shadow-sm border border-blue-100 rounded-2xl p-5 space-y-2">
+          <div className="flex items-center gap-2 text-slate-900 text-xs font-semibold uppercase tracking-wider">
             <Clock className="w-4 h-4" /> Pending Withdrawals
           </div>
           <p className="text-2xl font-black text-amber-400">Rs. {overview.pendingWithdrawalSummary.total.toLocaleString()}</p>
-          <p className="text-[11px] text-muted-500 font-medium">{overview.pendingWithdrawalSummary.count} requests awaiting action</p>
+          <p className="text-[11px] text-slate-900 font-medium">{overview.pendingWithdrawalSummary.count} requests awaiting action</p>
         </div>
       </div>
 
       {/* Charts — side by side */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
         {/* Monthly Revenue Split */}
-        <div className="bg-surface-900 border border-surface-600 rounded-2xl p-4 md:p-5">
+        <div className="bg-blue-50/30 shadow-sm border border-blue-100 rounded-2xl p-4 md:p-5">
           <div className="flex items-center justify-between mb-3">
-            <h3 className="text-sm font-bold text-white uppercase tracking-wider">Monthly Revenue Split</h3>
-            <span className="text-[10px] font-semibold text-muted-500 bg-surface-800 px-2 py-0.5 rounded-full border border-surface-600">Stacked</span>
+            <h3 className="text-sm font-bold text-slate-800 uppercase tracking-wider">Monthly Revenue Split</h3>
+            <span className="text-[10px] font-semibold text-slate-900 bg-slate-50 px-2 py-0.5 rounded-full border border-slate-200">Stacked</span>
           </div>
           <div className="h-48 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={chartData} margin={{ top: 4, right: 8, left: -20, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
+                <CartesianGrid strokeDasharray="3 3" stroke="#cbd5e1" />
                 <XAxis dataKey="month" stroke="#475569" fontSize={10} tickLine={false} axisLine={false} />
                 <YAxis stroke="#475569" fontSize={10} tickLine={false} axisLine={false} />
                 <Tooltip
-                  contentStyle={{ backgroundColor: '#0f172a', border: '1px solid #1e293b', borderRadius: 10, color: '#fff', fontSize: 12 }}
-                  cursor={{ fill: 'rgba(255,255,255,0.04)' }}
+                  contentStyle={{ backgroundColor: '#ffffff', border: '1px solid #e2e8f0', borderRadius: 10, color: '#0f172a', fontSize: 12 }}
+                  cursor={{ fill: 'rgba(0,0,0,0.04)' }}
                 />
                 <Legend iconType="circle" iconSize={8} wrapperStyle={{ fontSize: 10, paddingTop: 8 }} />
                 <Bar dataKey="Teacher Earnings" stackId="a" fill="#34d399" radius={[0, 0, 0, 0]} />
@@ -188,19 +188,19 @@ const AdminEarnings = () => {
         </div>
 
         {/* Gross Revenue Trend */}
-        <div className="bg-surface-900 border border-surface-600 rounded-2xl p-4 md:p-5">
+        <div className="bg-blue-50/30 shadow-sm border border-blue-100 rounded-2xl p-4 md:p-5">
           <div className="flex items-center justify-between mb-3">
-            <h3 className="text-sm font-bold text-white uppercase tracking-wider">Gross Revenue Trend</h3>
+            <h3 className="text-sm font-bold text-slate-800 uppercase tracking-wider">Gross Revenue Trend</h3>
             <span className="text-[10px] font-semibold text-sky-400 bg-sky-500/10 px-2 py-0.5 rounded-full border border-sky-500/20">Monthly</span>
           </div>
           <div className="h-48 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={chartData} margin={{ top: 4, right: 8, left: -20, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
+                <CartesianGrid strokeDasharray="3 3" stroke="#cbd5e1" />
                 <XAxis dataKey="month" stroke="#475569" fontSize={10} tickLine={false} axisLine={false} />
                 <YAxis stroke="#475569" fontSize={10} tickLine={false} axisLine={false} />
                 <Tooltip
-                  contentStyle={{ backgroundColor: '#0f172a', border: '1px solid #1e293b', borderRadius: 10, color: '#fff', fontSize: 12 }}
+                  contentStyle={{ backgroundColor: '#ffffff', border: '1px solid #e2e8f0', borderRadius: 10, color: '#0f172a', fontSize: 12 }}
                   cursor={{ stroke: '#38bdf8', strokeWidth: 1, strokeDasharray: '4 4' }}
                 />
                 <Line type="monotone" dataKey="Gross Revenue" stroke="#38bdf8" strokeWidth={2} dot={{ r: 3, fill: '#38bdf8', strokeWidth: 0 }} activeDot={{ r: 5 }} />
@@ -211,14 +211,14 @@ const AdminEarnings = () => {
       </div>
 
       {/* Top Earning Teachers */}
-      <div className="bg-surface-900 border border-surface-600 rounded-2xl overflow-hidden">
-        <div className="p-4 md:p-5 border-b border-surface-600 bg-surface-800/50">
-          <h3 className="text-lg font-semibold text-white">Top Earning Teachers</h3>
+      <div className="bg-blue-50/30 shadow-sm border border-blue-100 rounded-2xl overflow-hidden">
+        <div className="p-4 md:p-5 border-b border-slate-200 bg-slate-50">
+          <h3 className="text-lg font-semibold text-slate-800">Top Earning Teachers</h3>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="text-muted-500 text-xs uppercase tracking-wider border-b border-surface-700">
+              <tr className="text-slate-900 text-xs uppercase tracking-wider border-b border-slate-200">
                 <th className="text-left px-5 py-3 font-semibold">Teacher</th>
                 <th className="text-right px-5 py-3 font-semibold">Total Earned</th>
                 <th className="text-right px-5 py-3 font-semibold">Commission Generated</th>
@@ -228,18 +228,18 @@ const AdminEarnings = () => {
             <tbody>
               {overview.topTeachers.length === 0 ? (
                 <tr>
-                  <td colSpan={4} className="text-center py-8 text-muted-400 font-medium">No earnings recorded yet.</td>
+                  <td colSpan={4} className="text-center py-8 text-slate-800 font-medium">No earnings recorded yet.</td>
                 </tr>
               ) : (
                 overview.topTeachers.map((t) => (
-                  <tr key={t.teacherId} className="border-b border-surface-800 hover:bg-surface-800/40 transition-colors">
+                  <tr key={t.teacherId} className="border-b border-slate-200 hover:bg-slate-50 transition-colors">
                     <td className="px-5 py-3">
-                      <p className="text-white font-medium">{t.name}</p>
-                      <p className="text-muted-500 text-xs">{t.email}</p>
+                      <p className="text-slate-800 font-medium">{t.name}</p>
+                      <p className="text-slate-900 text-xs">{t.email}</p>
                     </td>
                     <td className="px-5 py-3 text-right text-emerald-400 font-semibold">Rs. {t.totalEarned.toLocaleString()}</td>
                     <td className="px-5 py-3 text-right text-primary-light font-semibold">Rs. {t.totalCommissionGenerated.toLocaleString()}</td>
-                    <td className="px-5 py-3 text-right text-muted-400">{t.transactions}</td>
+                    <td className="px-5 py-3 text-right text-slate-800">{t.transactions}</td>
                   </tr>
                 ))
               )}
@@ -249,9 +249,9 @@ const AdminEarnings = () => {
       </div>
 
       {/* Pending Withdrawal Requests */}
-      <div className="bg-surface-900 border border-surface-600 rounded-2xl overflow-hidden">
-        <div className="p-4 md:p-5 border-b border-surface-600 bg-surface-800/50 flex items-center justify-between">
-          <h3 className="text-lg font-semibold text-white">Pending Withdrawal Requests</h3>
+      <div className="bg-blue-50/30 shadow-sm border border-blue-100 rounded-2xl overflow-hidden">
+        <div className="p-4 md:p-5 border-b border-slate-200 bg-slate-50 flex items-center justify-between">
+          <h3 className="text-lg font-semibold text-slate-800">Pending Withdrawal Requests</h3>
           <span className="text-xs bg-amber-900/30 text-amber-400 border border-amber-800 font-semibold px-2.5 py-1 rounded-full">
             {withdrawals.length} pending
           </span>
@@ -265,16 +265,16 @@ const AdminEarnings = () => {
 
         <div className="p-4 md:p-6 space-y-3">
           {withdrawals.length === 0 ? (
-            <p className="text-center text-muted-400 font-medium py-6">No pending withdrawal requests.</p>
+            <p className="text-center text-slate-800 font-medium py-6">No pending withdrawal requests.</p>
           ) : (
             withdrawals.map((w) => (
-              <div key={w._id} className="bg-surface-800/50 border border-surface-700 rounded-xl p-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
+              <div key={w._id} className="bg-slate-50 border border-slate-200 rounded-xl p-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
-                  <p className="text-white font-semibold">{w.teacher?.name}</p>
-                  <p className="text-muted-500 text-xs">{w.teacher?.email} · {w.teacher?.phone}</p>
-                  <p className="text-white font-black text-lg mt-1">Rs. {w.amount.toLocaleString()}</p>
+                  <p className="text-slate-800 font-semibold">{w.teacher?.name}</p>
+                  <p className="text-slate-900 text-xs">{w.teacher?.email} · {w.teacher?.phone}</p>
+                  <p className="text-slate-800 font-black text-lg mt-1">Rs. {w.amount.toLocaleString()}</p>
                   {w.payoutDetails?.accountNumber && (
-                    <p className="text-muted-400 text-xs font-medium mt-1">
+                    <p className="text-slate-800 text-xs font-medium mt-1">
                       {w.payoutDetails.bankName} · {w.payoutDetails.accountName} · {w.payoutDetails.accountNumber}
                       {w.payoutDetails.branch ? ` (${w.payoutDetails.branch})` : ''}
                     </p>
@@ -291,7 +291,7 @@ const AdminEarnings = () => {
                   <button
                     onClick={() => handleReject(w._id)}
                     disabled={processingId === w._id}
-                    className="bg-rose-900/30 hover:bg-rose-600 hover:text-white text-rose-400 font-semibold text-xs py-2 px-4 rounded-lg border border-rose-800 transition-all disabled:opacity-50 cursor-pointer"
+                    className="bg-rose-900/30 hover:bg-rose-600 hover:text-slate-800 text-rose-400 font-semibold text-xs py-2 px-4 rounded-lg border border-rose-800 transition-all disabled:opacity-50 cursor-pointer"
                   >
                     Reject
                   </button>

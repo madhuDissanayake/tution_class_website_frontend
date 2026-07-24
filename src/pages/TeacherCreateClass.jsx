@@ -41,7 +41,7 @@ const TeacherCreateClass = () => {
       <div className="max-w-lg mx-auto mt-20 text-center p-8 bg-surface-800 rounded-3xl border border-surface-600 animate-fade-in">
         <AlertCircle className="w-14 h-14 text-amber-500 mx-auto mb-4" />
         <h2 className="text-2xl font-bold text-white mb-3">Access Denied</h2>
-        <p className="text-slate-400">Only approved teachers can create classes.</p>
+        <p className="text-slate-800">Only approved teachers can create classes.</p>
       </div>
     );
   }
@@ -118,8 +118,8 @@ const TeacherCreateClass = () => {
           <CheckCircle className="w-10 h-10 text-emerald-400" />
         </div>
         <h2 className="text-2xl font-bold text-white mb-3">Class Submitted!</h2>
-        <p className="text-slate-400 mb-2">Your class has been submitted for admin approval.</p>
-        <p className="text-slate-500 text-sm mb-8">You will be notified once it's reviewed. Until then, it won't be visible to students.</p>
+        <p className="text-slate-800 mb-2">Your class has been submitted for admin approval.</p>
+        <p className="text-slate-900 text-sm mb-8">You will be notified once it's reviewed. Until then, it won't be visible to students.</p>
         <div className="flex gap-3 justify-center">
           <button
             onClick={() => navigate('/dashboard')}
@@ -144,13 +144,13 @@ const TeacherCreateClass = () => {
       <div className="flex items-center gap-4 mb-8">
         <button
           onClick={() => navigate('/dashboard')}
-          className="p-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-400 hover:text-white transition-all"
+          className="p-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-800 hover:text-white transition-all"
         >
           <ChevronLeft className="w-5 h-5" />
         </button>
         <div>
           <h1 className="text-2xl font-bold text-white">Create a New Class</h1>
-          <p className="text-slate-400 text-sm mt-0.5">Fill in the details. Admin will review and publish your class.</p>
+          <p className="text-slate-800 text-sm mt-0.5">Fill in the details. Admin will review and publish your class.</p>
         </div>
       </div>
 
@@ -177,7 +177,7 @@ const TeacherCreateClass = () => {
           </h2>
 
           <div>
-            <label className="block text-xs font-medium text-slate-400 mb-1.5">Class Title <span className="text-rose-400">*</span></label>
+            <label className="block text-xs font-medium text-slate-800 mb-1.5">Class Title <span className="text-rose-400">*</span></label>
             <input
               type="text"
               name="title"
@@ -190,7 +190,7 @@ const TeacherCreateClass = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
-              <label className="block text-xs font-medium text-slate-400 mb-1.5">Subject <span className="text-rose-400">*</span></label>
+              <label className="block text-xs font-medium text-slate-800 mb-1.5">Subject <span className="text-rose-400">*</span></label>
               <select name="subject" value={form.subject} onChange={handleChange}
                 className="w-full bg-surface-700 border border-surface-500 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500 transition-colors">
                 <option value="">Select subject</option>
@@ -198,7 +198,7 @@ const TeacherCreateClass = () => {
               </select>
             </div>
             <div>
-              <label className="block text-xs font-medium text-slate-400 mb-1.5">Grade Level <span className="text-rose-400">*</span></label>
+              <label className="block text-xs font-medium text-slate-800 mb-1.5">Grade Level <span className="text-rose-400">*</span></label>
               <select name="grade" value={form.grade} onChange={handleChange}
                 className="w-full bg-surface-700 border border-surface-500 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500 transition-colors">
                 <option value="">Select grade</option>
@@ -206,7 +206,7 @@ const TeacherCreateClass = () => {
               </select>
             </div>
             <div>
-              <label className="block text-xs font-medium text-slate-400 mb-1.5">Medium <span className="text-rose-400">*</span></label>
+              <label className="block text-xs font-medium text-slate-800 mb-1.5">Medium <span className="text-rose-400">*</span></label>
               <select name="medium" value={form.medium} onChange={handleChange}
                 className="w-full bg-surface-700 border border-surface-500 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500 transition-colors">
                 <option value="">Select medium</option>
@@ -216,7 +216,7 @@ const TeacherCreateClass = () => {
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-slate-400 mb-1.5">Description</label>
+            <label className="block text-xs font-medium text-slate-800 mb-1.5">Description</label>
             <textarea
               name="description"
               value={form.description}
@@ -229,7 +229,7 @@ const TeacherCreateClass = () => {
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-medium text-slate-400 mb-1.5">Monthly Fee (Rs.) <span className="text-rose-400">*</span></label>
+              <label className="block text-xs font-medium text-slate-800 mb-1.5">Monthly Fee (Rs.) <span className="text-rose-400">*</span></label>
               <input
                 type="number"
                 name="fee"
@@ -241,7 +241,7 @@ const TeacherCreateClass = () => {
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-slate-400 mb-1.5">Student Capacity <span className="text-rose-400">*</span></label>
+              <label className="block text-xs font-medium text-slate-800 mb-1.5">Student Capacity <span className="text-rose-400">*</span></label>
               <input
                 type="number"
                 name="capacity"
@@ -273,7 +273,7 @@ const TeacherCreateClass = () => {
 
           {form.isOnline ? (
             <div>
-              <label className="block text-xs font-medium text-slate-400 mb-1.5">Group / Meeting Link</label>
+              <label className="block text-xs font-medium text-slate-800 mb-1.5">Group / Meeting Link</label>
               <input
                 type="url"
                 name="groupLink"
@@ -286,7 +286,7 @@ const TeacherCreateClass = () => {
           ) : (
             <div className="space-y-3">
               <div>
-                <label className="block text-xs font-medium text-slate-400 mb-1.5">Address</label>
+                <label className="block text-xs font-medium text-slate-800 mb-1.5">Address</label>
                 <input
                   type="text"
                   name="address"
@@ -298,7 +298,7 @@ const TeacherCreateClass = () => {
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-medium text-slate-400 mb-1.5">Latitude <span className="text-rose-400">*</span></label>
+                  <label className="block text-xs font-medium text-slate-800 mb-1.5">Latitude <span className="text-rose-400">*</span></label>
                   <input
                     type="number"
                     name="lat"
@@ -310,7 +310,7 @@ const TeacherCreateClass = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-slate-400 mb-1.5">Longitude <span className="text-rose-400">*</span></label>
+                  <label className="block text-xs font-medium text-slate-800 mb-1.5">Longitude <span className="text-rose-400">*</span></label>
                   <input
                     type="number"
                     name="lng"
@@ -363,7 +363,7 @@ const TeacherCreateClass = () => {
                 onChange={(e) => updateSchedule(idx, 'startTime', e.target.value)}
                 className="bg-surface-700 border border-surface-500 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-indigo-500"
               />
-              <span className="text-slate-500 text-xs">to</span>
+              <span className="text-slate-900 text-xs">to</span>
               <input
                 type="time"
                 value={slot.endTime}

@@ -9,7 +9,7 @@ const PaymentCancel = () => {
       <div className="glass-panel bg-surface-900/80 p-8 md:p-10 rounded-3xl w-full max-w-md border border-surface-700 shadow-card animate-slide-up text-center">
         <XCircle className="w-10 h-10 mx-auto mb-4 text-red-400" />
         <h2 className="text-xl font-semibold text-white mb-2">Payment cancelled</h2>
-        <p className="text-muted-500 text-sm font-semibold mb-6">
+        <p className="text-slate-900 text-sm font-semibold mb-6">
           Your registration fee wasn't charged. You can try again whenever you're ready.
         </p>
         <button

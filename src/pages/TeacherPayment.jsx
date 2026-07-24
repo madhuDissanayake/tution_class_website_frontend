@@ -71,7 +71,7 @@ const TeacherPayment = () => {
           <ShieldCheck className="w-6 h-6" />
         </div>
         <h2 className="text-2xl font-semibold text-white tracking-tight mb-2">Complete Your Registration</h2>
-        <p className="text-muted-500 text-sm font-semibold mb-6">
+        <p className="text-slate-900 text-sm font-semibold mb-6">
           A one-time registration fee of <span className="text-white">Rs. 1,000</span> is required before your
           teacher account can be reviewed by our admin team.
         </p>
@@ -97,7 +97,7 @@ const TeacherPayment = () => {
           )}
         </button>
 
-        <p className="mt-6 text-xs text-muted-500 font-medium">
+        <p className="mt-6 text-xs text-slate-900 font-medium">
           Signed in as {user?.email}. You'll be redirected back here once payment is confirmed.
         </p>
       </div>

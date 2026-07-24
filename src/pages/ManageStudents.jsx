@@ -93,13 +93,13 @@ const ManageStudents = () => {
             Manage Students
           </h1>
           {classDetails && (
-            <p className="text-muted-400 mt-2 text-lg font-medium">
+            <p className="text-slate-800 mt-2 text-lg font-medium">
               Class: <span className="text-white">{classDetails.title}</span> 
               {classDetails.isOnline ? " (Online)" : " (Physical)"}
             </p>
           )}
         </div>
-        <Link to="/dashboard" className="text-sm font-medium bg-surface-800 text-muted-400 px-4 py-2 rounded-lg hover:text-white hover:bg-surface-700 transition-colors border border-surface-600">
+        <Link to="/dashboard" className="text-sm font-medium bg-surface-800 text-slate-800 px-4 py-2 rounded-lg hover:text-white hover:bg-surface-700 transition-colors border border-surface-600">
           Back to Dashboard
         </Link>
       </div>
@@ -115,14 +115,14 @@ const ManageStudents = () => {
         <div className="glass-panel bg-surface-900/80 rounded-3xl shadow-card border border-surface-700 p-12 text-center relative z-10">
           <Users className="w-16 h-16 text-muted-600 mx-auto mb-4" />
           <h3 className="text-xl font-semibold text-white">No students found</h3>
-          <p className="text-muted-500 mt-2">There are no seat reservations for this class yet.</p>
+          <p className="text-slate-900 mt-2">There are no seat reservations for this class yet.</p>
         </div>
       ) : (
         <div className="glass-panel bg-surface-900/80 rounded-3xl shadow-card border border-surface-700 overflow-hidden relative z-10">
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="bg-surface-800 border-b border-surface-700 text-muted-500 text-xs uppercase font-semibold tracking-wider">
+                <tr className="bg-surface-800 border-b border-surface-700 text-slate-900 text-xs uppercase font-semibold tracking-wider">
                   <th className="p-4">Student Name</th>
                   <th className="p-4">Email</th>
                   <th className="p-4">Reservation Date</th>
@@ -136,10 +136,10 @@ const ManageStudents = () => {
                     <td className="p-4 font-medium text-white">
                       {res.studentId?.name || 'Unknown User'}
                     </td>
-                    <td className="p-4 text-muted-400">
+                    <td className="p-4 text-slate-800">
                       {res.studentId?.email || '-'}
                     </td>
-                    <td className="p-4 text-muted-500 text-sm">
+                    <td className="p-4 text-slate-900 text-sm">
                       {new Date(res.reservationDate).toLocaleDateString()}
                     </td>
                     <td className="p-4">
@@ -152,7 +152,7 @@ const ManageStudents = () => {
                           Pending
                         </span>
                       ) : (
-                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-surface-800 text-muted-400 border border-surface-600">
+                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-surface-800 text-slate-800 border border-surface-600">
                           Cancelled
                         </span>
                       )}

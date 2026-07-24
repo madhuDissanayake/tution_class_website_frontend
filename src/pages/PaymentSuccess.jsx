@@ -43,7 +43,7 @@ const PaymentSuccess = () => {
           <>
             <Loader className="w-8 h-8 mx-auto mb-4 animate-spin text-primary-light" />
             <h2 className="text-xl font-semibold text-white mb-2">Confirming your payment...</h2>
-            <p className="text-muted-500 text-sm font-semibold">This usually takes a few seconds.</p>
+            <p className="text-slate-900 text-sm font-semibold">This usually takes a few seconds.</p>
           </>
         )}
 
@@ -51,7 +51,7 @@ const PaymentSuccess = () => {
           <>
             <CheckCircle2 className="w-10 h-10 mx-auto mb-4 text-green-400" />
             <h2 className="text-xl font-semibold text-white mb-2">Payment confirmed!</h2>
-            <p className="text-muted-500 text-sm font-semibold mb-6">
+            <p className="text-slate-900 text-sm font-semibold mb-6">
               Your registration fee has been received. Your account is now with our admin team for review.
             </p>
             <button
@@ -67,7 +67,7 @@ const PaymentSuccess = () => {
           <>
             <Clock className="w-10 h-10 mx-auto mb-4 text-yellow-400" />
             <h2 className="text-xl font-semibold text-white mb-2">Still processing</h2>
-            <p className="text-muted-500 text-sm font-semibold">
+            <p className="text-slate-900 text-sm font-semibold">
               PayHere is confirming your payment. This can take a few minutes — check back or refresh shortly.
             </p>
           </>
@@ -76,7 +76,7 @@ const PaymentSuccess = () => {
         {status === 'error' && (
           <>
             <h2 className="text-xl font-semibold text-white mb-2">Couldn't confirm payment status</h2>
-            <p className="text-muted-500 text-sm font-semibold">Please refresh this page in a moment.</p>
+            <p className="text-slate-900 text-sm font-semibold">Please refresh this page in a moment.</p>
           </>
         )}
       </div>

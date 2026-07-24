@@ -190,7 +190,7 @@ const EditClass = () => {
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-muted-400 mb-1">Class Title</label>
+              <label className="block text-sm font-medium text-slate-800 mb-1">Class Title</label>
               <input 
                 type="text" 
                 name="title"
@@ -203,7 +203,7 @@ const EditClass = () => {
             </div>
 
             <div className="md:col-span-2 border-b border-slate-100 pb-4 mb-2">
-              <label className="block text-sm font-medium text-muted-400 mb-1">Assign Teacher</label>
+              <label className="block text-sm font-medium text-slate-800 mb-1">Assign Teacher</label>
               <select 
                 name="teacherId"
                 className="w-full px-4 py-3 border border-surface-600 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-white bg-surface-800 placeholder-muted-500 transition-all font-semibold"
@@ -221,7 +221,7 @@ const EditClass = () => {
             </div>
             
             <div>
-              <label className="block text-sm font-medium text-muted-400 mb-1">Subject</label>
+              <label className="block text-sm font-medium text-slate-800 mb-1">Subject</label>
               <select 
                 name="subject"
                 className="w-full px-4 py-3 border border-surface-600 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-white bg-surface-800 placeholder-muted-500 transition-all font-semibold"
@@ -247,7 +247,7 @@ const EditClass = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-muted-400 mb-1">Grade Level</label>
+              <label className="block text-sm font-medium text-slate-800 mb-1">Grade Level</label>
               <select 
                 name="grade"
                 className="w-full px-4 py-3 border border-surface-600 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-white bg-surface-800 placeholder-muted-500 transition-all font-semibold"
@@ -267,7 +267,7 @@ const EditClass = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-muted-400 mb-1">Medium (Language)</label>
+              <label className="block text-sm font-medium text-slate-800 mb-1">Medium (Language)</label>
               <select 
                 name="medium"
                 className="w-full px-4 py-3 border border-surface-600 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-white bg-surface-800 placeholder-muted-500 transition-all font-semibold"
@@ -283,7 +283,7 @@ const EditClass = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-muted-400 mb-1">Monthly Fee (Rs.)</label>
+              <label className="block text-sm font-medium text-slate-800 mb-1">Monthly Fee (Rs.)</label>
               <input 
                 type="number" 
                 name="fee"
@@ -296,7 +296,7 @@ const EditClass = () => {
             </div>
 
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-muted-400 mb-1">Student Capacity</label>
+              <label className="block text-sm font-medium text-slate-800 mb-1">Student Capacity</label>
               <input 
                 type="number" 
                 name="capacity"
@@ -309,7 +309,7 @@ const EditClass = () => {
             </div>
             
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-muted-400 mb-1">Description</label>
+              <label className="block text-sm font-medium text-slate-800 mb-1">Description</label>
               <textarea 
                 name="description"
                 rows="4"
@@ -341,7 +341,7 @@ const EditClass = () => {
                 <div className="animate-fade-in">
                   <h3 className="text-lg font-medium text-white mb-4">Online Class Details</h3>
                   <div className="md:col-span-3">
-                    <label className="block text-sm font-medium text-muted-400 mb-1">Group Link (Zoom, WhatsApp, etc.)</label>
+                    <label className="block text-sm font-medium text-slate-800 mb-1">Group Link (Zoom, WhatsApp, etc.)</label>
                     <input 
                       type="url" 
                       name="groupLink"
@@ -351,7 +351,7 @@ const EditClass = () => {
                       placeholder="e.g. https://chat.whatsapp.com/..."
                       required={formData.isOnline} 
                     />
-                    <p className="text-xs text-muted-500 mt-2 italic">Students will receive this link once you approve their reservation.</p>
+                    <p className="text-xs text-slate-900 mt-2 italic">Students will receive this link once you approve their reservation.</p>
                   </div>
                 </div>
               ) : (
@@ -359,7 +359,7 @@ const EditClass = () => {
                   <h3 className="text-lg font-medium text-white mb-4">Physical Class Location Details</h3>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="md:col-span-3">
-                      <label className="block text-sm font-medium text-muted-400 mb-1">Physical Address</label>
+                      <label className="block text-sm font-medium text-slate-800 mb-1">Physical Address</label>
                       <input 
                         type="text" 
                         name="address"
@@ -371,7 +371,7 @@ const EditClass = () => {
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-muted-400 mb-1">Latitude</label>
+                      <label className="block text-sm font-medium text-slate-800 mb-1">Latitude</label>
                       <input 
                         type="number" 
                         step="any"
@@ -384,7 +384,7 @@ const EditClass = () => {
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-muted-400 mb-1">Longitude</label>
+                      <label className="block text-sm font-medium text-slate-800 mb-1">Longitude</label>
                       <input 
                         type="number" 
                         step="any"
@@ -403,7 +403,7 @@ const EditClass = () => {
                       onMapClick={handleMapClick}
                     />
                   </div>
-                  <p className="text-xs text-muted-500 mt-2 italic">Tip: You can also click on the map to automatically set latitude and longitude.</p>
+                  <p className="text-xs text-slate-900 mt-2 italic">Tip: You can also click on the map to automatically set latitude and longitude.</p>
                 </div>
               )}
             </div>
@@ -422,7 +422,7 @@ const EditClass = () => {
               </div>
 
               {schedule.length === 0 ? (
-                <p className="text-muted-500 text-sm italic">No schedule rows added. Please add at least one day.</p>
+                <p className="text-slate-900 text-sm italic">No schedule rows added. Please add at least one day.</p>
               ) : (
                 <div className="space-y-3">
                   {schedule.map((row, idx) => (
@@ -443,7 +443,7 @@ const EditClass = () => {
                         </select>
                       </div>
                       <div className="w-full sm:w-1/3 flex items-center gap-2">
-                        <span className="text-xs font-semibold text-muted-400 shrink-0">Start:</span>
+                        <span className="text-xs font-semibold text-slate-800 shrink-0">Start:</span>
                         <input
                           type="time"
                           className="w-full px-3 py-2 border border-surface-600 rounded-lg outline-none focus:ring-2 focus:ring-primary/20 text-white bg-surface-900 font-semibold"
@@ -453,7 +453,7 @@ const EditClass = () => {
                         />
                       </div>
                       <div className="w-full sm:w-1/3 flex items-center gap-2">
-                        <span className="text-xs font-semibold text-muted-400 shrink-0">End:</span>
+                        <span className="text-xs font-semibold text-slate-800 shrink-0">End:</span>
                         <input
                           type="time"
                           className="w-full px-3 py-2 border border-surface-600 rounded-lg outline-none focus:ring-2 focus:ring-primary/20 text-white bg-surface-900 font-semibold"
@@ -482,7 +482,7 @@ const EditClass = () => {
             <button 
               type="button" 
               onClick={() => navigate('/dashboard')}
-              className="px-6 py-2 border border-surface-600 text-muted-400 rounded-lg hover:text-white hover:bg-surface-700 transition-colors"
+              className="px-6 py-2 border border-surface-600 text-slate-800 rounded-lg hover:text-white hover:bg-surface-700 transition-colors"
               disabled={publishing}
             >
               Cancel

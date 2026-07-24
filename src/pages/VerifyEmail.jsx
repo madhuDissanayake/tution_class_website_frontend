@@ -69,7 +69,7 @@ const VerifyEmail = () => {
             <ShieldCheck className="w-6 h-6" />
           </div>
           <h2 className="text-3xl font-semibold text-white tracking-tight">Verify Email</h2>
-          <p className="text-muted-500 text-sm mt-2 font-semibold leading-relaxed">
+          <p className="text-slate-900 text-sm mt-2 font-semibold leading-relaxed">
             We've sent a 6-digit code to <br/>
             <span className="text-primary-light font-medium">{email}</span>
           </p>
@@ -89,9 +89,9 @@ const VerifyEmail = () => {
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label className="block text-xs font-medium text-muted-400 uppercase tracking-wider mb-2 text-center">Enter Verification Code</label>
+            <label className="block text-xs font-medium text-slate-800 uppercase tracking-wider mb-2 text-center">Enter Verification Code</label>
             <div className="relative">
-              <Key className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-500 w-5 h-5" />
+              <Key className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-900 w-5 h-5" />
               <input 
                 type="text" 
                 maxLength="6"
@@ -120,7 +120,7 @@ const VerifyEmail = () => {
           </button>
         </form>
 
-        <p className="mt-8 text-center text-muted-500 text-sm font-semibold">
+        <p className="mt-8 text-center text-slate-900 text-sm font-semibold">
           Didn't receive the code?{' '}
           <button 
             onClick={handleResend}

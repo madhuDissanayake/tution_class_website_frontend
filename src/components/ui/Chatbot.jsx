@@ -93,7 +93,7 @@ const Chatbot = () => {
                 <div className={`max-w-[85%] md:max-w-[75%] p-3.5 rounded-2xl text-[14.5px] leading-relaxed shadow-sm ${
                   msg.sender === 'user' 
                   ? 'bg-gradient-to-br from-blue-600 to-indigo-600 text-white rounded-tr-sm shadow-blue-500/20' 
-                  : 'bg-white dark:bg-slate-800 border border-slate-200/60 dark:border-slate-700/50 text-slate-700 dark:text-slate-200 rounded-tl-sm shadow-slate-200/50 dark:shadow-none'
+                  : 'bg-white dark:bg-slate-800 border border-slate-200/60 dark:border-slate-700/50 text-slate-900 dark:text-slate-200 rounded-tl-sm shadow-slate-200/50 dark:shadow-none'
                 }`}>
                   {msg.text}
                 </div>
@@ -121,7 +121,7 @@ const Chatbot = () => {
           <form onSubmit={handleSend} className="p-4 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-t border-slate-200/60 dark:border-slate-700/50 flex gap-3 shrink-0">
             <input 
               type="text" 
-              className="flex-1 bg-slate-100 dark:bg-slate-800 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500/40 text-slate-700 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 transition-all text-[14.5px] font-medium border border-transparent focus:bg-white dark:focus:bg-slate-900 shadow-inner"
+              className="flex-1 bg-slate-100 dark:bg-slate-800 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500/40 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 transition-all text-[14.5px] font-medium border border-transparent focus:bg-white dark:focus:bg-slate-900 shadow-inner"
               placeholder="Ask me anything..."
               value={input}
               onChange={(e) => setInput(e.target.value)}
